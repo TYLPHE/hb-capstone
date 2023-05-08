@@ -16,3 +16,20 @@ hb-capstone is a web application where users can create a review blog about the 
 ## Challenges
 
 ## Helpful Notes
+### One-to-one relationships
+[Helpful link](https://stackoverflow.com/questions/3464443/how-to-create-one-to-one-relationships-with-declarative/9611874#9611874) - Set `uselist=False` on the parent:
+```python
+class Parent(Base):
+    __tablename__ = "parent_table"
+
+    id = mapped_column(Integer, primary_key=True)
+    child = relationship("Child", uselist=False, back_populates="parent")
+
+
+class Child(Base):
+    __tablename__ = "child_table"
+
+    id = mapped_column(Integer, primary_key=True)
+    parent_id = mapped_column(ForeignKey("parent_table.id"))
+    parent = relationship("Parent", back_populates="child")
+```
