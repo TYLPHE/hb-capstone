@@ -1,11 +1,3 @@
-# TODO: Template for create class method for each table
-    # @classmethod
-    # def create(cls):
-    #     """ Create class. Does not add and commit to db """
-
-    #     return cls()
-
-
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -32,16 +24,18 @@ class User(db.Model):
     
     @classmethod
     def create(cls, username, password, fname, lname, created=datetime.now()):
-        """ Create a user. Does not add and commit to db """
+        """ Create a user. """
 
         return cls(username=username, password=password, fname=fname, 
                    lname=lname, created=created)
+
 
     @classmethod
     def details(cls, id):
         """ returns Class of parameter: id """
 
         return cls.query.get(id).first()
+
 
     @classmethod
     def validate(cls, username, password):
@@ -59,8 +53,8 @@ class Library(db.Model):
     # Table Columns
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    name = db.Column(db.String)
-    created = db.Column(db.DateTime)
+    name = db.Column(db.String, default='My Library')
+    created = db.Column(db.DateTime, default=datetime.now())
 
     # Relationships
     user = db.relationship('User', back_populates='library')
@@ -70,10 +64,10 @@ class Library(db.Model):
         return f'<Library name={self.name} id={self.id}'
 
     @classmethod
-    def create(cls, name, created=datetime.now()):
+    def create(cls, user, name='My Library', created=datetime.now()):
         """ Create class. Does not add and commit to db """
 
-        return cls(name=name, created=created)
+        return cls(user=user, name=name, created=created)
 
 
 class Library_game(db.Model):
@@ -100,10 +94,11 @@ class Library_game(db.Model):
         return f'<Library_game id={self.id} game_id={self.game_id}'
 
     @classmethod
-    def create(cls, purchased, total_playtime, last_played):
+    def create(cls, library, purchased, total_playtime, last_played=datetime.now()):
         """ Create class. Does not add and commit to db """
 
-        return cls(purchased=purchased, 
+        return cls(library=library,
+                   purchased=purchased, 
                    total_playtime=total_playtime, 
                    last_played=last_played)
 
@@ -128,10 +123,11 @@ class Review(db.Model):
         return f'<Review id={self.id}'
 
     @classmethod
-    def create(cls, review, score, created=datetime.now(), votes_up=0):
+    def create(cls, library_game, review, 
+               score, created=datetime.now(), votes_up=0):
         """ Create class. Does not add and commit to db """
 
-        return cls(review=review, score=score, 
+        return cls(library_game=library_game, review=review, score=score, 
                    created=created, votes_up=votes_up)
 
 
@@ -145,11 +141,6 @@ class Game(db.Model):
     name = db.Column(db.String, nullable=False)
     short_description = db.Column(db.Text)
     header_image = db.Column(db.String)
-    developers = db.Column(db.ARRAY(db.String))
-    publishers = db.Column(db.ARRAY(db.String))
-    genres = db.Column(db.ARRAY(db.String))
-    screenshots = db.Column(db.ARRAY(db.String))
-    movies = db.Column(db.ARRAY(db.String))
     background = db.Column(db.String)
     release_date = db.Column(db.DateTime)
 
@@ -163,6 +154,15 @@ class Game(db.Model):
     
     def __repr__(self):
         return f'<Game name={self.name}> id={self.id}'
+    
+    @classmethod
+    def create(cls, name, short_description, header_image,
+               background, release_date):
+        """ Create class. Does not add and commit to db """
+
+        return cls(name=name, short_description=short_description,
+                   header_image=header_image, background=background,
+                   release_date=release_date)
     
 
 class Screenshot(db.Model):
@@ -181,6 +181,11 @@ class Screenshot(db.Model):
     def __repr__(self):
         return f'<Screenshot id={self.id}>'
 
+    @classmethod
+    def create(cls, path):
+        """ Create class. Does not add and commit to db """
+
+        return cls(path=path)
 
 class Movie(db.Model):
     """ Movies for game """
@@ -197,6 +202,14 @@ class Movie(db.Model):
 
     def __repr__(self):
         return f'<Movie id={self.id}>'
+
+
+    @classmethod
+    def create(cls, path):
+        """ Create class. Does not add and commit to db """
+
+        return cls(path=path)
+    
 
 class Games_developer(db.Model):
     """ Connecting a many-to-many relationship between games and developers """
@@ -231,6 +244,13 @@ class Developer(db.Model):
 
     def __repr__(self):
         return f'<Developer name={self.name}'
+
+
+    @classmethod
+    def create(cls, name):
+        """ Create class. Does not add and commit to db """
+
+        return cls(name=name)
 
 
 class Games_publisher(db.Model):
@@ -268,6 +288,13 @@ class Publisher(db.Model):
         return f'<Publisher name={self.name}>'
 
 
+    @classmethod
+    def create(cls, name):
+        """ Create class. Does not add and commit to db """
+
+        return cls(name=name)
+
+
 class Games_genre(db.Model):
     """ Connecting a many-to-many relationship between games and genres """
 
@@ -285,6 +312,7 @@ class Games_genre(db.Model):
     def __repr__(self):
         return f'<Games_Genre id={self.id}>'
 
+
 class Genre(db.Model):
     """ Game Genres """
 
@@ -299,6 +327,13 @@ class Genre(db.Model):
 
     def __repr__(self):
         return f'<Genre name={self.name}>'
+
+    
+    @classmethod
+    def create(cls, name):
+        """ Create class. Does not add and commit to db """
+
+        return cls(name=name)
 
     
 def connect_to_db(flask_app, db_uri='postgresql:///tylphe_capstone', echo=True):
