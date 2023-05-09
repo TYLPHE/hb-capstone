@@ -37,3 +37,4 @@ class Child(Base):
     parent_id = mapped_column(ForeignKey("parent_table.id"))
     parent = relationship("Parent", back_populates="child")
 ```
+
