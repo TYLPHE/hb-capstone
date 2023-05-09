@@ -38,3 +38,9 @@ class Child(Base):
     parent = relationship("Parent", back_populates="child")
 ```
 
+### RuntimeError: Working outside of application context
+Add the following line where app is declared:
+```python
+app = Flask(__name__)
+app.app.context().push()
+```
