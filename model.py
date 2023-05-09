@@ -44,7 +44,7 @@ class User(db.Model):
         return cls.query.get(id).first()
 
     @classmethod
-    def check_login(cls, username, password):
+    def validate(cls, username, password):
         """ Checks database if email and password match """
 
         return cls.query.filter(cls.username==username, 
@@ -59,7 +59,6 @@ class Library(db.Model):
     # Table Columns
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    game_count = db.Column(db.Integer)
     name = db.Column(db.String)
     created = db.Column(db.DateTime)
 
@@ -70,12 +69,11 @@ class Library(db.Model):
     def __repr__(self):
         return f'<Library name={self.name} id={self.id}'
 
-    # Template for create class method for each table
-    # @classmethod
-    # def create(cls):
-    #     """ Create class. Does not add and commit to db """
+    @classmethod
+    def create(cls, name, created=datetime.now()):
+        """ Create class. Does not add and commit to db """
 
-    #     return cls()
+        return cls(name=name, created=created)
 
 
 class Library_game(db.Model):
@@ -101,6 +99,14 @@ class Library_game(db.Model):
     def __repr__(self):
         return f'<Library_game id={self.id} game_id={self.game_id}'
 
+    @classmethod
+    def create(cls, purchased, total_playtime, last_played):
+        """ Create class. Does not add and commit to db """
+
+        return cls(purchased=purchased, 
+                   total_playtime=total_playtime, 
+                   last_played=last_played)
+
 
 class Review(db.Model):
     """ A table of reviews """
@@ -112,14 +118,21 @@ class Review(db.Model):
     library_games_id = db.Column(db.Integer, db.ForeignKey('library_games.id'))
     review = db.Column(db.Text)
     score = db.Column(db.Integer)
-    created = db.Column(db.DateTime)
     votes_up = db.Column(db.Integer)
+    created = db.Column(db.DateTime)
 
     # Relationships    
     library_game = db.relationship('Library_game', back_populates='review')
 
     def __repr__(self):
         return f'<Review id={self.id}'
+
+    @classmethod
+    def create(cls, review, score, created=datetime.now(), votes_up=0):
+        """ Create class. Does not add and commit to db """
+
+        return cls(review=review, score=score, 
+                   created=created, votes_up=votes_up)
 
 
 class Game(db.Model):
