@@ -4,6 +4,10 @@ A game review blog app
 ![image to be added](https://github.com/TYLPHE/TYLPHE/blob/main/readmeAssets/hb-capstone.gif)
 
 ## Links
+- [Data Model](https://dbdiagram.io/d/64580bb3dca9fb07c4a8453f)
+- [User Flow](https://app.diagrams.net/#G1z9lyHXlRGCrXEbBrZIRROnVPUq8ySHBm)
+- [GitHub Gist](https://gist.github.com/TYLPHE/a33813691689b10cf085195d5944d48c)
+
 
 ## MVP
  - Users can create a review page
