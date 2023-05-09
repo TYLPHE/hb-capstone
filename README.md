@@ -46,3 +46,11 @@ Add the following line where app is declared:
 app = Flask(__name__)
 app.app.context().push()
 ```
+## Log of progress
+### 5/8
+Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
+
+### 5/9
+I created classmethods for each table. As I'm writing the seed_database.py file, I learned that I needed some game data. Steam is not great at providing this information so I learned how to scrape the API every 1.5 seconds or so to grab the information I need. I managed to scrape the top 50 games and will work off of that. I think it'll take 200+ hours to scrape every game from the store.
+
+Will continue to write data to seed my database. Thinking about using react for front end but not quite sure how to start yet.
