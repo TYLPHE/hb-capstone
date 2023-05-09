@@ -1,3 +1,11 @@
+# TODO: Template for create class method for each table
+    # @classmethod
+    # def create(cls):
+    #     """ Create class. Does not add and commit to db """
+
+    #     return cls()
+
+
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -23,15 +31,11 @@ class User(db.Model):
         return f'<User username={self.username} id={self.id}>'
     
     @classmethod
-    def create_user(cls, username, password, 
-                    fname, lname, created=datetime.now()):
+    def create(cls, username, password, fname, lname, created=datetime.now()):
         """ Create a user. Does not add and commit to db """
 
-        return cls(username=username, 
-                   password=password, 
-                   fname=fname, 
-                   lname=lname, 
-                   created=created)
+        return cls(username=username, password=password, fname=fname, 
+                   lname=lname, created=created)
 
     @classmethod
     def details(cls, id):
@@ -65,6 +69,13 @@ class Library(db.Model):
 
     def __repr__(self):
         return f'<Library name={self.name} id={self.id}'
+
+    # Template for create class method for each table
+    # @classmethod
+    # def create(cls):
+    #     """ Create class. Does not add and commit to db """
+
+    #     return cls()
 
 
 class Library_game(db.Model):
@@ -132,9 +143,11 @@ class Game(db.Model):
     # Relationships
     library_games = db.relationship('Library_game', back_populates='game')
     screenshots = db.relationship('Screenshot', back_populates='game')
-    movies = db.relationship('Movie', back_populates='movie')
+    movies = db.relationship('Movie', back_populates='game')
     games_developers = db.relationship('Games_developer', back_populates='game')
-
+    games_publishers = db.relationship('Games_publisher', back_populates='game')
+    games_genres = db.relationship('Games_genre', back_populates='game')
+    
     def __repr__(self):
         return f'<Game name={self.name}> id={self.id}'
     
@@ -167,7 +180,7 @@ class Movie(db.Model):
     path = db.Column(db.String)
 
     # Relationships
-    movie = db.relationship('Game', back_populates='movies')
+    game = db.relationship('Game', back_populates='movies')
 
     def __repr__(self):
         return f'<Movie id={self.id}>'
@@ -207,6 +220,74 @@ class Developer(db.Model):
         return f'<Developer name={self.name}'
 
 
+class Games_publisher(db.Model):
+    """ Connecting a many-to-many relationship betwee games and publishers """
+
+    __tablename__ = 'games_publishers'
+
+    # Table Columns
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    publishers_id = db.Column(db.Integer, db.ForeignKey('publishers.id'))
+
+    # Relationships
+    game = db.relationship('Game', back_populates='games_publishers')
+    publisher = db.relationship('Publisher', back_populates='games_publishers')
+
+    def __repr__(self):
+        return f'<Games_publisher id={self.id}>'
+
+
+class Publisher(db.Model):
+    """ Game Publishers """
+
+    __tablename__ = 'publishers'
+
+    # Table Columns
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String)
+
+    # Relationships
+    games_publishers = db.relationship('Games_publisher', 
+                                       back_populates='publisher')
+
+    def __repr__(self):
+        return f'<Publisher name={self.name}>'
+
+
+class Games_genre(db.Model):
+    """ Connecting a many-to-many relationship between games and genres """
+
+    __tablename__ = 'games_genres'
+    
+    # Table Columns
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'))
+
+    # Relationships
+    game = db.relationship('Game', back_populates='games_genres')
+    genre = db.relationship('Genre', back_populates='games_genres')
+
+    def __repr__(self):
+        return f'<Games_Genre id={self.id}>'
+
+class Genre(db.Model):
+    """ Game Genres """
+
+    __tablename__ = 'genres'
+
+    # Table Columns
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String)
+
+    # Relationships
+    games_genres = db.relationship('Games_genre', back_populates='genre')
+
+    def __repr__(self):
+        return f'<Genre name={self.name}>'
+
+    
 def connect_to_db(flask_app, db_uri='postgresql:///tylphe_capstone', echo=True):
     """ Initialize db.app """
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
