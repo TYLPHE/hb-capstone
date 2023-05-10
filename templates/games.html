@@ -3,6 +3,12 @@
   Browse Games
 {% endblock %}
 {% block body %}
+  <h1>Search</h1>
+  <form action="/search>">
+    <label for="game_name">Game:</label>
+    <input type="text" id="game_name" name="game_name">
+  </form>
+  
   <h1>Random Games</h1>
   <div>
     {% for game in games %}

@@ -75,7 +75,7 @@ def games():
     """ Find top 10 games and render page """
 
     games = Game.random_games()
-    print('@@@@@', games)
+    
     return render_template('games.html', games=games)
 
 if __name__ == '__main__':

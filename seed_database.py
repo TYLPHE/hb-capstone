@@ -40,6 +40,8 @@ for game in games:
                             header_image, background, release_date)
             games_class.append(g)
 
+            """ 
+            # Comment-in to generate a new list of appids
             with open('/data/games-filtered.json', 'r') as f:
                 data = f.read()
 
@@ -48,6 +50,7 @@ for game in games:
 
             with open('/data/games-filtered.json', 'w') as f:
                 f.write(json.dumps(h, indent=2))
+            """
 
 l1 = Library.create(u1)
 
