@@ -51,6 +51,15 @@ app.app.context().push()
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
 
 ### 5/9
-I created classmethods for each table. As I'm writing the seed_database.py file, I learned that I needed some game data. Steam is not great at providing this information so I learned how to scrape the API every 1.5 seconds or so to grab the information I need. I managed to scrape the top 50 games and will work off of that. I think it'll take 200+ hours to scrape every game from the store.
+I created classmethods for each table. As I'm writing the seed_database.py file, I learned that I needed some game data. Steam is not great at providing this information so I learned how to scrape the API every 1.5 seconds or so to grab the information I need. I managed to scrape the top 50 games and will work off of that. I think it'll take hours to scrape every game from the store.
 
 Will continue to write data to seed my database. Thinking about using react for front end but not quite sure how to start yet.
+
+### 5/10
+This morning I had issues with SQLAlchemy not attaching to Flask. My colleague, Emiko, helped remind me that I had to use `app` when I ran the file `if __name__ == "__main__"` 
+
+I created a log in page and registration page. Both seem to save to the database successfully.
+
+I managed to scrape data from Steam API overnight. I used the top 50 results to seed the database with no issue. However, when I tried to seed all 6500 games, I ran into some issues of some data that were duplicates and some data that had Null values. I worked on cleaning the scraped data.
+
+I created a 'Browse Games' page that should eventually have search functionality to add to the user's library. Thankfully the database works! I will continue to hash out more of the game store and try to add it to the user's library to review.
