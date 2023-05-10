@@ -40,6 +40,37 @@ class Child(Base):
     parent = relationship("Parent", back_populates="child")
 ```
 
+### Case-insensitive queries
+I learned about using ilike for queries. For example, searching for a game in all lowercase can find games that are capitalized. If I wanted to find a game called 'Terraria' and searched for 'terraria', `ilike()` helps!
+```python
+@classmethod
+def search_by_name(cls, name):
+    """ Return game by name """
+
+    return cls.query.filter(cls.name.ilike(f'%{name}%')).all()
+```
+
+### Strict-slashes
+[Thanks to this article](https://stackoverflow.com/questions/33241050/trailing-slash-triggers-404-in-flask-path-rule), I learned that Flask is particular about the slashes in `@app.route()`. For example:
+```python
+#both are interpreted differently
+@app.route('/games')
+@app.route('/games/')
+```
+
+We can add an extra parameter to disable the strict slashes:
+```python
+@app.route('/games', strict_slashes=False)
+```
+
+Alternatively, we can do...
+```python
+app.url_map.strict_slashes = False
+```
+
+But its preferred to keep it `True`.
+
+
 ### RuntimeError: Working outside of application context
 Add the following line where app is declared:
 ```python

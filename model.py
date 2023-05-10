@@ -162,7 +162,7 @@ class Game(db.Model):
     games_genres = db.relationship('Games_genre', back_populates='game')
     
     def __repr__(self):
-        return f'<Game name={self.name}> id={self.id}'
+        return f'<Game name={self.name} id={self.id}>'
     
     @classmethod
     def create(cls, id, name, short_description, header_image,
@@ -185,11 +185,26 @@ class Game(db.Model):
         games = []
 
         while count < limit:
-            game = db.session.get(Game, choice(ids))
+            game = db.session.get(cls, choice(ids))
             games.append(game)
             count += 1
 
-        return games 
+        return games
+
+    
+    @classmethod
+    def search_by_name(cls, name):
+        """ Return game by name """
+
+        return cls.query.filter(cls.name.ilike(f'%{name}%')).all()
+
+
+    @classmethod
+    def search_by_id(cls, id):
+        """ Return game by id """
+
+        return db.session.get(cls, id)
+
         
     
 

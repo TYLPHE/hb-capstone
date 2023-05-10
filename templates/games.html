@@ -4,11 +4,12 @@
 {% endblock %}
 {% block body %}
   <h1>Search</h1>
-  <form action="/search>">
+  <form action="/games/search">
     <label for="game_name">Game:</label>
     <input type="text" id="game_name" name="game_name">
+    <input type="submit" value="Submit">
   </form>
-  
+
   <h1>Random Games</h1>
   <div>
     {% for game in games %}
