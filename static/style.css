@@ -2,3 +2,11 @@ body {
   background-color: rgb(3, 20, 43);
   color: white
 }
+
+a:link{
+  color: white 
+}
+
+a:visited {
+  color: white
+}

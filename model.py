@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from random import choice
+import json
 
 db = SQLAlchemy()
 
@@ -43,6 +45,12 @@ class User(db.Model):
 
         return cls.query.filter(cls.username==username, 
                                 cls.password==password).first()
+
+    @classmethod
+    def exists(cls, username):
+        """ Checks if user exists for registration """
+
+        return cls.query.filter(cls.username==username).first()
 
 
 class Library(db.Model):
@@ -94,10 +102,11 @@ class Library_game(db.Model):
         return f'<Library_game id={self.id} game_id={self.game_id}'
 
     @classmethod
-    def create(cls, library, purchased, total_playtime, last_played=datetime.now()):
+    def create(cls, library, game, purchased, total_playtime, last_played=datetime.now()):
         """ Create class. Does not add and commit to db """
 
         return cls(library=library,
+                   game=game,
                    purchased=purchased, 
                    total_playtime=total_playtime, 
                    last_played=last_played)
@@ -142,7 +151,7 @@ class Game(db.Model):
     short_description = db.Column(db.Text)
     header_image = db.Column(db.String)
     background = db.Column(db.String)
-    release_date = db.Column(db.DateTime)
+    release_date = db.Column(db.String)
 
     # Relationships
     library_games = db.relationship('Library_game', back_populates='game')
@@ -156,13 +165,32 @@ class Game(db.Model):
         return f'<Game name={self.name}> id={self.id}'
     
     @classmethod
-    def create(cls, name, short_description, header_image,
+    def create(cls, id, name, short_description, header_image,
                background, release_date):
         """ Create class. Does not add and commit to db """
 
-        return cls(name=name, short_description=short_description,
+        return cls(id=id, name=name, short_description=short_description,
                    header_image=header_image, background=background,
                    release_date=release_date)
+
+    @classmethod
+    def random_games(cls, limit=6):
+        """ return a list of random games """
+
+        with open('data/games-filtered.json') as f:
+            data = f.read()
+
+        ids = json.loads(data)
+        count = 0
+        games = []
+
+        while count < limit:
+            game = db.session.get(Game, choice(ids))
+            games.append(game)
+            count += 1
+
+        return games 
+        
     
 
 class Screenshot(db.Model):

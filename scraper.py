@@ -2,12 +2,13 @@ import requests
 import json
 from time import sleep
 
-
 def scrape(app_id):
     """ query api every 1.5 seconds and save results to file """
 
     params = {
       'appids': int(app_id),
+      'l':'EN',
+      'cc':'US',
     }
 
     url = f'http://store.steampowered.com/api/appdetails'
@@ -29,18 +30,19 @@ def scrape(app_id):
     d['screenshots'] = js.get(f"{params['appids']}", {}).get('data', {}).get('screenshots')
     d['movies'] = js.get(f"{params['appids']}", {}).get('data', {}).get('movies')
 
-    with open('data/test.json', 'r') as game:
+    with open('data/games.json', 'r') as game:
         data = game.read()
 
     h = json.loads(data)
     h.append(d)
 
-    with open('data/test.json', 'w') as f:
+    with open('data/games.json', 'w') as f:
         # json.dump(d, f)
         f.write(json.dumps(h, indent=2))
+    
 
-
-# with open('test-top.txt', 'r') as f:
+# Uncomment below to start scraping
+# with open('top-appids.txt', 'r') as f:
 #     for id in f:
 #         print(f'Scrape: {id}')
 #         scrape(id)

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+  Browse Games
+{% endblock %}
+{% block body %}
+  <h1>Random Games</h1>
+  <div>
+    {% for game in games %}
+    <div>
+      <h2>{{ game['name'] }}</h2>
+      <img src="{{ game['header_image'] }}" alt="{{ game['name'] }}">
+      <p>{{ game['short_description'] }}</p>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
