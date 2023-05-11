@@ -28,6 +28,7 @@ def login_post():
 
     if (login_ok):
         session['username'] = login_ok.username
+        session['user_id'] = login_ok.id
         flash(f'Welcome, {login_ok.fname.capitalize()}')
         return render_template('user.html')
     else:
@@ -109,6 +110,21 @@ def game_details(game_id, game_name):
     game = Game.search_by_id(game_id)
     
     return render_template('game-details.html', game=game)
+
+
+@app.route('/library')
+def library():
+    """ Display user's library and their added games """
+
+    user = session['user_id']
+    library = Library.search_by_id(user)
+    library_games = Library_game.search_by_id(library.id)
+    for g in library_games:
+        # TODO: time for bed
+        # game = Game.search_by_id(g.game_id)
+    return render_template('library.html', 
+                           library=library, 
+                           library_games=library_games)
 
     
 if __name__ == '__main__':

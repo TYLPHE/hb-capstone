@@ -69,13 +69,20 @@ class Library(db.Model):
     library_games = db.relationship('Library_game', back_populates='library')
 
     def __repr__(self):
-        return f'<Library name={self.name} id={self.id}'
+        return f'<Library name={self.name} id={self.id}>'
 
     @classmethod
     def create(cls, user, name='My Library', created=datetime.now()):
         """ Create class. Does not add and commit to db """
 
         return cls(user=user, name=name, created=created)
+
+
+    @classmethod
+    def search_by_id(cls, id):
+        """ Search and return Class based on id """
+
+        return db.session.get(cls, id)
 
 
 class Library_game(db.Model):
@@ -110,6 +117,13 @@ class Library_game(db.Model):
                    purchased=purchased, 
                    total_playtime=total_playtime, 
                    last_played=last_played)
+
+
+    @classmethod
+    def search_by_id(cls, id):
+        """ Return a list of the user's added games """
+
+        return cls.query.filter(cls.library_id==id).all()
 
 
 class Review(db.Model):
