@@ -57,8 +57,8 @@ l1 = Library.create(u1)
 db.session.add_all([u1, l1])
 db.session.commit()
 
-lg1 = Library_game.create(l1, games_class[0], True, 100, datetime(2023, 1, 31))
-r1 = Review.create(lg1, 'This is a review for Dota 2.', 5)
+lg1 = Library_game.create(l1, games_class[0])
+r1 = Review.create(lg1, 'This is a review for DOTA 2.')
 
 db.session.add_all(games_class + [lg1, r1])
 db.session.commit()

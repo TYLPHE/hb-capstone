@@ -15,7 +15,9 @@
     {% for game in games %}
     <div>
       <h2>{{ game['name'] }}</h2>
-      <img src="{{ game['header_image'] }}" alt="{{ game['name'] }}">
+      <a href="/games/details/{{ game.id }}/{{ game.name }}">
+        <img src="{{ game['header_image'] }}" alt="{{ game['name'] }}">
+      </a>
       <p>{{ game['short_description'] }}</p>
     </div>
     {% endfor %}

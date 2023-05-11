@@ -33,13 +33,6 @@ class User(db.Model):
 
 
     @classmethod
-    def details(cls, id):
-        """ returns Class of parameter: id """
-
-        return cls.query.get(id).first()
-
-
-    @classmethod
     def validate(cls, username, password):
         """ Checks database if email and password match """
 
@@ -96,7 +89,7 @@ class Library_game(db.Model):
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     purchased = db.Column(db.Boolean)
     total_playtime = db.Column(db.Integer)
-    last_played = db.Column(db.DateTime)
+    date_added = db.Column(db.DateTime)
 
     # Relationships
     review = db.relationship('Review', 
@@ -109,7 +102,7 @@ class Library_game(db.Model):
         return f'<Library_game id={self.id} game_id={self.game_id}'
 
     @classmethod
-    def create(cls, library, game, purchased, total_playtime, last_played=datetime.now()):
+    def create(cls, library, game):
         """ Create class. Does not add and commit to db """
 
         exists = cls.query.filter(cls.library_id==library.id,
@@ -120,9 +113,7 @@ class Library_game(db.Model):
         else:
             return cls(library=library,
                       game=game,
-                      purchased=purchased, 
-                      total_playtime=total_playtime, 
-                      last_played=last_played)
+                      date_added=datetime.now())
 
 
     @classmethod
@@ -160,12 +151,13 @@ class Review(db.Model):
         return f'<Review id={self.id}'
 
     @classmethod
-    def create(cls, library_game, review, 
-               score, created=datetime.now(), votes_up=0):
+    def create(cls, library_game, review=''):
         """ Create class. Does not add and commit to db """
 
-        return cls(library_game=library_game, review=review, score=score, 
-                   created=created, votes_up=votes_up)
+        return cls(library_game=library_game,
+                   review=review, 
+                   created=datetime.now(), 
+                   votes_up=0)
 
 
     @classmethod

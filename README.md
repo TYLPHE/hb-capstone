@@ -96,4 +96,10 @@ I managed to scrape data from Steam API overnight. I used the top 50 results to 
 I created a 'Browse Games' page that should eventually have search functionality to add to the user's library. Thankfully the database works! I will continue to hash out more of the game store and try to add it to the user's library to review.
 
 ### 5/11
-Before adding the functionality of adding a game to a user's library, I'm creating the library page and the game's review page.
+Before adding the functionality of adding a game to a user's library, I created the library page and the game's review page. I then added a button that lets the user add the game to their own library.
+
+This add button is disabled if the game already exists in the user's library.
+
+I then added a partial search functionality where the user can type 'marvel' and if the partial search returns more than 1 game, it will display a list of games containing the word 'marvel'.
+
+Next I will work on the review page where the user can edit their review. That will probably be followed by the ability to delete their review and remove the game from their library.

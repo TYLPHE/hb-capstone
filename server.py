@@ -74,9 +74,11 @@ def register_post():
     if (user_exists):
         flash('Username already exists.')
     else:
+        # Create user and create users' library
         flash(f'"{username}" created. Please log in')
         user = User.create(username, password, fname, lname)
-        db.session.add(user)
+        library = Library.create(user)
+        db.session.add_all([user, library])
         db.session.commit()
 
     return redirect('/')
@@ -164,9 +166,11 @@ def add_game():
 
     library = Library.search_by_id(session.get('library_id'))
     game = Game.search_by_id(request.json.get('game_id'))
-    library_game = Library_game.create(library, game, True, 10)
+    library_game = Library_game.create(library, game)
+    review = Review.create(library_game)
+    
     if (library_game):
-        db.session.add(library_game)
+        db.session.add_all([library_game, review])
         db.session.commit()
         return {
             'success': True,
