@@ -14,8 +14,10 @@ app.app_context().push()
 @app.route('/')
 def homepage():
     """ Render homepage """
-
-    return render_template('index.html')
+    if (session.get('username')):
+        return render_template('user.html')
+    else:
+        return render_template('index.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -25,10 +27,16 @@ def login_post():
     username = request.form.get('username')
     password = request.form.get('password')
     login_ok = User.validate(username, password)
+    library = Library.search_by_id(login_ok.id)
 
     if (login_ok):
         session['username'] = login_ok.username
         session['user_id'] = login_ok.id
+        session['library_id'] = library.id
+        print('SESSIONS: ',
+              'username', session['username'],
+              'user_id', session['user_id'],
+              'library_id', session['library_id'],)
         flash(f'Welcome, {login_ok.fname.capitalize()}')
         return render_template('user.html')
     else:
@@ -41,6 +49,8 @@ def logout():
     """ Logs the user out of session """
 
     session.pop('username', None)
+    session.pop('user_id', None)
+    session.pop('library_id', None)
 
     return redirect('/')
 
@@ -88,7 +98,8 @@ def search():
     result = Game.search_by_name(name)
 
     if (len(result) > 1):
-        return redirect(f'/games/search-results/')
+        session['search'] = name
+        return redirect(f'/games/search-result')
     elif (len(result) == 1):
         return redirect(f'/games/details/{ result[0].id }/{ result[0].name }')
     else: 
@@ -96,20 +107,29 @@ def search():
 
     return redirect('/games')
 
-@app.route('/game/search-results/')
+
+@app.route('/games/search-result')
 def search_results():
     """ display a list of games based on search term """
 
-    return redirect('/games')
+    name = session['search']
+    games = Game.search_by_name(name)
+
+    return render_template('search-result.html', games=games, name=name)
     
 
-@app.route('/games/details/<game_id>/<game_name>/')
+@app.route('/games/details/<game_id>/<game_name>', strict_slashes=False)
 def game_details(game_id, game_name):
     """ Render game details """
 
     game = Game.search_by_id(game_id)
+
+    # Check if game already exists. If so, disable add to library button
+    library_id = session['library_id']
+    library_game = Library_game.search_by_game_id(library_id, game_id)
     
-    return render_template('game-details.html', game=game)
+    return render_template('game-details.html', game=game, 
+                           library_game=bool(library_game))
 
 
 @app.route('/library')
@@ -119,14 +139,46 @@ def library():
     user = session['user_id']
     library = Library.search_by_id(user)
     library_games = Library_game.search_by_id(library.id)
+
     for g in library_games:
-        # TODO: time for bed
-        # game = Game.search_by_id(g.game_id)
+        game = Game.search_by_id(g.game_id)
+        g.game = game
+
     return render_template('library.html', 
                            library=library, 
                            library_games=library_games)
 
-    
+
+@app.route('/review/<lgame_id>')
+def review(lgame_id):
+    """ Display review of game """
+
+    review = Review.search_by_id(lgame_id)
+
+    return render_template('review.html', review=review)
+
+
+@app.route('/add-game', methods=['POST'])
+def add_game():
+    """ Add game to user's library """
+
+    library = Library.search_by_id(session.get('library_id'))
+    game = Game.search_by_id(request.json.get('game_id'))
+    library_game = Library_game.create(library, game, True, 10)
+    if (library_game):
+        db.session.add(library_game)
+        db.session.commit()
+        return {
+            'success': True,
+            'msg': 'Hello'
+        }
+    else:
+        return {
+            'success': True,
+            'msg': 'Game already exists'
+        }
+
+
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)

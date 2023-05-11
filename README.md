@@ -94,3 +94,6 @@ I created a log in page and registration page. Both seem to save to the database
 I managed to scrape data from Steam API overnight. I used the top 50 results to seed the database with no issue. However, when I tried to seed all 6500 games, I ran into some issues of some data that were duplicates and some data that had Null values. I worked on cleaning the scraped data.
 
 I created a 'Browse Games' page that should eventually have search functionality to add to the user's library. Thankfully the database works! I will continue to hash out more of the game store and try to add it to the user's library to review.
+
+### 5/11
+Before adding the functionality of adding a game to a user's library, I'm creating the library page and the game's review page.

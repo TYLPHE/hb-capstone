@@ -2,9 +2,21 @@
 {% block title %}Library{% endblock %}
 {% block body %}
 <h1>{{ library.name }}</h1>
-{% for game in library_games %}
+
+{% for lgame in library_games %}
 <div>
-  <h3>{{ game.name }}</h3>
+  <h3>{{ lgame.game.name }}</h3>
+  <a href="/games/details/{{ lgame.game.id }}/{{ lgame.game.name }}">
+    <img src="{{ lgame.game.header_image }}" alt="{{ lgame.game.name }} header image">
+  </a>
+  <div>
+    {% if lgame.purchased %}
+    <p>Purchased game</p>
+    {% endif %}
+    <p>Last played: {{ lgame.last_played }}</p>
+    <p>Played for {{ lgame.total_playtime }} hours</p>
+    <a href="/review/{{ lgame.id }}">See review</a>  
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

@@ -112,11 +112,17 @@ class Library_game(db.Model):
     def create(cls, library, game, purchased, total_playtime, last_played=datetime.now()):
         """ Create class. Does not add and commit to db """
 
-        return cls(library=library,
-                   game=game,
-                   purchased=purchased, 
-                   total_playtime=total_playtime, 
-                   last_played=last_played)
+        exists = cls.query.filter(cls.library_id==library.id,
+                                  cls.game_id==game.id).first()
+        
+        if (exists):
+            return None
+        else:
+            return cls(library=library,
+                      game=game,
+                      purchased=purchased, 
+                      total_playtime=total_playtime, 
+                      last_played=last_played)
 
 
     @classmethod
@@ -125,6 +131,14 @@ class Library_game(db.Model):
 
         return cls.query.filter(cls.library_id==id).all()
 
+    @classmethod
+    def search_by_game_id(cls, library_id, game_id):
+        """ Checks to see if game is in library_games. Returns boolean """
+
+        exists = cls.query.filter(cls.library_id==library_id,
+                                  cls.game_id==game_id).first()
+
+        return exists
 
 class Review(db.Model):
     """ A table of reviews """
@@ -153,6 +167,12 @@ class Review(db.Model):
         return cls(library_game=library_game, review=review, score=score, 
                    created=created, votes_up=votes_up)
 
+
+    @classmethod
+    def search_by_id(cls, id):
+        """ Return a Class """
+
+        return db.session.get(cls, id)
 
 class Game(db.Model):
     """ A table of all games """

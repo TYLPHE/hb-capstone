@@ -3,8 +3,38 @@
   {{ game.name }}
 {% endblock %}
 {% block body %}
+<div class="game" id="{{ game.id }}">
   <h1>{{ game.name }}</h1>
+
+  {% if library_game %}
+  <button id="addToLibrary" disabled>In Library</button>
+  {% else %}
+  <button id="addToLibrary">Add to Library</button>
+  {% endif %}
+
   <img src="{{ game.header_image }}" alt="{{ game.name }} header">
   <p>{{ game.short_description }}</p>
   <p>Release date: {{ game.release_date }}</p>
+</div>
+
+<script>
+const addBtn = document.querySelector('#addToLibrary');
+const body = {
+  game_id: document.querySelector('.game').id,
+};
+
+addBtn.addEventListener('click', async () => {
+  const res = await fetch('/add-game', {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await res.json();
+  console.log('posted data', data);
+  addBtn.disabled=true;
+});
+</script>
 {% endblock %}
