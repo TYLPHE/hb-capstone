@@ -57,14 +57,14 @@ def data1():
     }
     return json_user
 
-# @app.route('/')
-# def homepage():
-#     """ Render homepage """
-#     # Old Jinja code
-#     if (session.get('username')):
-#         return render_template('user.html')
-#     else:
-#         return render_template('index.html')
+@app.route('/')
+def homepage():
+    """ Render homepage """
+    # Old Jinja code
+    if (session.get('username')):
+        return render_template('user.html')
+    else:
+        return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
 def login_post():
@@ -90,6 +90,31 @@ def login_post():
     
     return redirect('/')
     
+@app.route('/user-login', methods=['POST'])
+def user_login_post():
+    """ Check if user exists. Set session if logged in """
+
+    username = request.json.get('username')
+    password = request.json.get('password')
+    login_ok = User.validate(username, password)
+
+    if (login_ok):
+        library = Library.search_by_id(login_ok.id)
+
+        session['username'] = login_ok.username
+        session['user_id'] = login_ok.id
+        session['library_id'] = library.id
+        print('SESSIONS: ',
+              'username', session['username'],
+              'user_id', session['user_id'],
+              'library_id', session['library_id'],)
+        
+        return { 'status': 'Success' }
+    return {
+        'status': 'Error',
+        'msg': 'Wrong account name or password.'
+    }
+
 @app.route('/logout')
 def logout():
     """ Logs the user out of session """

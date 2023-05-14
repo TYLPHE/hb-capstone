@@ -102,6 +102,9 @@ I guess it makes sense to do it this way too because I'm only sending the data I
 
 So I know that I need to send data through the internet as strings. Flask has a `jsonify()` funciton and python has a `json.dumps()`. For this particular example, [using `jsonify()` is better](https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/#). However, [I saw this article from 2020](https://danielms.site/blog/flask-jsonify-you-dont-need-it/) saying that returning a dictionary automatically uses `jsonify()` on a dicionary. I'm going to return code just like the `json_user` dictionary mentioned above.
 
+### Fetching server data from React
+I learned that Flask routes and React routes need to be different. For example I wanted to redirect the user to their dashboard if they are logged in. When loading my react page at the root address, `'/'`, I wanted to `fetch()` data from Flask, which was also linked to `@app.route('/')`. React was confused and never contacted Flask. React routes and Flask routes need to be different
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
