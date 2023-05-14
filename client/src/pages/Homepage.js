@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import { useState } from 'react';
 
-function App() {
+export default function Homepage() {
   const [test, setTest] = useState(null);
   const [test1, setTest1] = useState(null);
 
@@ -48,4 +48,3 @@ function App() {
   );
 }
 
-export default App;
