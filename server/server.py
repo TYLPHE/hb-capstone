@@ -3,13 +3,49 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from model import *
 from jinja2 import StrictUndefined
-
+from flask_session import Session
+from flask_cors import CORS, cross_origin
 import os
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_KEY']
 app.jinja_env.undefined = StrictUndefined
 app.app_context().push()
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
+Session(app)
+CORS(app)
+
+@app.route('/data')
+def data():
+    """ React testing """
+    session['test'] = 'test'
+    return {
+        'name': 'tyl',
+        'test': 'test',
+    }
+
+@app.route('/data1')
+def data1():
+    """ test login """
+    print('@@@@@@@@@', session.get('test'))
+    user = session.get('test')
+
+    if not user:
+        return {'error': 'Unauthorized'}
+
+    user = User.exists('tylphe')
+    json_user = {
+        'id': user.id,
+        'username': user.username,
+        'fname': user.fname,
+        'lanme': user.lname,
+    }
+    return json_user
 
 @app.route('/')
 def homepage():

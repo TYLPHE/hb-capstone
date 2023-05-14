@@ -81,6 +81,27 @@ Add the following line where app is declared:
 app = Flask(__name__)
 app.app.context().push()
 ```
+
+### Flask's jsonify vs json.dumps()
+After converting my project to have a React front-end. I needed to change how I send data to the client. In Flask, I could send the classes I created as a parameter to Jinja using render template, for example, `render_template('homepage.html', user=User)`.
+
+Jinja is great because it can interpret that class created in Python and read the class's attributes no problem. I think if I were to send data to React, I need to query the classes, then convert it into a dictionary, and then send that newly created dictionary to React. For example, 
+```python
+    # server.py
+    user = User.query.get(1)
+    json_user = {
+        'id': user.id,
+        'username': user.username,
+        'fname': user.fname,
+        'lanme': user.lname,
+    }
+    return json_user
+```
+
+I guess it makes sense to do it this way too because I'm only sending the data I need instead of a whole class object.
+
+So I know that I need to send data through the internet as strings. Flask has a `jsonify()` funciton and python has a `json.dumps()`. For this particular example, [using `jsonify()` is better](https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/#). However, [I saw this article from 2020](https://danielms.site/blog/flask-jsonify-you-dont-need-it/) saying that returning a dictionary automatically uses `jsonify()` on a dicionary. I'm going to return code just like the `json_user` dictionary mentioned above.
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
@@ -109,4 +130,18 @@ I then added a partial search functionality where the user can type 'marvel' and
 Next I will work on the review page where the user can edit their review. That will probably be followed by the ability to delete their review and remove the game from their library.
 
 ### 5/12
-Thinking about the review editing to be similar to the GitHub's markdown editor. I hope it exists somewhere out there.
+Thinking about the review editing to be similar to the GitHub's markdown editor. I hope it exists somewhere out there. But before working on the review page, I'm going to try to figure if I can incorporate React into this project...
+
+It's about 2 AM and I have followed 3 different guides:
+ - [dev.to Getting Started with Flask](https://dev.to/nagatodev/getting-started-with-flask-1kn1)
+ - [dev.to How to connect Flask to ReactJs](https://dev.to/nagatodev/how-to-connect-flask-to-reactjs-1k8i)
+ - [Authentication in React app using Flask Server-Sided Sessions](https://www.youtube.com/watch?v=sBw0O5YTT4Q)
+
+ The first two I actually coded along the guide and learned a lot. The third, YouTube video, guide helped me understand how to use sessions between the back-end and front-end. It also showed me how I could structure my files.
+
+ Tomorrow I have a good idea of how I want to approach this capstone project to make it a Flask and React project.
+
+ ### 5/13
+ I have created a React project inside the newly created `client` folder and moved all the SQL/Flask files into a newly created `server` folder. I have referred back to the guides from yesterday and I think I have successfully authenticated a user with React! Now I can practice more with React as my front-end framework. 
+ 
+ I feel like this was quite the detour but it will be good for me in the long run. Good thing I have an extra week before the first MVP is due!
