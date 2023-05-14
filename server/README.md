@@ -145,3 +145,5 @@ It's about 2 AM and I have followed 3 different guides:
  I have created a React project inside the newly created `client` folder and moved all the SQL/Flask files into a newly created `server` folder. I have referred back to the guides from yesterday and I think I have successfully authenticated a user with React! Now I can practice more with React as my front-end framework. 
  
  I feel like this was quite the detour but it will be good for me in the long run. Good thing I have an extra week before the first MVP is due!
+
+I've decided to use the new React Router version (6.4), which was released around September, 2022. A lot of the google examples seem outdated so I'm going to rely on the docs to maybe use the latest ways of using it.

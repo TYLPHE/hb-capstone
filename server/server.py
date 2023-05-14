@@ -20,6 +20,16 @@ app.config.update(
 Session(app)
 CORS(app)
 
+@app.route('/login-status')
+def login_status():
+    """ Checks if user session is defined """
+    user_id = session.get('user_id')
+    if not user_id:
+        return { 'user_id': None }
+    else: 
+        return { 'user_id': user_id }
+
+
 @app.route('/data')
 def data():
     """ React testing """
@@ -47,14 +57,14 @@ def data1():
     }
     return json_user
 
-@app.route('/')
-def homepage():
-    """ Render homepage """
-    if (session.get('username')):
-        return render_template('user.html')
-    else:
-        return render_template('index.html')
-
+# @app.route('/')
+# def homepage():
+#     """ Render homepage """
+#     # Old Jinja code
+#     if (session.get('username')):
+#         return render_template('user.html')
+#     else:
+#         return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
 def login_post():
