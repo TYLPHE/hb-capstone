@@ -1,16 +1,17 @@
+import { Link } from 'react-router-dom';
 import './Welcome.css'
 
 export default function Welcome() {
   return (
     <div className='welcome'>
-      <h1>Welcome to Game Reviewer</h1>
+      <h1 className='welcome-header'>Welcome to Game Reviewer</h1>
       <div>
-        <a href="/login">
+        <Link to='login'>
           <button className='sign-register'>Sign In</button>
-        </a>
-        <a href="/register">
+        </Link>
+        <Link to='register'>
           <button className='sign-register'>Register</button>
-        </a>
+        </Link>
       </div>
     </div>
   );

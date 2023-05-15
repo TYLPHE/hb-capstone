@@ -26,13 +26,14 @@ def login_status():
     """ Checks if user session is defined """
 
     user_id = session.get('user_id')
-    print('### USER_ID: ', user_id)
+    username = session.get('username')
+    print('### USER_ID: ', user_id, '@@@@ USERNAME: ', username)
     if not user_id:
         
         return { 'user_id': None }
     else: 
         
-        return { 'user_id': user_id }
+        return { 'user_id': user_id, 'username': username.capitalize() }
 
 @app.route('/data')
 def data():
@@ -42,7 +43,7 @@ def data():
     return {
         'name': 'tyl',
         'test': 'test',
-    }
+        }
 
 @app.route('/data1')
 def data1():
@@ -59,7 +60,7 @@ def data1():
         'username': user.username,
         'fname': user.fname,
         'lanme': user.lname,
-    }
+        }
 
     return json_user
 
@@ -84,10 +85,12 @@ def user_login():
         
         return { 'status': 'Success' }
     
+
     return {
         'status': 'Error',
         'msg': 'Wrong account name or password.'
-    }
+        }
+
 
 @app.route('/user-register', methods=['POST'])
 def user_register():
@@ -116,6 +119,43 @@ def user_register():
             'status': 'Success',
             'msg': f'"{ username }" created. Please sign in.',
         }
+
+
+@app.route('/library-data')
+def library_data():
+    """ Display user's library and their added games """
+
+    user = session.get('user_id')
+    response = { 
+        'status': 'Success',
+        'library_games': [],
+        }
+
+    library = Library.search_by_id(user)
+    response['library_name'] = library.name.capitalize()
+
+    if (library != None):
+        game_dict = {}
+        library_games = Library_game.search_by_id(library.id)
+        
+        for game in library_games:
+            game_dict['library_game_id'] = game.id
+
+            # Query for game details to add to library
+            game_data = Game.search_by_id(game.game_id)
+            game_dict['game_id'] = game_data.id
+            game_dict['game_name'] = game_data.name
+            game_dict['game_header_image'] = game_data.header_image
+            
+            response['library_games'].append(game_dict)
+
+        print('&&&&&&&&RESPONSE: ', response)
+        return response
+    
+
+    else:
+      return { 'status': 'Error' }
+
 
 # Routes for Jinja (depreciating)
 # @app.route('/')

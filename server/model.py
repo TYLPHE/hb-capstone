@@ -122,6 +122,7 @@ class Library_game(db.Model):
 
         return cls.query.filter(cls.library_id==id).all()
 
+
     @classmethod
     def search_by_game_id(cls, library_id, game_id):
         """ Checks to see if game is in library_games. Returns boolean """
@@ -130,6 +131,7 @@ class Library_game(db.Model):
                                   cls.game_id==game_id).first()
 
         return exists
+
 
 class Review(db.Model):
     """ A table of reviews """
@@ -165,6 +167,7 @@ class Review(db.Model):
         """ Return a Class """
 
         return db.session.get(cls, id)
+
 
 class Game(db.Model):
     """ A table of all games """
@@ -230,8 +233,6 @@ class Game(db.Model):
         """ Return game by id """
 
         return db.session.get(cls, id)
-
-        
     
 
 class Screenshot(db.Model):

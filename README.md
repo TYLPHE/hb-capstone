@@ -117,7 +117,7 @@ navigate('/login')
 
 [This link taught me that](https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically) if I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
 ```javascript
-// On Login.js
+// On Login.jsx
 const { state } = useLocation();
   useEffect(() => {
     if (state) {
@@ -126,6 +126,30 @@ const { state } = useLocation();
   }, [state])
 ```
 Some pretty cool stuff here!
+
+### Extracting URL parameters with React Router
+If I want to extract parameters from the URL in a component, I can use the hook called `useParams()`. For example, 
+```javascript
+// GameDetails.jsx
+// Extract the game's ID from the URL '/games/:id'
+const { id } = useParams()
+console.log(id)
+```
+
+In a loader, however, [I learned from the documentation](https://reactrouter.com/en/main/route/loader) that we can pass `{ params }` to the loader function to extract the parameter of the URL. For example, 
+```javascript
+// from index.js
+{
+  path:'/games/:id',
+  element: <GameDetails />,
+  loader: async ({ params }) => {
+    console.log(params.id);
+    return null;
+  }
+},
+```
+
+This is really helpful to pull a game's details before the component renders, hopefully for a snappier experience.
 
 ## Log of progress
 ### 5/8
