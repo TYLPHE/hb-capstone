@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, redirect, useParams } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom';
 import Welcome from './pages/Welcome/Welcome';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
@@ -36,13 +36,12 @@ const router = createBrowserRouter([
     path:'/dashboard',
     element: <Dashboard />,
     loader: async () => {
-      const req = await fetch('/login-status');
-      const res = await req.json();
-      console.log(res.user_id)
-      if (!res.user_id) {
+      const request = await fetch('/login-status');
+      const response = await request.json();
+      if (!response.user_id) {
         return redirect('/');
       }
-      return { username: res.username };
+      return response;
     },
     errorElement: <ErrorBoundary />,
   },
@@ -51,11 +50,15 @@ const router = createBrowserRouter([
     element: <Games />,
   },
   {
-    path:'/games/:id',
+    path:'/games/:id/:game_name',
     element: <GameDetails />,
     loader: async ({ params }) => {
-      console.log(params.id);
-      return null;
+      const game_id = params.id;
+      const game_name = params.game_name;
+      const request = await fetch(`/games/${game_id}/${game_name}`) ;
+      const response = await request.json();
+      console.table(response)
+      return response;
     }
   },
   {

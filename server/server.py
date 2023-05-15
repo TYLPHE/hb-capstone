@@ -157,6 +157,32 @@ def library_data():
       return { 'status': 'Error' }
 
 
+@app.route('/games/<game_id>/<game_name>')
+def game_details(game_id, game_name):
+    """ Render game details """
+
+    game = Game.search_by_id(game_id)
+
+    if not game:
+        return { 'status': 'Error' }
+    else:
+        response = { 'status': 'Success' }
+
+        # Check if game already exists. If so, disable add to library button
+        library_id = session.get('library_id')
+        library_game = Library_game.search_by_game_id(library_id, game_id)
+        response['name'] = game.name
+        response['short_description'] = game.short_description
+        response['header_image'] = game.header_image
+        response['background'] = game.background
+        response['release_date'] = game.release_date
+        response['in_library'] = bool(library_game)
+        
+        # return render_template('game-details.html', game=game, 
+                            #    library_game=bool(library_game))
+        
+        return response
+
 # Routes for Jinja (depreciating)
 # @app.route('/')
 # def homepage():
