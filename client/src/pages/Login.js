@@ -1,11 +1,18 @@
-import { useState } from "react"
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [msg, setMsg] = useState(null);
+
+  useEffect(() => {
+    if (state) {
+      return setMsg(state);
+    }
+  }, [state])
 
   function handleUsername(value) {
     if (msg) {
@@ -23,15 +30,15 @@ export default function Login() {
   
   async function handleSubmit(e) {
     e.preventDefault();
-    const req = await fetch('/user-login', {
+    const request = await fetch('/user-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({'username': username, 'password': password})
+      body: JSON.stringify({username, password})
     });
-    const res = await req.json();
+    const response = await request.json();
 
-    if (res.status === 'Error') {
-      return setMsg(res.msg);
+    if (response.status === 'Error') {
+      return setMsg(response.msg);
     }
     return navigate('/');
   }

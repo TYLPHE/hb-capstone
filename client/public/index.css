@@ -1,6 +1,7 @@
 body {
-  background-color: rgb(3, 20, 43);
-  color: white
+  background-color: #1b2838;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a:link{

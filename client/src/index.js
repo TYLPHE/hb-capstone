@@ -31,9 +31,17 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element: (
-        <Dashboard />
-    )
+    element: <Dashboard />,
+    loader: async () => {
+      const req = await fetch('/login-status');
+      const res = await req.json();
+      console.log(res.user_id)
+      if (!res.user_id) {
+        return redirect('/');
+      }
+      return null;
+    },
+    errorElement: <ErrorBoundary />,
   },
 ])
 
