@@ -105,6 +105,28 @@ So I know that I need to send data through the internet as strings. Flask has a 
 ### Fetching server data from React
 I learned that Flask routes and React routes need to be different. For example I wanted to redirect the user to their dashboard if they are logged in. When loading my react page at the root address, `'/'`, I wanted to `fetch()` data from Flask, which was also linked to `@app.route('/')`. React was confused and never contacted Flask. React routes and Flask routes need to be different
 
+### Redirecting with flash messages
+I learned that setting React Router's hook called `useNavigate()` can help redirect the user to different locations by setting in the component:
+```javascript
+// On Register.js
+const navigate = useNavigate();
+
+// Code to create user account and redirect to log in page
+navigate('/login') 
+```
+
+If I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
+```javascript
+// On Login.js
+const { state } = useLocation();
+  useEffect(() => {
+    if (state) {
+      return setMsg(state);
+    }
+  }, [state])
+```
+Some pretty cool stuff here!
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
@@ -150,3 +172,10 @@ It's about 2 AM and I have followed 3 different guides:
  I feel like this was quite the detour but it will be good for me in the long run. Good thing I have an extra week before the first MVP is due!
 
 I've decided to use the new React Router version (6.4), which was released around September, 2022. A lot of the google examples seem outdated so I'm going to rely on the docs to maybe use the latest ways of using it.
+
+### 5/14
+I learned how to use React Router to route to different components. I've also learned how to use loader to check if the user is already logged in to automatically redirect them to the dashboard. 
+
+I also learned how to use React Router's `useNavigate()` hook to redirect users to different pages after log in and registration.
+
+React Router's redirect is really cool becasue w can use the `useLocation()` hook to send data to a different component. In my case, once the user creates an account, they are redirected to the login page with a reminder of their account name to log in. 
