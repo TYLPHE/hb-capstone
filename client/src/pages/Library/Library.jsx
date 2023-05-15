@@ -12,7 +12,7 @@ export default function Library() {
       {library_games.map((game) => {
         return (
           <div key={ game.library_game_id }>
-            <Link to={ game.library_game_id }>
+            <Link to={ `/review/${game.library_game_id}` }>
               My review of { game.game_name }
             </Link>
             <div>

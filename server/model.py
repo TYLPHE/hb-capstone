@@ -150,7 +150,7 @@ class Review(db.Model):
     library_game = db.relationship('Library_game', back_populates='review')
 
     def __repr__(self):
-        return f'<Review id={self.id}'
+        return f'<Review id={self.id}>'
 
     @classmethod
     def create(cls, library_game, review=''):

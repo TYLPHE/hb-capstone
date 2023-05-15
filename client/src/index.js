@@ -9,6 +9,7 @@ import ErrorBoundary from './pages/ErrorBoundary/ErrorBoundary';
 import Games from './pages/Games/Games';
 import Library from './pages/Library/Library';
 import GameDetails from './pages/GameDetails/GameDetails';
+import Review from './pages/Review/Review';
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,6 @@ const router = createBrowserRouter([
       const game_name = params.game_name;
       const request = await fetch(`/games/${game_id}/${game_name}`) ;
       const response = await request.json();
-      console.table(response)
       return response;
     }
   },
@@ -73,6 +73,16 @@ const router = createBrowserRouter([
       return response
     }
   },
+  {
+    path:'/review/:id',
+    element: <Review />,
+    loader: async ({ params }) => {
+      const request = await fetch(`/review-data/${ params.id }`);
+      const response = await request.json();
+      console.table(response)
+      return response;
+    }
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

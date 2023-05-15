@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 
 export default function GameDetails() {
@@ -34,7 +34,7 @@ export default function GameDetails() {
   }
 
   function AddBtnDisabled() {
-    return <button disabled>{AddBtnTxt}</button>;
+    return <button disabled>Added to library</button>;
   }
 
   return (

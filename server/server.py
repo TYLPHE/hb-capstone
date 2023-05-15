@@ -202,6 +202,23 @@ def add_game():
             }
 
 
+@app.route('/review-data/<lgame_id>')
+def review(lgame_id):
+    """ Display review of game """
+
+    review = Review.search_by_id(lgame_id)
+
+    # return render_template('review.html', review=review)
+    return {
+        'review': review.review,
+        'game_id': review.library_game.game.id,
+        'game': review.library_game.game.name,
+        'header_image': review.library_game.game.header_image,
+        'score': review.score,
+        'votes_up': review.votes_up,
+        }
+
+
 # Routes for Jinja (depreciating)
 # @app.route('/')
 # def homepage():
