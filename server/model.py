@@ -99,7 +99,7 @@ class Library_game(db.Model):
     game = db.relationship('Game', back_populates='library_games')
 
     def __repr__(self):
-        return f'<Library_game id={self.id} game_id={self.game_id}'
+        return f'<Library_game id={self.id} game_id={self.game_id}>'
 
     @classmethod
     def create(cls, library, game):

@@ -135,10 +135,10 @@ def library_data():
     response['library_name'] = library.name.capitalize()
 
     if (library != None):
-        game_dict = {}
         library_games = Library_game.search_by_id(library.id)
         
         for game in library_games:
+            game_dict = {}
             game_dict['library_game_id'] = game.id
 
             # Query for game details to add to library
@@ -178,10 +178,29 @@ def game_details(game_id, game_name):
         response['release_date'] = game.release_date
         response['in_library'] = bool(library_game)
         
-        # return render_template('game-details.html', game=game, 
-                            #    library_game=bool(library_game))
-        
         return response
+
+
+@app.route('/add-game', methods=['POST'])
+def add_game():
+    """ Add game to user's library """
+
+    library = Library.search_by_id(session.get('library_id'))
+    game = Game.search_by_id(request.json.get('id'))
+    library_game = Library_game.create(library, game)
+    review = Review.create(library_game)
+    
+    if (library_game):
+        db.session.add_all([library_game, review])
+        db.session.commit()
+        return { 'status': 'Success' }
+
+    else:
+        return {
+            'status': 'Error',
+            'msg': 'Game already exists'
+            }
+
 
 # Routes for Jinja (depreciating)
 # @app.route('/')

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 
 export default function GameDetails() {
+  const { id } = useParams();
   const {
     background,
     header_image,
@@ -10,19 +11,30 @@ export default function GameDetails() {
     release_date,
     short_description,
   } = useLoaderData();
+  const [inLibrary, setInLibrary] = useState(in_library);
+  const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
 
-  const [inLibrary, setInLibrary] = useState(in_library)
-
-  function handleAdd() {
-    setInLibrary(true)
+  async function handleAdd() {
+    setInLibrary(true);
+    setAddBtnTxt('Adding...');
+    const request = await fetch('/add-game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    const response = await request.json();
+    if (response.status === 'Success') {
+      return setAddBtnTxt('Added to library');
+    }
+    return;
   }
 
   function AddBtn() {
-    return <button onClick={handleAdd}>Add to library</button>
+    return <button onClick={handleAdd}>{AddBtnTxt}</button>;
   }
 
   function AddBtnDisabled() {
-    return <button disabled>Added to library</button>
+    return <button disabled>{AddBtnTxt}</button>;
   }
 
   return (
