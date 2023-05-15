@@ -115,7 +115,7 @@ const navigate = useNavigate();
 navigate('/login') 
 ```
 
-If I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
+[This link taught me that](https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically) if I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
 ```javascript
 // On Login.js
 const { state } = useLocation();

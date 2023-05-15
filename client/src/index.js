@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom';
-import Welcome from './pages/Welcome';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ErrorBoundary from './pages/ErrorBoundary';
+import Welcome from './pages/Welcome/Welcome';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import ErrorBoundary from './pages/ErrorBoundary/ErrorBoundary';
 
 const router = createBrowserRouter([
   {

@@ -4,5 +4,12 @@ export default function ErrorBoundary() {
   console.error(error);
   console.log('errorlog', error)
   // Uncaught ReferenceError: path is not defined
-  return <div>Error</div>;
+  return (
+    <div>
+      Error.
+      <div>
+        Note to self: Don't forget to "python3 server.py"
+      </div>
+    </div>
+  );
 }

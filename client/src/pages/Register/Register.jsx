@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import './Register.css'
 
 export default function Register() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [fname, setFname] = useState(null);
   const [lname, setLname] = useState(null);
   const [msg, setMsg] = useState(null)
@@ -43,24 +44,28 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    const request = await fetch('/user-register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, fname, lname })
-    });
-    const response = await request.json();
-    if (response.status === 'Error') {
-      return setMsg(response.msg);
+
+    if (username.length < 3 || password.length < 3) {
+      setMsg('Account name and password needs to be at least 3 characters')
+    } else {
+      const request = await fetch('/user-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, fname, lname })
+      });
+      const response = await request.json();
+      if (response.status === 'Error') {
+        return setMsg(response.msg);
+      }
+      else if (response.status === 'Success') {
+        return navigate('/login', { state: response.msg })
+      }
     }
-    else if (response.status === 'Success') {
-      return navigate('/login', { state: response.msg })
-    }
-    else return;
   }
   
   function Flash({ msg }) {
     return (
-      <div>
+      <div className="flash">
         {msg}
       </div>
     )
@@ -70,24 +75,24 @@ export default function Register() {
     <div>
       {msg && <Flash msg={ msg }/>}
       <h1>Create your account</h1>
-      <form>
-      <div>
-          <label htmlFor="username">Sign in with account name</label>
+      <form className="sign-in-form">
+        <div className="form-input-label">
+          <label htmlFor="username">Account name</label>
           <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
         </div>
-        <div>
+        <div className="form-input-label">
           <label htmlFor="password">Password</label>
           <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
         </div>
-        <div>
+        <div className="form-input-label">
           <label htmlFor="fname">First name</label>
-          <input type="fname" id="fname" onChange={(e) => handleFname(e.target.value)} />
+          <input type="text" id="fname" onChange={(e) => handleFname(e.target.value)} />
         </div>
-        <div>
+        <div className="form-input-label">
           <label htmlFor="lname">Last name</label>
-          <input type="lname" id="lname" onChange={(e) => handleLname(e.target.value)} />
+          <input type="text" id="lname" onChange={(e) => handleLname(e.target.value)} />
         </div>
-        <button onClick={(e) => handleSubmit(e)}>Create Account</button>
+        <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
       </form>
     </div>
   )

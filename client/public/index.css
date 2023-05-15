@@ -11,3 +11,30 @@ a:link{
 a:visited {
   color: white
 }
+
+.flash {
+  position: fixed;
+  top: 2px;
+  left: 2px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgba(14, 14, 14, 0.798);
+}
+
+h1 {
+  margin: 2rem 1rem;
+}
+
+.form-input-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+input[type='text'] {
+  padding: 5px 0px;
+}
+
+input[type='password'] {
+  padding: 5px 0px;
+}

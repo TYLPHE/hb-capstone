@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
+import './Login.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function Login() {
 
   function Flash({ msg }) {
     return (
-      <div>
+      <div className="flash">
         {msg}
       </div>
     )
@@ -55,16 +56,17 @@ export default function Login() {
     <div>
       {msg && <Flash msg={ msg } />}
       <h1>Sign in</h1>
-      <form>
-        <div>
+      <form className="sign-in-form">
+        <div className="form-input-label">
           <label htmlFor="username">Sign in with account name</label>
           <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
         </div>
-        <div>
+        <div className="form-input-label">
           <label htmlFor="password">Password</label>
           <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
         </div>
-        <button onClick={(e) => handleSubmit(e)}>Sign In</button>
+        <button className="sign-register" onClick={(e) => handleSubmit(e)}>Sign In</button>
+        <button className="sign-register" onClick={() => navigate('/register')}>Register</button>
       </form>
     </div>
   )

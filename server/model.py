@@ -12,8 +12,8 @@ class User(db.Model):
 
     # Table Columns
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
+    username = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
     fname = db.Column(db.String(30))
     lname = db.Column(db.String(30))
     created = db.Column(db.DateTime)
