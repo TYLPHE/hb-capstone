@@ -203,3 +203,8 @@ I learned how to use React Router to route to different components. I've also le
 I also learned how to use React Router's `useNavigate()` hook to redirect users to different pages after log in and registration.
 
 React Router's redirect is really cool becasue w can use the `useLocation()` hook to send data to a different component. In my case, once the user creates an account, they are redirected to the login page with a reminder of their account name to log in. 
+
+### 5/15
+I did a lot today. First, I created a user library where users can see their own games. Then I created a game details page where users can see details about any game. From the game details, I added functionality where users can add the game to their library.
+
+Later in the evening, I created a game search and search results page. Users can partially search for games. I don't know how to deal with the search results page yet. I limited the search term to 2 characters to limit the number of games returned. I also am only listing the game's name. I am afraid if I list all the game's thumbnail, the page will be too busy with a list of images. A one page search result where user can see more search results as they scroll would be cool though... That will probably be a nice-to-have feature. 
