@@ -195,7 +195,7 @@ It's about 2 AM and I have followed 3 different guides:
  
  I feel like this was quite the detour but it will be good for me in the long run. Good thing I have an extra week before the first MVP is due!
 
-I've decided to use the new React Router version (6.4), which was released around September, 2022. A lot of the google examples seem outdated so I'm going to rely on the docs to maybe use the latest ways of using it.
+I've decided to use the new React Router version (6.4), which was released around September, 2022. A lot of the google examples seem outdated so I'm going to rely on the docs to maybe use the latest methods.
 
 ### 5/14
 I learned how to use React Router to route to different components. I've also learned how to use loader to check if the user is already logged in to automatically redirect them to the dashboard. 
@@ -207,4 +207,7 @@ React Router's redirect is really cool becasue w can use the `useLocation()` hoo
 ### 5/15
 I did a lot today. First, I created a user library where users can see their own games. Then I created a game details page where users can see details about any game. From the game details, I added functionality where users can add the game to their library.
 
-Later in the evening, I created a game search and search results page. Users can partially search for games. I don't know how to deal with the search results page yet. I limited the search term to 2 characters to limit the number of games returned. I also am only listing the game's name. I am afraid if I list all the game's thumbnail, the page will be too busy with a list of images. A one page search result where user can see more search results as they scroll would be cool though... That will probably be a nice-to-have feature. 
+Later in the evening, I created a game search and search results page. Users can partially search for games. I don't know how to deal with the search results page yet. I limited the search term to 2 characters to limit the number of games returned. I also am only listing the game's name. I am afraid if I list all the game's thumbnail, the page will be too busy with a list of images. A one page search result where user can see more search results as they scroll would be cool though... That will probably be a nice-to-have feature.
+
+### 5/16
+Looking into the [react-md-editor](https://github.com/uiwjs/react-md-editor), which is a "simple markdown editor with preview, implemented with React.js and TypeScript".

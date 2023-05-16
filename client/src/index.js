@@ -11,6 +11,7 @@ import Library from './pages/Library/Library';
 import GameDetails from './pages/GameDetails/GameDetails';
 import Review from './pages/Review/Review';
 import SearchResults from './pages/SearchResults/SearchResults';
+import ReviewEdit from './pages/ReviewEdit/ReviewEdit';
 
 const router = createBrowserRouter([
   {
@@ -85,13 +86,21 @@ const router = createBrowserRouter([
     loader: async ({ params }) => {
       const request = await fetch(`/review-data/${ params.id }`);
       const response = await request.json();
-      console.table(response)
       return response;
     }
   },
   {
     path: '/games/search-results',
     element: <SearchResults />,
+  },
+  {
+    path: '/review/edit/:id',
+    element: <ReviewEdit />,
+    loader: async ({ params }) => {
+      const request = await fetch(`/review-edit?id=${ params.id }`)
+      const response = await request.json();
+      return response;
+    }
   }
 ])
 

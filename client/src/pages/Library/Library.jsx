@@ -13,7 +13,7 @@ export default function Library() {
         return (
           <div key={ game.library_game_id }>
             <Link to={ `/review/${game.library_game_id}` }>
-              My review of { game.game_name }
+              <h2>My review of { game.game_name }</h2>
             </Link>
             <div>
               <Link to={`/games/${ game.game_id }/${ game.game_name }`}>

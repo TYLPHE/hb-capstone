@@ -167,7 +167,7 @@ class Review(db.Model):
         """ Return a Class """
 
         return db.session.get(cls, id)
-
+    
 
 class Game(db.Model):
     """ A table of all games """

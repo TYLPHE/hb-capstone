@@ -173,6 +173,7 @@ def review(lgame_id):
     review = Review.search_by_id(lgame_id)
 
     return {
+        'review_id': review.id,
         'review': review.review,
         'game_id': review.library_game.game.id,
         'game': review.library_game.game.name,
@@ -204,9 +205,8 @@ def search():
     """ search for game and render details """
 
     name = request.args.get('search')
-    print('&&&&&&&&&&&SEARCH: ', name)
     result = Game.search_by_name(name)
-
+    
     if (len(result) > 1):
         response = []
         
@@ -231,6 +231,42 @@ def search():
             'msg': 'Game not found.'
         }
 
+
+@app.route('/update-review', methods=['POST'])
+def update_review():
+    """ Find review by id and update database """
+
+    id = request.json.get('id')
+    review = request.json.get('review')
+
+    r = Review.search_by_id(id)
+    if (r): 
+        r.review = review
+        db.session.commit()
+        return {
+            'status': 'Success',
+            'msg': 'Update saved.',
+        }
+    else:
+        return {
+            'status': 'Error',
+            'msg': 'Error saving review.'
+        }
+
+
+@app.route('/review-edit')
+def review_edit():
+    """ Return review data for edit page """
+    
+    id = request.args.get('id')
+    r = Review.search_by_id(id)
+    
+    return {
+        'id': id,
+        'review': r.review,
+        'name': r.library_game.game.name,
+        'score': r.score
+    }
 
 # Routes for Jinja (depreciating)
 # @app.route('/')

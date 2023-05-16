@@ -1,65 +1,6 @@
-""" Script to seed database """
+"unrendered markdown" review
 
-import os, random, datetime, server, json
-from model import *
-
-# Commands to create a new 'tylphe-capstone' db
-os.system('dropdb tylphe_capstone')
-os.system('createdb tylphe_capstone')
-connect_to_db(server.app)
-db.create_all()
-
-# Seed db
-u1 = User.create('tylphe','123','Tyler', 'Phet')
-
-# Seed Games
-with open('data/games.json') as f:
-    data = f.read()
-
-games = json.loads(data)
-
-games_class = []
-for game in games:
-    if(game.get('id') == None):
-        continue
-    else:
-        id = game.get('id')
-        name = game.get('name')
-        short_description = game.get('short_description')
-        header_image = game.get('header_image')
-        background = game.get('background')
-        release_date = game.get('release_date')
-
-        # Search for matching game ids and exclude from seeding
-        match = [entry for entry in games_class if entry.id == id]              
-        
-        if len(match) > 0:
-            continue
-        else:
-            g = Game.create(id, name, short_description, 
-                            header_image, background, release_date)
-            games_class.append(g)
-
-            """ 
-            # Comment-in to generate a new list of appids
-            with open('/data/games-filtered.json', 'r') as f:
-                data = f.read()
-
-            h = json.loads(data)
-            h.append(id)
-
-            with open('/data/games-filtered.json', 'w') as f:
-                f.write(json.dumps(h, indent=2))
-            """
-
-l1 = Library.create(u1)
-
-db.session.add_all([u1, l1])
-db.session.commit()
-
-lg1 = Library_game.create(l1, games_class[0])
-
-r1_markdown = """ # Dota 2 Review
+# Dota 2 Review
 
 ## Introduction
 
@@ -88,12 +29,3 @@ Valve has done an excellent job of consistently updating Dota 2 with new content
 ## Conclusion
 
 Dota 2 is a masterpiece of the MOBA genre, offering deep gameplay, stunning graphics, and a vibrant community. The strategic gameplay, hero variety, and the constant updates from Valve keep the game fresh and exciting. While toxicity can be an issue, the overall experience of Dota 2 is highly rewarding, making it a must-play for fans of competitive gaming.
- """
-
-r1 = Review.create(
-    lg1, 
-    r1_markdown
-    )
-
-db.session.add_all(games_class + [lg1, r1])
-db.session.commit()
