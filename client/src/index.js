@@ -12,6 +12,7 @@ import GameDetails from './pages/GameDetails/GameDetails';
 import Review from './pages/Review/Review';
 import SearchResults from './pages/SearchResults/SearchResults';
 import ReviewEdit from './pages/ReviewEdit/ReviewEdit';
+import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       const response = await request.json();
       return response;
     }
+  },
+  {
+    path: 'review/delete/:id',
+    element: <ReviewDelete />,
   }
 ])
 
