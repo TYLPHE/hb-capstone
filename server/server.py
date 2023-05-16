@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, session, redirect
 from model import *
 from jinja2 import StrictUndefined
 from flask_session import Session
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
@@ -27,42 +27,12 @@ def login_status():
 
     user_id = session.get('user_id')
     username = session.get('username')
-    print('### USER_ID: ', user_id, '@@@@ USERNAME: ', username)
+
     if not user_id:
-        
         return { 'user_id': None }
     else: 
-        
         return { 'user_id': user_id, 'username': username.capitalize() }
 
-@app.route('/data')
-def data():
-    """ React testing """
-    session['test'] = 'test'
-
-    return {
-        'name': 'tyl',
-        'test': 'test',
-        }
-
-@app.route('/data1')
-def data1():
-    """ test login """
-    print('@@@@@@@@@', session.get('test'))
-    user = session.get('test')
-
-    if not user:
-        return {'error': 'Unauthorized'}
-
-    user = User.exists('tylphe')
-    json_user = {
-        'id': user.id,
-        'username': user.username,
-        'fname': user.fname,
-        'lanme': user.lname,
-        }
-
-    return json_user
 
 @app.route('/user-login', methods=['POST'])
 def user_login():
@@ -85,7 +55,6 @@ def user_login():
         
         return { 'status': 'Success' }
     
-
     return {
         'status': 'Error',
         'msg': 'Wrong account name or password.'
@@ -102,8 +71,7 @@ def user_register():
     lname = request.json.get('lname')
 
     user_exists = User.exists(username)
-    if (user_exists):
-        
+    if (user_exists): 
         return {
             'status': 'Error',
             'msg': 'Please enter a different account name.'
@@ -138,21 +106,20 @@ def library_data():
         library_games = Library_game.search_by_id(library.id)
         
         for game in library_games:
-            game_dict = {}
-            game_dict['library_game_id'] = game.id
-
             # Query for game details to add to library
             game_data = Game.search_by_id(game.game_id)
-            game_dict['game_id'] = game_data.id
-            game_dict['game_name'] = game_data.name
-            game_dict['game_header_image'] = game_data.header_image
+
+            game_dict = {
+                'library_game_id': game.id,
+                'game_id': game_data.id,
+                'game_name': game_data.name,
+                'game_header_image': game_data.header_image,
+            }
             
             response['library_games'].append(game_dict)
 
-        print('&&&&&&&&RESPONSE: ', response)
         return response
     
-
     else:
       return { 'status': 'Error' }
 
@@ -165,20 +132,21 @@ def game_details(game_id, game_name):
 
     if not game:
         return { 'status': 'Error' }
-    else:
-        response = { 'status': 'Success' }
 
+    else:
         # Check if game already exists. If so, disable add to library button
         library_id = session.get('library_id')
         library_game = Library_game.search_by_game_id(library_id, game_id)
-        response['name'] = game.name
-        response['short_description'] = game.short_description
-        response['header_image'] = game.header_image
-        response['background'] = game.background
-        response['release_date'] = game.release_date
-        response['in_library'] = bool(library_game)
-        
-        return response
+       
+        return {
+            'status': 'Success',
+            'name': game.name,
+            'short_description': game.short_description,
+            'header_image': game.header_image,
+            'background': game.background,
+            'release_date': game.release_date,
+            'in_library': bool(library_game),
+        }   
 
 
 @app.route('/add-game', methods=['POST'])
@@ -194,12 +162,8 @@ def add_game():
         db.session.add_all([library_game, review])
         db.session.commit()
         return { 'status': 'Success' }
-
     else:
-        return {
-            'status': 'Error',
-            'msg': 'Game already exists'
-            }
+        return { 'status': 'Error', 'msg': 'Game already exists' }
 
 
 @app.route('/review-data/<lgame_id>')
@@ -208,7 +172,6 @@ def review(lgame_id):
 
     review = Review.search_by_id(lgame_id)
 
-    # return render_template('review.html', review=review)
     return {
         'review': review.review,
         'game_id': review.library_game.game.id,
@@ -216,6 +179,56 @@ def review(lgame_id):
         'header_image': review.library_game.game.header_image,
         'score': review.score,
         'votes_up': review.votes_up,
+    }
+
+
+@app.route('/random-games')
+def random_games():
+    """ Find top 10 games and render page """
+
+    games = Game.random_games()
+    response = []
+
+    for game in games:
+        response.append({
+            'id': game.id,
+            'name': game.name,
+            'header_image': game.header_image,
+        })
+
+    return response
+
+
+@app.route('/game-search')
+def search():
+    """ search for game and render details """
+
+    name = request.args.get('search')
+    print('&&&&&&&&&&&SEARCH: ', name)
+    result = Game.search_by_name(name)
+
+    if (len(result) > 1):
+        response = []
+        
+        for game in result:
+            response.append({
+                'id': game.id,
+                'name': game.name,
+                'header_image': game.header_image,
+                'short_description': game.short_description
+            })
+
+        return response
+    
+    elif (len(result) == 1):
+        return {
+            'status': 'Success', 
+            'url': f'/games/details/{ result[0].id }/{ result[0].name }' 
+        }
+    else: 
+        return {
+            'status': 'Error',
+            'msg': 'Game not found.'
         }
 
 

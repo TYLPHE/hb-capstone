@@ -10,6 +10,7 @@ import Games from './pages/Games/Games';
 import Library from './pages/Library/Library';
 import GameDetails from './pages/GameDetails/GameDetails';
 import Review from './pages/Review/Review';
+import SearchResults from './pages/SearchResults/SearchResults';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
   {
     path:'/games',
     element: <Games />,
+    loader: async () => {
+      const request = await fetch('/random-games')
+      const response = await request.json()
+      return response
+    }
   },
   {
     path:'/games/:id/:game_name',
@@ -82,6 +88,10 @@ const router = createBrowserRouter([
       console.table(response)
       return response;
     }
+  },
+  {
+    path: '/games/search-results',
+    element: <SearchResults />,
   }
 ])
 

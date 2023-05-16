@@ -112,7 +112,7 @@ I learned that setting React Router's hook called `useNavigate()` can help redir
 const navigate = useNavigate();
 
 // Code to create user account and redirect to log in page
-navigate('/login') 
+navigate('/login', { state: response.msg })
 ```
 
 [This link taught me that](https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically) if I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
