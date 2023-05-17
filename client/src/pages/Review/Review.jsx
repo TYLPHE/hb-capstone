@@ -36,7 +36,10 @@ export default function Review() {
         <MDEditor.Markdown source={review} />
 
       <div>
-        <Link to={`/review/delete/${review_id}`}>
+        <Link 
+          to={`/review/delete/${review_id}`} 
+          state={{ game, game_id, header_image, review_id }}
+        >
           <button>Delete review and remove from library</button>
         </Link>
       </div>
