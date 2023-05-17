@@ -2,7 +2,8 @@ import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import Flash from '../../common/Flash';
+import Flash from '../../common/Flash/Flash';
+import Header from '../../common/Header/Header';
 
 export default function ReviewEdit() {
   const { id, review } = useLoaderData();
@@ -15,10 +16,7 @@ export default function ReviewEdit() {
     const request = await fetch('/update-review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        'id': id,
-        'review': value,
-      }),
+      body: JSON.stringify({ id, 'review': value }),
     });
     const response = await request.json();
     return setMsg(response.msg);
@@ -45,6 +43,7 @@ export default function ReviewEdit() {
   return (
     <div>
       {msg && <Flash msg={ msg } />}
+      <Header />
       <h1>Edit Review</h1>
       <MDEditor 
         value={value} 

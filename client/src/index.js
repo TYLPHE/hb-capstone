@@ -75,10 +75,11 @@ const router = createBrowserRouter([
     loader: async () => {
       const request = await fetch('/library-data');
       const response = await request.json();
-      console.log('/library', response)
+
       if (response.status === 'Error') {
         return redirect ('/');
       }
+      
       return response;
     }
   },

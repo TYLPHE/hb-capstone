@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import Flash from "../../common/Flash";
+import Flash from "../../common/Flash/Flash";
 import './Register.css'
 
 export default function Register() {
@@ -52,9 +52,11 @@ export default function Register() {
       const request = await fetch('/user-register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, fname, lname })
+        body: JSON.stringify({ username, password, fname, lname, })
       });
+
       const response = await request.json();
+      
       if (response.status === 'Error') {
         return setMsg(response.msg);
       }

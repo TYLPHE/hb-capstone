@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom"
-import Flash from "../../common/Flash";
+import Flash from "../../common/Flash/Flash";
 
 export default function Games() {
   const navigate = useNavigate();

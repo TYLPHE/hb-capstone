@@ -151,6 +151,9 @@ In a loader, however, [I learned from the documentation](https://reactrouter.com
 
 This is really helpful to pull a game's details before the component renders, hopefully for a snappier experience.
 
+### Thinking about styling for mobile devices
+[Refer to this for future reference](https://stackoverflow.com/questions/39435395/reactjs-how-to-determine-if-the-application-is-being-viewed-on-mobile-or-deskto) 
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
@@ -210,4 +213,10 @@ I did a lot today. First, I created a user library where users can see their own
 Later in the evening, I created a game search and search results page. Users can partially search for games. I don't know how to deal with the search results page yet. I limited the search term to 2 characters to limit the number of games returned. I also am only listing the game's name. I am afraid if I list all the game's thumbnail, the page will be too busy with a list of images. A one page search result where user can see more search results as they scroll would be cool though... That will probably be a nice-to-have feature.
 
 ### 5/16
-Looking into the [react-md-editor](https://github.com/uiwjs/react-md-editor), which is a "simple markdown editor with preview, implemented with React.js and TypeScript".
+Looking into the [react-md-editor](https://github.com/uiwjs/react-md-editor), which is a "simple markdown editor with preview, implemented with React.js and TypeScript."
+
+I was able to implement the markdown editor. This was one of the features I was most worried about but the react-md-editor was straightforward and easy to use.
+
+After creating the editing feature, I moved to deleting the review and game from the user's library. I was thinking about implementing a modal for the delete confirmation but I remembered that people hate modals. I turned it into a new page instead. I'll probably make the button red when I start styling.
+
+It has been about 1 week since I started and 3 days since I learned and implemented react. I'm pretty proud to say the basic MVP functionality is here. Planning to add a header and log out button next.

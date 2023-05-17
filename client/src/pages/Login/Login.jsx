@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
-import Flash from "../../common/Flash";
+import Flash from "../../common/Flash/Flash";
 import './Login.css';
 
 export default function Login() {
@@ -35,7 +35,7 @@ export default function Login() {
     const request = await fetch('/user-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({username, password})
+      body: JSON.stringify({ username, password })
     });
     const response = await request.json();
 

@@ -43,15 +43,11 @@ def user_login():
     login_ok = User.validate(username, password)
 
     if (login_ok):
-        library = Library.search_by_id(login_ok.id)
+        library = Library.search_by_id(login_ok.library.id)
 
         session['username'] = login_ok.username
         session['user_id'] = login_ok.id
         session['library_id'] = library.id
-        print('SESSIONS: ',
-              'username', session['username'],
-              'user_id', session['user_id'],
-              'library_id', session['library_id'],)
         
         return { 'status': 'Success' }
     
@@ -93,13 +89,14 @@ def user_register():
 def library_data():
     """ Display user's library and their added games """
 
-    user = session.get('user_id')
-    response = { 
+    library_id = session.get('library_id')
+
+    response = {
         'status': 'Success',
         'library_games': [],
         }
 
-    library = Library.search_by_id(user)
+    library = Library.search_by_id(library_id)
 
     if (library != None):
         response['library_name'] = library.name.capitalize()
@@ -156,7 +153,7 @@ def add_game():
     library = Library.search_by_id(session.get('library_id'))
     game = Game.search_by_id(request.json.get('id'))
     library_game = Library_game.create(library, game)
-    review = Review.create(library_game, f'# {game.name} Review ')
+    review = Review.create(library_game, f'# {game.name} Review')
     
     if (library_game):
         db.session.add_all([library_game, review])
@@ -280,9 +277,19 @@ def delete_review():
     db.session.delete(lg)
     db.session.commit()
 
-    print('##############', r, lg)
+    return { 'status': 'Success' }
 
-    return None
+
+@app.route('/log-out')
+def log_out():
+    """ Log user out """
+
+    session.pop('user_id')
+    session.pop('username')
+    session.pop('library_id')
+
+    return { 'status': 'Success' }
+
 
 if __name__ == '__main__':
     connect_to_db(app)
