@@ -156,7 +156,7 @@ def add_game():
     library = Library.search_by_id(session.get('library_id'))
     game = Game.search_by_id(request.json.get('id'))
     library_game = Library_game.create(library, game)
-    review = Review.create(library_game)
+    review = Review.create(library_game, f'# {game.name} Review ')
     
     if (library_game):
         db.session.add_all([library_game, review])

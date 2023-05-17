@@ -12,7 +12,9 @@ export default function ReviewDelete() {
     await fetch('/delete-review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'review_id': review_id }),
+      body: JSON.stringify({
+        'review_id': review_id 
+      }),
     });
     return navigate('/library');
   }

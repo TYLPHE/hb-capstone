@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Flash from "../../common/Flash";
 import './Register.css'
 
 export default function Register() {
@@ -61,14 +62,6 @@ export default function Register() {
         return navigate('/login', { state: response.msg })
       }
     }
-  }
-  
-  function Flash({ msg }) {
-    return (
-      <div className="flash">
-        {msg}
-      </div>
-    )
   }
   
   return (

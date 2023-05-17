@@ -2,7 +2,7 @@ import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-
+import Flash from '../../common/Flash';
 
 export default function ReviewEdit() {
   const { id, review } = useLoaderData();
@@ -32,14 +32,6 @@ export default function ReviewEdit() {
       setDisableUpdateBtn(false)
     }
     setValue(e)
-  }
-  
-  function Flash({ msg }) {
-    return (
-      <div className="flash">
-        {msg}
-      </div>
-    )
   }
   
   function UpdateButton() {

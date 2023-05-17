@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom"
+import Flash from "../../common/Flash";
 
 export default function Games() {
   const navigate = useNavigate();
@@ -32,14 +33,6 @@ export default function Games() {
         return setMsg(response.msg)
       }
     }
-  }
-
-  function Flash({ msg }) {
-    return (
-      <div className="flash">
-        {msg}
-      </div>
-    )
   }
 
   return (

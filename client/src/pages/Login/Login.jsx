@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
+import Flash from "../../common/Flash";
 import './Login.css';
 
 export default function Login() {
@@ -42,14 +43,6 @@ export default function Login() {
       return setMsg(response.msg);
     }
     return navigate('/');
-  }
-
-  function Flash({ msg }) {
-    return (
-      <div className="flash">
-        {msg}
-      </div>
-    )
   }
 
   return (
