@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
+import Header from '../../common/Header/Header'
 
 export default function Library() {
   const {
@@ -8,6 +9,7 @@ export default function Library() {
 
   return (
     <div>
+      <Header />
       <h1>{library_name}</h1>
       {library_games.map((game) => {
         return (

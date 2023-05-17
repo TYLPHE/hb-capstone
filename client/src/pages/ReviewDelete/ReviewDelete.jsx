@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Header from '../../common/Header/Header'
 
 export default function ReviewDelete() {
   const navigate = useNavigate();
@@ -36,18 +37,17 @@ export default function ReviewDelete() {
   
   return (
     <div>
+      <Header />
+      <h1>Delete Confirmation</h1>
+      <div>{game}</div>
       <div>
-        <h1>Delete Confirmation</h1>
-        <div>{game}</div>
-        <div>
-          <img src={header_image} alt="" />
-        </div>
-        <p>
-          Are you sure you want to delete the review and remove the game from the library?
-        </p>
-        <div>
-          <DeleteBtn />
-        </div>
+        <img src={header_image} alt="" />
+      </div>
+      <p>
+        Are you sure you want to delete the review and remove the game from the library?
+      </p>
+      <div>
+        <DeleteBtn />
       </div>
     </div>
   );

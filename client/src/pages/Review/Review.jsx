@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
+import Header from '../../common/Header/Header'
 
 export default function Review() {
   const {
@@ -23,6 +24,7 @@ export default function Review() {
   
   return (
     <div>
+      <Header />
       <h1>{ game }</h1>
         <Link to={`/games/${ game_id }/${ game }`} >
           <img src={header_image} alt="header of game" />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import Flash from "../../common/Flash/Flash";
+import Header from '../../common/Header/Header'
 
 export default function Games() {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function Games() {
 
   return (
     <div>
+      <Header />
       { msg && <Flash msg={msg}/> }
 
       <h1>Browse Games</h1>
