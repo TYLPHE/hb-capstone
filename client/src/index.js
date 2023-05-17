@@ -21,9 +21,7 @@ const router = createBrowserRouter([
     loader: async () => {
       const req = await fetch('/login-status');
       const res = await req.json();
-      if (res.user_id) {
-        return redirect('/dashboard');
-      }
+      if (res.user_id) return redirect('/dashboard');
       return null;
     },
     errorElement: <ErrorBoundary />,

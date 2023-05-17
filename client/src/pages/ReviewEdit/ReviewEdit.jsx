@@ -12,23 +12,23 @@ export default function ReviewEdit() {
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
 
   async function handleUpdate() {
-    setDisableUpdateBtn(true)
+    setDisableUpdateBtn(true);
+
     const request = await fetch('/update-review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, 'review': value }),
     });
     const response = await request.json();
+
     return setMsg(response.msg);
   }
   
   function handleValue(e) {
     if (msg) {
-      setMsg(null)
+      setMsg(null);
     }
-    if (disableUpdateBtn) {
-      setDisableUpdateBtn(false)
-    }
+    if (disableUpdateBtn) setDisableUpdateBtn(false);
     setValue(e)
   }
   

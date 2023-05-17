@@ -1,6 +1,4 @@
-""" Server for capstone """
-
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, request, session
 from model import *
 from jinja2 import StrictUndefined
 from flask_session import Session
@@ -47,6 +45,8 @@ def user_login():
 
         session['username'] = login_ok.username
         session['user_id'] = login_ok.id
+        session['fname'] = login_ok.fname
+        session['lname'] = login_ok.lname
         session['library_id'] = library.id
         
         return { 'status': 'Success' }
@@ -290,6 +290,22 @@ def log_out():
 
     return { 'status': 'Success' }
 
+
+@app.route('/user-initials')
+def user_initials():
+    """ Return user initials for header """
+
+    fname = session.get('fname')
+    lname = session.get('lname')
+
+    initials = ''
+
+    if (fname):
+        initials += fname[0]
+    if (lname):
+        initials += lname[0]
+
+    return { 'initials': initials.upper() }
 
 if __name__ == '__main__':
     connect_to_db(app)

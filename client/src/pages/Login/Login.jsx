@@ -12,7 +12,7 @@ export default function Login() {
 
   useEffect(() => {
     if (state) {
-      return setMsg(state);
+      setMsg(state);
     }
   }, [state])
 

@@ -1,8 +1,9 @@
-* {
+/* * {
   border: 1px solid green;
-}
+} */
 
 .header-container {
+  background-color: #171a21;
   width: 100%;
   height: 104px;
   display: flex;
@@ -19,6 +20,26 @@
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  width: 8rem;
+  height: 4rem;
+}
+
+.nav-button:hover {
+  font-weight: bold;
+}
+
+.active {
+  font-weight: bold;
+  color: rgb(255, 255, 255)
 }
 
 .logo {
@@ -26,27 +47,43 @@
   justify-content: center;
   align-items: center;
   margin-right: 20px;
+  font-size: 5rem;
+  text-decoration: none;
+  color: white;
 }
 
-.log-out {
+.profile {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   margin-left: 20px;
+}
+
+.initials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.253);
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
 }
 
 .log-out-button {
   font-size: .7rem;
-  padding: 10px;
-  height: 30px;
-  width: 65px;
+  height: 1.5rem;
+  width: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.search {
+.header-search {
   margin-left: 20px;
-  width: 250px;
+  width: 300px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }

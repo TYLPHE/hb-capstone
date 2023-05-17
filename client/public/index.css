@@ -9,14 +9,6 @@ body {
   margin: 0;
 }
 
-a:link{
-  color: white 
-}
-
-a:visited {
-  color: white
-}
-
 .flash {
   position: fixed;
   top: 2px;
@@ -36,9 +28,9 @@ h1 {
   margin-bottom: 15px;
 }
 
-input[type='text'] {
+/* input[type='text'] {
   padding: 5px 0px;
-}
+} */
 
 input[type='password'] {
   padding: 5px 0px;

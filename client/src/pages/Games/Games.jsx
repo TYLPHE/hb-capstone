@@ -1,40 +1,12 @@
 import { useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import Flash from "../../common/Flash/Flash";
-import Header from '../../common/Header/Header'
+import Header from '../../common/Header/Header';
+import Search from "../../common/Search/Search";
 
 export default function Games() {
-  const navigate = useNavigate();
   const random_games = useLoaderData();
-  const [search, setSearch] = useState(null);
   const [msg, setMsg] = useState(null);
-    
-  function handleSearch(value) {
-    if (msg) {
-      setMsg(null)
-    }
-    setSearch(value)
-  }
-  
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (search === null || search.length < 2 ) {
-      return setMsg('Search needs to be at least 2 characters.')
-    } else {
-      const request = await fetch(`/game-search?search=${search}`);
-      const response = await request.json();
-  
-      if (Array.isArray(response)) {
-        return navigate('/games/search-results', { state: response });
-      }
-      else if (response.status === 'Success') {
-        return navigate(response.url);
-      }
-      else if (response.status === 'Error') {
-        return setMsg(response.msg)
-      }
-    }
-  }
 
   return (
     <div>
@@ -43,17 +15,7 @@ export default function Games() {
 
       <h1>Browse Games</h1>
       <div>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input 
-            type='text' 
-            id='search' 
-            name='search'
-            placeholder='Search for a game' 
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-          <input type='submit' value='Search' />
-        </form>
-
+        <Search msg={msg} setMsg={setMsg} />
         <h2>Random Games</h2>
         <div>
           {random_games.map((game) => {

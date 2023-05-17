@@ -120,8 +120,8 @@ navigate('/login', { state: response.msg })
 // On Login.jsx
 const { state } = useLocation();
   useEffect(() => {
-    if (state) {
-      return setMsg(state);
+    if {
+      (state) setMsg(state);
     }
   }, [state])
 ```
@@ -220,3 +220,6 @@ I was able to implement the markdown editor. This was one of the features I was 
 After creating the editing feature, I moved to deleting the review and game from the user's library. I was thinking about implementing a modal for the delete confirmation but I remembered that people hate modals. I turned it into a new page instead. I'll probably make the button red when I start styling.
 
 It has been about 1 week since I started and 3 days since I learned and implemented react. I'm pretty proud to say the basic MVP functionality is here. Planning to add a header and log out button next.
+
+### 5/17
+I am creating a header and placing them into each relevant page. I also created a log out button.

@@ -10,11 +10,13 @@ export default function ReviewDelete() {
 
   async function handleDelete() {
     setDisableBtn(true);
+    
     await fetch('/delete-review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ review_id }),
     });
+
     return navigate('/library');
   }
 
