@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <div className='header-container'>
       <header className='main-header'>
-        <Link to='/' className='logo'>⚖</Link>
+        <Link to='/' className='logo'>🤂</Link>
 
         <nav className='header-nav'>
           <NavLink to='/dashboard' className='nav-button'>Dashboard</NavLink>

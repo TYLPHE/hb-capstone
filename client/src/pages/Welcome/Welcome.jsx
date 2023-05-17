@@ -4,7 +4,10 @@ import './Welcome.css'
 export default function Welcome() {
   return (
     <div className='welcome'>
-      <h1 className='welcome-header'>Welcome to Game Reviewer</h1>
+      {/* Logo is a unicode icon called Circled Cross Formee. 
+          I hope its not racist or something */}
+      <div className='welcome-logo'>🤂</div>
+      <div className='welcome-message'>Welcome to Game Reviewer</div>
       <div>
         <Link to='login'>
           <button className='sign-register'>Sign In</button>

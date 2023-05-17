@@ -1,8 +1,9 @@
 .welcome {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: 10vh;
+  height: 90vh;
 }
 
 .sign-register {
@@ -10,6 +11,11 @@
   padding:10px 30px;
 }
 
-.welcome-header {
+.welcome-message {
   text-align: center;
+  font-size: 3rem;
+}
+
+.welcome-logo {
+  font-size: 5rem;
 }
