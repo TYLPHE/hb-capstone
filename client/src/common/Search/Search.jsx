@@ -42,7 +42,11 @@ export default function Search({ msg, setMsg }) {
         placeholder='Search for a game' 
         onChange={(e) => handleSearch(e.target.value)}
       />
-      <input type='submit' value='Search' className="search-button"/>
+      <input 
+        type='submit' 
+        value='Search' 
+        className="search-button"
+      />
     </form>
   );
 }

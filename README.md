@@ -233,3 +233,8 @@ Library is now sorted.
 
 FLASK QUESTION: What is the difference between a URL converter and request.args?
  - Answer: https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api
+
+ ### 5/18
+ dashboard - image carousel that shows some games in library.
+
+ TODO: fix bug when searching for 1 game only

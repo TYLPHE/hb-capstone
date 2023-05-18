@@ -13,6 +13,7 @@ export default function GameDetails() {
     release_date,
     short_description,
   } = useLoaderData();
+  console.log(useLoaderData());
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
 
@@ -46,13 +47,19 @@ export default function GameDetails() {
   return (
     <div style={ { backgroundImage: background } }>
       <Header />
-      <h1>{ name }</h1>
-      <img src={ header_image } alt="Game header"/>
-      <div>
-        <p>{ short_description }</p>
-        <p>Release Date: { release_date }</p>
+      <div className="main-view">
+        <h1>{ name }</h1>
+        <div>
+          <img src={ header_image } alt="Game header"/>
+        </div>
+        <div>
+          <p>{ short_description }</p>
+          <p>Release Date: { release_date }</p>
+        </div>
+        <div>
+          {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
+        </div>
       </div>
-      {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
   );
 }

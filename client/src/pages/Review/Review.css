@@ -4,10 +4,17 @@
   align-items: center;
 }
 .review-data {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  margin: 1rem;
 }
 .review-button {
   padding:10px 30px;
+}
+.review-image-link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }

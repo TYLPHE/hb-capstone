@@ -113,7 +113,6 @@ def library_data():
 def game_details(id):
     """ Render game details """
 
-    game_id = request.args.get('id')
     game = Game.search_by_id(id)
 
     if not game:
@@ -122,8 +121,8 @@ def game_details(id):
     else:
         # Check if game already exists. If so, disable add to library button
         library_id = session.get('library_id')
-        library_game = Library_game.search_by_game_id(library_id, game_id)
-       
+        library_game = Library_game.search_by_game_id(library_id, id)
+        
         return {
             'name': game.name,
             'short_description': game.short_description,

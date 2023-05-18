@@ -1,5 +1,6 @@
 import { Link, useLoaderData } from "react-router-dom";
 import Header from '../../common/Header/Header'
+import './Library.css';
 
 export default function Library() {
   const {
@@ -12,20 +13,21 @@ export default function Library() {
       <Header />
       <div className="main-view">
         <h1>{library_name}</h1>
-        {library_games.map((game) => {
-          return (
-            <div key={ game.library_game_id }>
-              <Link to={ `/review/${game.library_game_id}` }>
-                <h2>My review of { game.game_name }</h2>
-              </Link>
-              <div>
-                <Link to={`/games/${ game.game_id }/${ game.game_name }`}>
-                  <img src={ game.game_header_image } alt='Game thumbnail'></img>
+        <div>Reviews</div>
+        <table>
+          {library_games.map((game) => {
+            return (
+              <tr key={ game.library_game_id } className="library-tr">
+                <Link to={ `/review/${game.library_game_id}`}  className='library-link'>
+                  <td className="library-td">
+                    <img src={ game.game_header_image } alt='Game thumbnail' className="library-thumbnail"></img>
+                    <span className="review-title">{ game.game_name }</span>
+                  </td>
                 </Link>
-              </div>
-            </div>
-          );
-        })}
+              </tr>
+            );
+          })}
+        </table>
       </div>
     </div>
   );

@@ -1,0 +1,9 @@
+.save-button {
+  padding:10px 30px;
+}
+
+.edit-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}

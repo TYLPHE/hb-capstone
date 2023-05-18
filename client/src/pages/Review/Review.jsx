@@ -28,11 +28,13 @@ export default function Review() {
       <Header />
       <div className="main-view">
         <div className="review-header">
-          <Link to={`/games/${ game_id }/${ game }`} >
+          <Link 
+            to={`/games/${ game_id }/${ game }`}
+            className="review-image-link"
+          >
             <img 
               src={header_image} 
-              alt="header of game" 
-              className="review-image" 
+              alt="header of game"
             />
           </Link>
           <div className="review-data">
@@ -47,12 +49,19 @@ export default function Review() {
                 to={`/review/delete/${review_id}`} 
                 state={{ game, game_id, header_image, review_id }}
               >
-                <button className="review-button">Delete review and remove from library</button>
+                <button className="review-button
+                ">Delete review and remove from library</button>
               </Link>
             </div>
           </div>
         </div>
-          <MDEditor.Markdown source={review} />
+          <MDEditor.Markdown 
+            source={review}
+            style={{ 
+              padding: '2rem',
+              borderRadius: '4px'
+            }} 
+          />
       </div>
     </div>
   );

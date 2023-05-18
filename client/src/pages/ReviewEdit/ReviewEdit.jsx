@@ -1,9 +1,10 @@
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Flash from '../../common/Flash/Flash';
 import Header from '../../common/Header/Header';
+import './ReviewEdit.css';
 
 export default function ReviewEdit() {
   const { id, review } = useLoaderData();
@@ -39,23 +40,31 @@ export default function ReviewEdit() {
   
   function UpdateButton() {
     if (disableUpdateBtn) {
-      return <button disabled>Update Review</button>
+      return <button className='save-button' disabled>Save & Update Review</button>
     } else {
-      return <button onClick={handleUpdate}>Update Review</button>
+      return <button className='save-button' onClick={handleUpdate}>Save & Update Review</button>
     }
   }
 
   return (
-    <div>
+    <div className='edit-review-container'>
       {msg && <Flash msg={ msg } />}
       <Header />
-      <h1>Edit Review</h1>
-      <MDEditor 
-        value={value} 
-        onChange={ (e) => handleValue(e) } 
-        previewOptions={{ rehypePlugins: [[rehypeSanitize]] }} 
-      />
-      <UpdateButton />   
+      <div className="main-view">
+        <h1>Edit Review</h1>
+        <div className='edit-button-container'>
+          <Link to={`/review/${id}`}>
+            <button className='save-button'>Return</button>
+          </Link>
+          <UpdateButton />   
+        </div>
+        <MDEditor 
+          value={value} 
+          onChange={ (e) => handleValue(e) } 
+          previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
+          height={800}
+        />
+      </div>
     </div>
   );
 }

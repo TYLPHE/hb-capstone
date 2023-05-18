@@ -1,0 +1,14 @@
+.random-games-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.game-img{
+  max-height: 145px; 
+  padding: 0rem;
+}
+
+.game-img:hover {
+  opacity: 60%;
+}

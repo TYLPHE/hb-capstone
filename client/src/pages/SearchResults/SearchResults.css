@@ -1,0 +1,18 @@
+.search-results-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results-link {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  padding: 5px 15px;
+}
+
+.search-results-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  font-weight: bold;
+}
+
+

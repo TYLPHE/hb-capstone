@@ -1,0 +1,29 @@
+.library-thumbnail {
+  max-height: 7rem;
+}
+
+.library-link {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+}
+
+.library-tr {
+  display: flex;
+  padding: 4px;
+}
+
+.library-tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.library-td {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.review-title {
+  font-size: 2rem;
+  font-weight: bold;
+}

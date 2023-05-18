@@ -127,11 +127,9 @@ class Library_game(db.Model):
     @classmethod
     def search_by_game_id(cls, library_id, game_id):
         """ Checks to see if game is in library_games. Returns boolean """
-
-        exists = cls.query.filter(cls.library_id==library_id,
+        
+        return cls.query.filter(cls.library_id==library_id,
                                   cls.game_id==game_id).first()
-
-        return exists
 
 
 class Review(db.Model):

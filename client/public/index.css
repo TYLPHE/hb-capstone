@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  /* border: 1px solid cyan; */
 }
 
 html { height: 100vh; }
@@ -20,6 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 #root > div {
@@ -27,6 +29,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main-view {
+  display: flex;
+  flex-direction: column;
+  width: 940px;
 }
 
 .flash {
@@ -39,7 +47,7 @@ body {
 }
 
 h1 {
-  margin: 2rem 1rem;
+  margin: 2rem 0;
 }
 
 .form-input-label {
@@ -52,8 +60,4 @@ input[type='text'], input[type='password'] {
   height: 2.5rem;
 }
 
-.main-view {
-  display: flex;
-  flex-direction: column;
-  width: 940px;
-}
+
