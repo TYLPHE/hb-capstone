@@ -112,12 +112,12 @@ I learned that setting React Router's hook called `useNavigate()` can help redir
 const navigate = useNavigate();
 
 // Code to create user account and redirect to log in page
-navigate('/login', { state: response.msg })
+navigate('/signin', { state: response.msg })
 ```
 
 [This link taught me that](https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically) if I want to send a flash message to the log in page to remind the user of their account name, then I can set a state and call it with another React Router hook called, `useLocation()`.
 ```javascript
-// On Login.jsx
+// On Signin.jsx
 const { state } = useLocation();
   useEffect(() => {
     if {
@@ -205,7 +205,7 @@ I learned how to use React Router to route to different components. I've also le
 
 I also learned how to use React Router's `useNavigate()` hook to redirect users to different pages after log in and registration.
 
-React Router's redirect is really cool becasue w can use the `useLocation()` hook to send data to a different component. In my case, once the user creates an account, they are redirected to the login page with a reminder of their account name to log in. 
+React Router's redirect is really cool becasue w can use the `useLocation()` hook to send data to a different component. In my case, once the user creates an account, they are redirected to the sign-in page with a reminder of their account name to log in. 
 
 ### 5/15
 I did a lot today. First, I created a user library where users can see their own games. Then I created a game details page where users can see details about any game. From the game details, I added functionality where users can add the game to their library.
@@ -223,3 +223,8 @@ It has been about 1 week since I started and 3 days since I learned and implemen
 
 ### 5/17
 I am creating a header and placing them into each relevant page. I also created a log out button.
+
+Learning about proper responses from the server API.
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status HTTP response status codes
+https://flask.palletsprojects.com/en/2.3.x/quickstart/?highlight=about%20responses#about-responses Flask's tips about making responses
+https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response Flask intentional empty response

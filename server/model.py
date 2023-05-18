@@ -120,7 +120,8 @@ class Library_game(db.Model):
     def search_by_id(cls, id):
         """ Return a list of the user's added games """
 
-        return cls.query.filter(cls.library_id==id).all()
+        return cls.query.join(Game).filter(cls.library_id==id)\
+                  .order_by(Game.name).all()
 
 
     @classmethod

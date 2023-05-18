@@ -49,20 +49,20 @@ export default function Register() {
     if (username.length < 3 || password.length < 3) {
       setMsg('Account name and password needs to be at least 3 characters')
     } else {
-      const request = await fetch('/user-register', {
+      const request = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, fname, lname, })
       });
-
-      const response = await request.json();
-      
-      if (response.status === 'Error') {
-        return setMsg(response.msg);
+      if (request.ok) {
+        const response = await request.text();
+        return navigate('/signin', { state: response })
       }
-      else if (response.status === 'Success') {
-        return navigate('/login', { state: response.msg })
+      else if (request.status === 400) {
+        const response = await request.text();
+        return setMsg(response);
       }
+      return console.error('Register submit error.')
     }
   }
   
@@ -87,7 +87,9 @@ export default function Register() {
           <label htmlFor="lname">Last name</label>
           <input type="text" id="lname" onChange={(e) => handleLname(e.target.value)} />
         </div>
-        <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
+        <div className="sign-in-button-container">
+          <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
+        </div>
       </form>
     </div>
   )

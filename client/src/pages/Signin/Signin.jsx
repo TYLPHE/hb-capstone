@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
 import Flash from "../../common/Flash/Flash";
-import './Login.css';
+import './Signin.css';
 
-export default function Login() {
+export default function Signin() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [username, setUsername] = useState(null);
@@ -32,21 +32,26 @@ export default function Login() {
   
   async function handleSubmit(e) {
     e.preventDefault();
-    const request = await fetch('/user-login', {
+
+    const request = await fetch('/api/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     });
-    const response = await request.json();
-
-    if (response.status === 'Error') {
-      return setMsg(response.msg);
+    if (request.ok) {
+      return navigate('/dashboard');
     }
-    return navigate('/');
+    else if (request.status === 401) {
+      const response = await request.text();
+      return setMsg(response);
+    }
+    else {
+      return console.error('fetch("/api/signin") error');
+    }
   }
 
   return (
-    <div>
+    <div className="sign-in-container">
       {msg && <Flash msg={ msg } />}
       <h1>Sign in</h1>
       <form className="sign-in-form">
@@ -58,8 +63,10 @@ export default function Login() {
           <label htmlFor="password">Password</label>
           <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
         </div>
-        <button className="sign-register" onClick={(e) => handleSubmit(e)}>Sign In</button>
-        <button className="sign-register" onClick={() => navigate('/register')}>Register</button>
+        <div className="sign-in-button-container">
+          <button className="sign-register" onClick={(e) => handleSubmit(e)}>Sign In</button>
+          <button className="sign-register" onClick={() => navigate('/register')}>Register</button>
+        </div>
       </form>
     </div>
   )

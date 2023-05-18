@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom';
 import Welcome from './pages/Welcome/Welcome';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Login from './pages/Login/Login';
+import Signin from './pages/Signin/Signin';
 import Register from './pages/Register/Register';
 import ErrorBoundary from './pages/ErrorBoundary/ErrorBoundary';
 import Games from './pages/Games/Games';
@@ -18,17 +18,19 @@ const router = createBrowserRouter([
   {
     path:'/',
     element: <Welcome />,
-    loader: async () => {
-      const req = await fetch('/login-status');
-      const res = await req.json();
-      if (res.user_id) return redirect('/dashboard');
-      return null;
-    },
     errorElement: <ErrorBoundary />,
   },
   {
-    path:'/login',
-    element: <Login />
+    path:'/signin',
+    loader: async () => {
+      const request = await fetch('/api/session-status');
+      if (request.ok) {
+        return redirect('/dashboard');
+      }
+
+      return null;
+    },
+    element: <Signin />
   },
   {
     path:'/register',
@@ -38,12 +40,15 @@ const router = createBrowserRouter([
     path:'/dashboard',
     element: <Dashboard />,
     loader: async () => {
-      const request = await fetch('/login-status');
-      const response = await request.json();
-      if (!response.user_id) {
+      const request = await fetch('/api/session-status');
+      if (request.ok) {
+        const response = await request.json();
+        return response;
+      }
+      else if (request.status === 401) {
         return redirect('/');
       }
-      return response;
+      return console.error('Loader error: path:"/dashboard"')
     },
     errorElement: <ErrorBoundary />,
   },
@@ -71,14 +76,15 @@ const router = createBrowserRouter([
     path:'/library',
     element: <Library />,
     loader: async () => {
-      const request = await fetch('/library-data');
-      const response = await request.json();
-
-      if (response.status === 'Error') {
+      const request = await fetch('/api/library');
+      if (request.ok) {
+        const response = await request.json();
+        return response;
+      } 
+      else if (request.status === 401) {
         return redirect ('/');
-      }
-      
-      return response;
+      } 
+      return console.error('Loader error: path: "/Library"');
     }
   },
   {

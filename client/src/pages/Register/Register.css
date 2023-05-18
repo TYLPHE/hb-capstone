@@ -1,8 +1,4 @@
-/* Shares class names with Login.css */
+/* Shares class names with Signin.css */
 .create-account {
   padding:10px 30px;
-}
-
-.sign-in-form {
-  margin-left: 1rem;
 }

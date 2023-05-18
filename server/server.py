@@ -1,4 +1,4 @@
-from flask import Flask, request, session
+from flask import Flask, request, session, Response
 from model import *
 from jinja2 import StrictUndefined
 from flask_session import Session
@@ -19,45 +19,42 @@ Session(app)
 CORS(app)
 
 # Routes for React
-@app.route('/login-status')
-def login_status():
+@app.route('/api/session-status')
+def session_status():
     """ Checks if user session is defined """
 
     user_id = session.get('user_id')
     username = session.get('username')
 
     if not user_id:
-        return { 'user_id': None }
+        return Response(status=401)
     else: 
         return { 'user_id': user_id, 'username': username.capitalize() }
 
 
-@app.route('/user-login', methods=['POST'])
-def user_login():
+@app.route('/api/signin', methods=['POST'])
+def user_signin():
     """ Check if user exists. Set session if logged in """
 
     username = request.json.get('username')
     password = request.json.get('password')
-    login_ok = User.validate(username, password)
+    signin_ok = User.validate(username, password)
 
-    if (login_ok):
-        library = Library.search_by_id(login_ok.library.id)
+    if (signin_ok):
+        library = Library.search_by_id(signin_ok.library.id)
 
-        session['username'] = login_ok.username
-        session['user_id'] = login_ok.id
-        session['fname'] = login_ok.fname
-        session['lname'] = login_ok.lname
+        session['username'] = signin_ok.username
+        session['user_id'] = signin_ok.id
+        session['fname'] = signin_ok.fname
+        session['lname'] = signin_ok.lname
         session['library_id'] = library.id
         
-        return { 'status': 'Success' }
+        return Response(status=200)
     
-    return {
-        'status': 'Error',
-        'msg': 'Wrong account name or password.'
-        }
+    return 'Wrong account name or password.', 401
 
 
-@app.route('/user-register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def user_register():
     """ Checks for user in db, then saves account to db """
 
@@ -65,13 +62,10 @@ def user_register():
     password = request.json.get('password')
     fname = request.json.get('fname')
     lname = request.json.get('lname')
-
     user_exists = User.exists(username)
+
     if (user_exists): 
-        return {
-            'status': 'Error',
-            'msg': 'Please enter a different account name.'
-        }
+        return 'Please enter a different account name.', 400
     else:
         # Create user and create user's library
         user = User.create(username, password, fname, lname)
@@ -79,22 +73,16 @@ def user_register():
         db.session.add_all([user, library])
         db.session.commit()
 
-        return {
-            'status': 'Success',
-            'msg': f'"{ username }" created. Please sign in.',
-        }
+        return f'"{ username }" created. Please sign in.', 201
 
 
-@app.route('/library-data')
+@app.route('/api/library')
 def library_data():
     """ Display user's library and their added games """
 
     library_id = session.get('library_id')
 
-    response = {
-        'status': 'Success',
-        'library_games': [],
-        }
+    response = { 'library_games': [] }
 
     library = Library.search_by_id(library_id)
 
@@ -115,10 +103,10 @@ def library_data():
             
             response['library_games'].append(game_dict)
 
-        return response
+        return response, 200
     
     else:
-      return { 'status': 'Error' }
+      return Response(status=401)
 
 
 @app.route('/games/<game_id>/<game_name>')
