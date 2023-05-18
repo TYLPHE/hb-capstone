@@ -51,10 +51,10 @@ export default function Signin() {
   }
 
   return (
-    <div className="sign-in-container">
+    <div className="signin-container">
       {msg && <Flash msg={ msg } />}
       <h1>Sign in</h1>
-      <form className="sign-in-form">
+      <form className="signin-form">
         <div className="form-input-label">
           <label htmlFor="username">Sign in with account name</label>
           <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
@@ -63,7 +63,7 @@ export default function Signin() {
           <label htmlFor="password">Password</label>
           <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
         </div>
-        <div className="sign-in-button-container">
+        <div className="signin-button-container">
           <button className="sign-register" onClick={(e) => handleSubmit(e)}>Sign In</button>
           <button className="sign-register" onClick={() => navigate('/register')}>Register</button>
         </div>

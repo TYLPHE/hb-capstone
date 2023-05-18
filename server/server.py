@@ -103,20 +103,21 @@ def library_data():
             
             response['library_games'].append(game_dict)
 
-        return response, 200
+        return response
     
     else:
       return Response(status=401)
 
 
-@app.route('/games/<game_id>/<game_name>')
-def game_details(game_id, game_name):
+@app.route('/api/games/<id>')
+def game_details(id):
     """ Render game details """
 
-    game = Game.search_by_id(game_id)
+    game_id = request.args.get('id')
+    game = Game.search_by_id(id)
 
     if not game:
-        return { 'status': 'Error' }
+        return Response(status=400)
 
     else:
         # Check if game already exists. If so, disable add to library button
@@ -124,34 +125,35 @@ def game_details(game_id, game_name):
         library_game = Library_game.search_by_game_id(library_id, game_id)
        
         return {
-            'status': 'Success',
             'name': game.name,
             'short_description': game.short_description,
             'header_image': game.header_image,
             'background': game.background,
             'release_date': game.release_date,
             'in_library': bool(library_game),
-        }   
+        }
 
 
-@app.route('/add-game', methods=['POST'])
+@app.route('/api/add-game', methods=['POST'])
 def add_game():
     """ Add game to user's library """
 
-    library = Library.search_by_id(session.get('library_id'))
-    game = Game.search_by_id(request.json.get('id'))
+    library_id = session.get('library_id')
+    library = Library.search_by_id(library_id)
+    game_id = request.json.get('id')
+    game = Game.search_by_id(game_id)
     library_game = Library_game.create(library, game)
     review = Review.create(library_game, f'# {game.name} Review')
     
     if (library_game):
         db.session.add_all([library_game, review])
         db.session.commit()
-        return { 'status': 'Success' }
+        return 'Added to library', 201
     else:
-        return { 'status': 'Error', 'msg': 'Game already exists' }
+        return 'Game already exists', 400
 
 
-@app.route('/review-data/<lgame_id>')
+@app.route('/api/review/<lgame_id>')
 def review(lgame_id):
     """ Display review of game """
 
@@ -168,7 +170,7 @@ def review(lgame_id):
     }
 
 
-@app.route('/random-games')
+@app.route('/api/random-games')
 def random_games():
     """ Find top 10 games and render page """
 
@@ -185,7 +187,7 @@ def random_games():
     return response
 
 
-@app.route('/game-search')
+@app.route('/api/games/search')
 def search():
     """ search for game and render details """
 
@@ -204,7 +206,7 @@ def search():
             })
 
         return response
-    
+ 
     elif (len(result) == 1):
         return {
             'status': 'Success', 
@@ -217,7 +219,7 @@ def search():
         }
 
 
-@app.route('/update-review', methods=['POST'])
+@app.route('/api/review/update', methods=['POST'])
 def update_review():
     """ Find review by id and update database """
 
@@ -228,22 +230,15 @@ def update_review():
     if (r): 
         r.review = review
         db.session.commit()
-        return {
-            'status': 'Success',
-            'msg': 'Update saved.',
-        }
+        return 'Update saved.', 201
     else:
-        return {
-            'status': 'Error',
-            'msg': 'Error saving review.'
-        }
+        return 'Error saving review.', 400
 
 
-@app.route('/review-edit')
-def review_edit():
+@app.route('/api/review/edit/<id>')
+def review_edit(id):
     """ Return review data for edit page """
     
-    id = request.args.get('id')
     r = Review.search_by_id(id)
     
     return {
@@ -253,7 +248,8 @@ def review_edit():
         'score': r.score
     }
 
-@app.route('/delete-review', methods=['POST'])
+
+@app.route('/app/review/delete', methods=['POST'])
 def delete_review():
     """ Delete review, client should reroute to library """
 
@@ -265,10 +261,10 @@ def delete_review():
     db.session.delete(lg)
     db.session.commit()
 
-    return { 'status': 'Success' }
+    return Response(status=204)
 
 
-@app.route('/log-out')
+@app.route('/api/logout')
 def log_out():
     """ Log user out """
 
@@ -279,7 +275,7 @@ def log_out():
     return { 'status': 'Success' }
 
 
-@app.route('/user-initials')
+@app.route('/api/user/initials')
 def user_initials():
     """ Return user initials for header """
 
@@ -293,7 +289,7 @@ def user_initials():
     if (lname):
         initials += lname[0]
 
-    return { 'initials': initials.upper() }
+    return initials.upper()
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -14,14 +14,19 @@ export default function ReviewEdit() {
   async function handleUpdate() {
     setDisableUpdateBtn(true);
 
-    const request = await fetch('/update-review', {
+    const request = await fetch('/api/review/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, 'review': value }),
     });
-    const response = await request.json();
-
-    return setMsg(response.msg);
+    if (request.ok) {
+      const response = await request.text();
+      return setMsg(response);
+    } else {
+      const response = await request.text();
+      console.error('ReviewEdit.jsx handleUpdate error.')
+      return setMsg(response)
+    }
   }
   
   function handleValue(e) {

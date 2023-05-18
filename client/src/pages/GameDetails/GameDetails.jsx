@@ -20,15 +20,18 @@ export default function GameDetails() {
     setInLibrary(true);
     setAddBtnTxt('Adding...');
 
-    const request = await fetch('/add-game', {
+    const request = await fetch('/api/add-game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     });
-
-    const response = await request.json();
-    if (response.status === 'Success') {
-      return setAddBtnTxt('Added to library');
+    if (request.ok) {
+      const response = await request.text();
+      return setAddBtnTxt(response);
+    } 
+    else {
+      const response = await request.text();
+      return console.error(response)
     }
   }
 

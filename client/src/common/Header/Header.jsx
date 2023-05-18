@@ -10,23 +10,24 @@ export default function Header() {
 
   useEffect(() => {
     (async () => {
-      const request = await fetch('/user-initials');
-      const response = await request.json();
-      if (response.initials) {
-        setUserInitials(response.initials)
+      const request = await fetch('/api/user/initials');
+      if (request.ok) {
+        const response = await request.text();
+        setUserInitials(response)
+
       }
     })();
   }, [])
   
   async function handleLogOut() {
-    await fetch('/log-out')
+    await fetch('/api/logout')
     return navigate('/');
   }
 
   function LogOut() {
     return (
       <button 
-        className="log-out-button"
+        className="logout-button"
         onClick={handleLogOut}
       >
         Log Out

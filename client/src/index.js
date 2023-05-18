@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     path:'/games',
     element: <Games />,
     loader: async () => {
-      const request = await fetch('/random-games')
+      const request = await fetch('/api/random-games')
       const response = await request.json()
       return response
     }
@@ -66,10 +66,14 @@ const router = createBrowserRouter([
     element: <GameDetails />,
     loader: async ({ params }) => {
       const game_id = params.id;
-      const game_name = params.game_name;
-      const request = await fetch(`/games/${game_id}/${game_name}`) ;
-      const response = await request.json();
-      return response;
+      const request = await fetch(`/api/games/${game_id}`) ;
+      if (request.ok) {
+        const response = await request.json();
+        return response;
+      } else {
+        console.error('Loader error: path: "/games/:id/:game_name"');
+        return null
+      }
     }
   },
   {
@@ -91,7 +95,7 @@ const router = createBrowserRouter([
     path:'/review/:id',
     element: <Review />,
     loader: async ({ params }) => {
-      const request = await fetch(`/review-data/${ params.id }`);
+      const request = await fetch(`/api/review/${ params.id }`);
       const response = await request.json();
       return response;
     }
@@ -104,7 +108,7 @@ const router = createBrowserRouter([
     path: '/review/edit/:id',
     element: <ReviewEdit />,
     loader: async ({ params }) => {
-      const request = await fetch(`/review-edit?id=${ params.id }`)
+      const request = await fetch(`/api/review/edit/${ params.id }`)
       const response = await request.json();
       return response;
     }

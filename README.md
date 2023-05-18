@@ -228,3 +228,8 @@ Learning about proper responses from the server API.
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status HTTP response status codes
 https://flask.palletsprojects.com/en/2.3.x/quickstart/?highlight=about%20responses#about-responses Flask's tips about making responses
 https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response Flask intentional empty response
+
+Library is now sorted.
+
+FLASK QUESTION: What is the difference between a URL converter and request.args?
+ - Answer: https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api

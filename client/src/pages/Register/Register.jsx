@@ -70,7 +70,7 @@ export default function Register() {
     <div>
       {msg && <Flash msg={ msg }/>}
       <h1>Create your account</h1>
-      <form className="sign-in-form">
+      <form className="signin-form">
         <div className="form-input-label">
           <label htmlFor="username">Account name</label>
           <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
@@ -87,7 +87,7 @@ export default function Register() {
           <label htmlFor="lname">Last name</label>
           <input type="text" id="lname" onChange={(e) => handleLname(e.target.value)} />
         </div>
-        <div className="sign-in-button-container">
+        <div className="signin-button-container">
           <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
         </div>
       </form>

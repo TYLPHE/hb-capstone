@@ -11,7 +11,7 @@ export default function ReviewDelete() {
   async function handleDelete() {
     setDisableBtn(true);
     
-    await fetch('/delete-review', {
+    await fetch('/app/review/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ review_id }),

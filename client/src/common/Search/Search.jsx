@@ -5,7 +5,6 @@ import './Search.css';
 export default function Search({ msg, setMsg }) {
   const navigate = useNavigate();
   const [search, setSearch] = useState(null);
-  // const [msg, setMsg] = useState(null);
 
   function handleSearch(value) {
     if (msg) {
@@ -19,7 +18,7 @@ export default function Search({ msg, setMsg }) {
     if (search === null || search.length < 2 ) {
       return setMsg('Search needs to be at least 2 characters.')
     } else {
-      const request = await fetch(`/game-search?search=${search}`);
+      const request = await fetch(`/api/games/search?search=${search}`);
       const response = await request.json();
   
       if (Array.isArray(response)) {
