@@ -27,9 +27,9 @@ def session_status():
     username = session.get('username')
 
     if not user_id:
-        return Response(status=401)
+        return '', 401
     else: 
-        return { 'user_id': user_id, 'username': username.capitalize() }
+        return { 'user_id': user_id, 'username': username.capitalize() }, 200
 
 
 @app.route('/api/signin', methods=['POST'])
@@ -49,7 +49,7 @@ def user_signin():
         session['lname'] = signin_ok.lname
         session['library_id'] = library.id
         
-        return Response(status=200)
+        return '', 200
     
     return 'Wrong account name or password.', 401
 
@@ -103,10 +103,10 @@ def library_data():
             
             response['library_games'].append(game_dict)
 
-        return response
+        return response, 200
     
     else:
-      return Response(status=401)
+      return '', 401
 
 
 @app.route('/api/games/<id>')
@@ -117,7 +117,7 @@ def game_details(id):
     game = Game.search_by_id(id)
 
     if not game:
-        return Response(status=400)
+        return '', 400
 
     else:
         # Check if game already exists. If so, disable add to library button
@@ -131,7 +131,7 @@ def game_details(id):
             'background': game.background,
             'release_date': game.release_date,
             'in_library': bool(library_game),
-        }
+        }, 200
 
 
 @app.route('/api/add-game', methods=['POST'])
@@ -167,7 +167,7 @@ def review(lgame_id):
         'header_image': review.library_game.game.header_image,
         'score': review.score,
         'votes_up': review.votes_up,
-    }
+    }, 200
 
 
 @app.route('/api/random-games')
@@ -184,7 +184,7 @@ def random_games():
             'header_image': game.header_image,
         })
 
-    return response
+    return response, 200
 
 
 @app.route('/api/games/search')
@@ -205,18 +205,18 @@ def search():
                 'short_description': game.short_description
             })
 
-        return response
+        return response, 200
  
     elif (len(result) == 1):
         return {
             'status': 'Success', 
             'url': f'/games/details/{ result[0].id }/{ result[0].name }' 
-        }
+        }, 200
     else: 
         return {
             'status': 'Error',
             'msg': 'Game not found.'
-        }
+        }, 200
 
 
 @app.route('/api/review/update', methods=['POST'])
@@ -246,7 +246,7 @@ def review_edit(id):
         'review': r.review,
         'name': r.library_game.game.name,
         'score': r.score
-    }
+    }, 200
 
 
 @app.route('/app/review/delete', methods=['POST'])
@@ -261,7 +261,7 @@ def delete_review():
     db.session.delete(lg)
     db.session.commit()
 
-    return Response(status=204)
+    return '', 204
 
 
 @app.route('/api/logout')
@@ -272,7 +272,7 @@ def log_out():
     session.pop('username')
     session.pop('library_id')
 
-    return { 'status': 'Success' }
+    return '', 200
 
 
 @app.route('/api/user/initials')
@@ -289,7 +289,8 @@ def user_initials():
     if (lname):
         initials += lname[0]
 
-    return initials.upper()
+    return initials.upper(), 200
+
 
 if __name__ == '__main__':
     connect_to_db(app)
