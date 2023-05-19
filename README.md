@@ -238,3 +238,5 @@ FLASK QUESTION: What is the difference between a URL converter and request.args?
  dashboard - image carousel that shows some games in library.
 
  TODO: fix bug when searching for 1 game only
+
+ ### 5/19

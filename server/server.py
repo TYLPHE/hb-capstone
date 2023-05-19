@@ -209,7 +209,7 @@ def search():
     elif (len(result) == 1):
         return {
             'status': 'Success', 
-            'url': f'/games/details/{ result[0].id }/{ result[0].name }' 
+            'url': f'/games/{ result[0].id }/{ result[0].name }' 
         }, 200
     else: 
         return {
