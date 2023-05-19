@@ -1,22 +1,6 @@
-from flask import Flask, request, session, Response
-from model import *
-from jinja2 import StrictUndefined
-from flask_session import Session
-from flask_cors import CORS
-import os
-
-app = Flask(__name__)
-app.secret_key = os.environ['APP_KEY']
-app.jinja_env.undefined = StrictUndefined
-app.app_context().push()
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config.update(
-    SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax',
-)
-Session(app)
-CORS(app)
+from flask import request, session 
+from core.model import *
+from core import app, db
 
 # Routes for React
 @app.route('/api/session-status')
@@ -291,6 +275,7 @@ def user_initials():
     return initials.upper(), 200
 
 
-if __name__ == '__main__':
-    connect_to_db(app)
-    app.run(host='0.0.0.0', debug=True)
+# Would need to change imports to make this work. 
+# Use flask run in terminal instead
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', debug=True)

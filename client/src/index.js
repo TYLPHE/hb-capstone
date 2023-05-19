@@ -16,6 +16,16 @@ import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
 
 const router = createBrowserRouter([
   {
+    path:'/usertest',
+    element: <Welcome />,
+    loader: async () => {
+      const req = await fetch('/ut/');
+      const res = await req.text();
+      console.log(res);
+      return null
+    }
+  },
+  {
     path:'/',
     element: <Welcome />,
     errorElement: <ErrorBoundary />,

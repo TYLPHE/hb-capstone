@@ -1,12 +1,14 @@
 """ Script to seed database """
 
-import os, random, datetime, server, json
-from model import *
+import os, json
+from core import db
+from core.model import *
+from core.user.models import User
 
 # Commands to create a new 'tylphe-capstone' db
 os.system('dropdb tylphe_capstone')
 os.system('createdb tylphe_capstone')
-connect_to_db(server.app)
+# connect_to_db(app)
 db.create_all()
 
 # Seed db

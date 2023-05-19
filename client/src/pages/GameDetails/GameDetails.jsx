@@ -13,7 +13,7 @@ export default function GameDetails() {
     release_date,
     short_description,
   } = useLoaderData();
-  console.log(useLoaderData());
+  
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
 

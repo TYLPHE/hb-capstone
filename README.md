@@ -222,21 +222,25 @@ After creating the editing feature, I moved to deleting the review and game from
 It has been about 1 week since I started and 3 days since I learned and implemented react. I'm pretty proud to say the basic MVP functionality is here. Planning to add a header and log out button next.
 
 ### 5/17
-I am creating a header and placing them into each relevant page. I also created a log out button.
+I created a header with basic navigation, game search, and Log out.
 
-Learning about proper responses from the server API.
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Status HTTP response status codes
-https://flask.palletsprojects.com/en/2.3.x/quickstart/?highlight=about%20responses#about-responses Flask's tips about making responses
-https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response Flask intentional empty response
+In the morning lecutre, I noticed in the lecture's demo code how the API is called from its server.py file. I ended up refactoring my server routes to include proper route url names, responses, and response codes.
 
-Library is now sorted.
+I learned from [Flask's tips about making responses](https://flask.palletsprojects.com/en/2.3.x/quickstart/?highlight=about%20responses#about-responses) that There are multiple ways to return responses and their codes. I paired that with [MDN's list of response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) to properly label my API's responses. Some of my website does not need a response body so [I learned to create an empty body](https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response) by `return Response(code=200)`. Eventually, though, I decided to send an empty string since it felt easier to read. I instead `return '', 200` as my empty response.
 
-FLASK QUESTION: What is the difference between a URL converter and request.args?
- - Answer: https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api
+Extra tasks completed:
+ - Library is now sorted.
+ - FLASK QUESTION: What is the difference between a URL converter and request.args?
+    - [Answer](https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api)
 
  ### 5/18
- dashboard - image carousel that shows some games in library.
+ I spent pretty much all day styling my website so it looks cool.
 
- TODO: fix bug when searching for 1 game only
+ Thinking about what to do next for today. MVP is complete so I'm thinking about adding extra features.
+ 
+ Thoughts:
+  - Tomorrow's TODO: Fix bug when searching for 1 game only
+  - Dashboard - image carousel that shows some games in library.
 
  ### 5/19
+ I decided learn more about the back-end. I'm hoping to refactor my server's code for better understanding and scalability. I think just about all of the cohort, including me, are using the Movie Ratings app as a template to build their models and views. If I can understand Flask a little better, maybe I can refactor that template code into something more readable.

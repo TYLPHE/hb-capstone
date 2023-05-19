@@ -1,49 +1,48 @@
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from core import db
 from random import choice
+from datetime import datetime
 import json
+# from .user.models import User
 
-db = SQLAlchemy()
+# class User(db.Model):
+#     """ A table of users """
 
-class User(db.Model):
-    """ A table of users """
+#     __tablename__ = 'users'
 
-    __tablename__ = 'users'
+#     # Table Columns
+#     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     username = db.Column(db.String, unique=True, nullable=False)
+#     password = db.Column(db.String, nullable=False)
+#     fname = db.Column(db.String(30))
+#     lname = db.Column(db.String(30))
+#     created = db.Column(db.DateTime)
 
-    # Table Columns
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    fname = db.Column(db.String(30))
-    lname = db.Column(db.String(30))
-    created = db.Column(db.DateTime)
+#     # Relationships
+#     library = db.relationship('Library', back_populates='user', uselist=False)
 
-    # Relationships
-    library = db.relationship('Library', back_populates='user', uselist=False)
-
-    def __repr__(self):
-        return f'<User username={self.username} id={self.id}>'
+#     def __repr__(self):
+#         return f'<User username={self.username} id={self.id}>'
     
-    @classmethod
-    def create(cls, username, password, fname, lname, created=datetime.now()):
-        """ Create a user. """
+#     @classmethod
+#     def create(cls, username, password, fname, lname, created=datetime.now()):
+#         """ Create a user. """
 
-        return cls(username=username, password=password, fname=fname, 
-                   lname=lname, created=created)
+#         return cls(username=username, password=password, fname=fname, 
+#                    lname=lname, created=created)
 
 
-    @classmethod
-    def validate(cls, username, password):
-        """ Checks database if email and password match """
+#     @classmethod
+#     def validate(cls, username, password):
+#         """ Checks database if email and password match """
 
-        return cls.query.filter(cls.username==username, 
-                                cls.password==password).first()
+#         return cls.query.filter(cls.username==username, 
+#                                 cls.password==password).first()
 
-    @classmethod
-    def exists(cls, username):
-        """ Checks if user exists for registration """
+#     @classmethod
+#     def exists(cls, username):
+#         """ Checks if user exists for registration """
 
-        return cls.query.filter(cls.username==username).first()
+#         return cls.query.filter(cls.username==username).first()
 
 
 class Library(db.Model):
@@ -403,20 +402,3 @@ class Genre(db.Model):
         """ Create class. Does not add and commit to db """
 
         return cls(name=name)
-
-    
-def connect_to_db(flask_app, db_uri='postgresql:///tylphe_capstone', echo=True):
-    """ Initialize db.app """
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-    flask_app.config['SQLALCHEMY_ECHO'] = echo
-    flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.app = flask_app
-    db.init_app(flask_app)
-
-    print(f'Connected to {db_uri}')
-
-
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
