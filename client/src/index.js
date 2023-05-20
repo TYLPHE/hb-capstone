@@ -16,16 +16,6 @@ import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
 
 const router = createBrowserRouter([
   {
-    path:'/usertest',
-    element: <Welcome />,
-    loader: async () => {
-      const req = await fetch('/ut/');
-      const res = await req.text();
-      console.log(res);
-      return null
-    }
-  },
-  {
     path:'/',
     element: <Welcome />,
     errorElement: <ErrorBoundary />,
@@ -33,7 +23,7 @@ const router = createBrowserRouter([
   {
     path:'/signin',
     loader: async () => {
-      const request = await fetch('/api/session-status');
+      const request = await fetch('/api/user/session-status');
       if (request.ok) {
         return redirect('/dashboard');
       }
@@ -50,7 +40,7 @@ const router = createBrowserRouter([
     path:'/dashboard',
     element: <Dashboard />,
     loader: async () => {
-      const request = await fetch('/api/session-status');
+      const request = await fetch('/api/user/session-status');
       if (request.ok) {
         const response = await request.json();
         return response;
@@ -90,7 +80,7 @@ const router = createBrowserRouter([
     path:'/library',
     element: <Library />,
     loader: async () => {
-      const request = await fetch('/api/library');
+      const request = await fetch('/api/library/data');
       if (request.ok) {
         const response = await request.json();
         return response;

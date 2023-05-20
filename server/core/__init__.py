@@ -11,8 +11,8 @@ db = SQLAlchemy(app)
 Session(app)
 
 
-from .user.views import blueprint
-app.register_blueprint(blueprint)
+from .api import api_blueprint
+app.register_blueprint(api_blueprint)
 
 from core import model, server
 print(f'Connected to server!')

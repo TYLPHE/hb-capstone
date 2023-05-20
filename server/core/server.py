@@ -1,19 +1,23 @@
 from flask import request, session 
 from core.model import *
 from core import app, db
-
+from core.api.user.models import User
+from core.api.library.models import Library
+from core.api.library_game.models import Library_game
+from core.api.review.models import Review
+from core.api.game.models import Game
 # Routes for React
-@app.route('/api/session-status')
-def session_status():
-    """ Checks if user session is defined """
+# @app.route('/api/user/session-status')
+# def session_status():
+#     """ Checks if user session is defined """
 
-    user_id = session.get('user_id')
-    username = session.get('username')
+#     user_id = session.get('user_id')
+#     username = session.get('username')
 
-    if not user_id:
-        return '', 401
-    else: 
-        return { 'user_id': user_id, 'username': username.capitalize() }, 200
+#     if not user_id:
+#         return '', 401
+#     else: 
+#         return { 'user_id': user_id, 'username': username.capitalize() }, 200
 
 
 @app.route('/api/signin', methods=['POST'])
@@ -60,37 +64,37 @@ def user_register():
         return f'"{ username }" created. Please sign in.', 201
 
 
-@app.route('/api/library')
-def library_data():
-    """ Display user's library and their added games """
+# @app.route('/api/library/data')
+# def library_data():
+#     """ Display user's library and their added games """
 
-    library_id = session.get('library_id')
+#     library_id = session.get('library_id')
 
-    response = { 'library_games': [] }
+#     response = { 'library_games': [] }
 
-    library = Library.search_by_id(library_id)
+#     library = Library.search_by_id(library_id)
 
-    if (library != None):
-        response['library_name'] = library.name.capitalize()
-        library_games = Library_game.search_by_id(library.id)
+#     if (library != None):
+#         response['library_name'] = library.name.capitalize()
+#         library_games = Library_game.search_by_id(library.id)
         
-        for game in library_games:
-            # Query for game details to add to library
-            game_data = Game.search_by_id(game.game_id)
+#         for game in library_games:
+#             # Query for game details to add to library
+#             game_data = Game.search_by_id(game.game_id)
 
-            game_dict = {
-                'library_game_id': game.id,
-                'game_id': game_data.id,
-                'game_name': game_data.name,
-                'game_header_image': game_data.header_image,
-            }
+#             game_dict = {
+#                 'library_game_id': game.id,
+#                 'game_id': game_data.id,
+#                 'game_name': game_data.name,
+#                 'game_header_image': game_data.header_image,
+#             }
             
-            response['library_games'].append(game_dict)
+#             response['library_games'].append(game_dict)
 
-        return response, 200
+#         return response, 200
     
-    else:
-      return '', 401
+#     else:
+#       return '', 401
 
 
 @app.route('/api/games/<id>')
@@ -258,21 +262,21 @@ def log_out():
     return '', 200
 
 
-@app.route('/api/user/initials')
-def user_initials():
-    """ Return user initials for header """
+# @app.route('/api/user/initials')
+# def user_initials():
+#     """ Return user initials for header """
 
-    fname = session.get('fname')
-    lname = session.get('lname')
+#     fname = session.get('fname')
+#     lname = session.get('lname')
 
-    initials = ''
+#     initials = ''
 
-    if (fname):
-        initials += fname[0]
-    if (lname):
-        initials += lname[0]
+#     if (fname):
+#         initials += fname[0]
+#     if (lname):
+#         initials += lname[0]
 
-    return initials.upper(), 200
+#     return initials.upper(), 200
 
 
 # Would need to change imports to make this work. 

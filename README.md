@@ -244,3 +244,7 @@ Extra tasks completed:
 
  ### 5/19
  I decided learn more about the back-end. I'm hoping to refactor my server's code for better understanding and scalability. I think just about all of the cohort, including me, are using the Movie Ratings app as a template to build their models and views. If I can understand Flask a little better, maybe I can refactor that template code into something more readable.
+
+ Playing with blueprints
+
+ nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)

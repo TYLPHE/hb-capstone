@@ -33,7 +33,7 @@ export default function Signin() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const request = await fetch('/api/signin', {
+    const request = await fetch('/api/user/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -46,7 +46,7 @@ export default function Signin() {
       return setMsg(response);
     }
     else {
-      return console.error('fetch("/api/signin") error');
+      return console.error('fetch("/api/user/signin") error');
     }
   }
 
