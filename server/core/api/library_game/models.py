@@ -1,5 +1,7 @@
 from core import db
+from datetime import datetime
 from ..game.models import Game
+
 
 class Library_game(db.Model):
     """ User's games added to their library """

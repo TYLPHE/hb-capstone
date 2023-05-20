@@ -1,3 +1,4 @@
+from core import db
 from flask import Blueprint, session, request
 from .models import User
 from ..library.models import Library
@@ -55,3 +56,33 @@ def user_signin():
     
     return 'Wrong account name or password.', 401
 
+@user_blueprint.route('/register', methods=['POST'])
+def user_register():
+    """ Checks for user in db, then saves account to db """
+
+    username = request.json.get('username')
+    password = request.json.get('password')
+    fname = request.json.get('fname')
+    lname = request.json.get('lname')
+    user_exists = User.exists(username)
+
+    if (user_exists): 
+        return 'Please enter a different account name.', 400
+    else:
+        # Create user and create user's library
+        user = User.create(username, password, fname, lname)
+        library = Library.create(user)
+        db.session.add_all([user, library])
+        db.session.commit()
+
+        return f'"{ username }" created. Please sign in.', 201
+
+@user_blueprint.route('/logout')
+def log_out():
+    """ Log user out """
+
+    session.pop('user_id')
+    session.pop('username')
+    session.pop('library_id')
+
+    return '', 200

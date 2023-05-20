@@ -3,7 +3,11 @@
 import os, json
 from core import db
 from core.model import *
-from core.user.models import User
+from core.api.user.models import User
+from core.api.game.models import Game
+from core.api.library.models import Library
+from core.api.library_game.models import Library_game
+from core.api.review.models import Review
 
 # Commands to create a new 'tylphe-capstone' db
 os.system('dropdb tylphe_capstone')

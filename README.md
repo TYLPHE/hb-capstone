@@ -233,18 +233,18 @@ Extra tasks completed:
  - FLASK QUESTION: What is the difference between a URL converter and request.args?
     - [Answer](https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api)
 
- ### 5/18
- I spent pretty much all day styling my website so it looks cool.
+### 5/18
+I spent pretty much all day styling my website so it looks cool.
 
- Thinking about what to do next for today. MVP is complete so I'm thinking about adding extra features.
- 
- Thoughts:
-  - Tomorrow's TODO: Fix bug when searching for 1 game only
-  - Dashboard - image carousel that shows some games in library.
+Thinking about what to do next for today. MVP is complete so I'm thinking about adding extra features.
 
- ### 5/19
- I decided learn more about the back-end. I'm hoping to refactor my server's code for better understanding and scalability. I think just about all of the cohort, including me, are using the Movie Ratings app as a template to build their models and views. If I can understand Flask a little better, maybe I can refactor that template code into something more readable.
+Thoughts:
+ - Tomorrow's TODO: Fix bug when searching for 1 game only
+ - Dashboard - image carousel that shows some games in library.
 
- Playing with blueprints
+### 5/19
+I decided learn more about the back-end. I'm hoping to refactor my server's code for better understanding and scalability. I think just about all of the cohort, including me, are using the Movie Ratings app as a template to build their models and views. If I can understand Flask a little better, maybe I can refactor that template code into something more readable.
 
- nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)
+Used this earlier in the week but helped with packaging (https://dev.to/nagatodev/getting-started-with-flask-1kn1)
+Playing with blueprints (https://realpython.com/flask-blueprint/)
+nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)

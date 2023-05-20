@@ -18,20 +18,21 @@ export default function GameDetails() {
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
 
   async function handleAdd() {
-    setInLibrary(true);
     setAddBtnTxt('Adding...');
 
-    const request = await fetch('/api/add-game', {
+    const request = await fetch('/api/library-game/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     });
     if (request.ok) {
       const response = await request.text();
+      setInLibrary(true);
       return setAddBtnTxt(response);
     } 
     else {
       const response = await request.text();
+      setAddBtnTxt('Add to library')
       return console.error(response)
     }
   }

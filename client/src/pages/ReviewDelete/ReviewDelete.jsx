@@ -11,13 +11,18 @@ export default function ReviewDelete() {
   async function handleDelete() {
     setDisableBtn(true);
     
-    await fetch('/app/review/delete', {
+    const request = await fetch('/api/review/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ review_id }),
     });
 
-    return navigate('/library');
+    if (request.ok) {
+      return navigate('/library');
+    } else {
+      setDisableBtn(false);
+      return console.error('Error: /app/review/delete. Did not delete.');
+    }
   }
 
   function DeleteBtn() {

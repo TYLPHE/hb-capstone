@@ -1,4 +1,6 @@
 from core import db
+import json
+from random import choice
 
 class Game(db.Model):
     """ A table of all games """

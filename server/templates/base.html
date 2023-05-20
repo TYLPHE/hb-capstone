@@ -10,14 +10,6 @@
   <!-- <script src="../static/javascript.js" defer></script> -->
 </head>
 <body>
-  {% if session.get('username') %}
-    <p>Logged in as {{ session['username'] }}</p>
-    <form action="/logout"><button>Log out</button></form>
-  {% endif %}
-  {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">{{ msg }}</p>
-  {% endfor %}
-
-  {% block body %}{% endblock %}
+  
 </body>
 </html>

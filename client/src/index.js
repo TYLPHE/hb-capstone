@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     path:'/games',
     element: <Games />,
     loader: async () => {
-      const request = await fetch('/api/random-games')
+      const request = await fetch('/api/games/random-games')
       const response = await request.json()
       return response
     }

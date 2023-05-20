@@ -20,7 +20,7 @@ export default function Header() {
   }, [])
   
   async function handleLogOut() {
-    await fetch('/api/logout')
+    await fetch('/api/user/logout')
     return navigate('/');
   }
 

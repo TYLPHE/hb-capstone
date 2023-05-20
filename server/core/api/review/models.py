@@ -1,4 +1,5 @@
 from core import db
+from datetime import datetime
 
 class Review(db.Model):
     """ A table of reviews """

@@ -49,7 +49,7 @@ export default function Register() {
     if (username.length < 3 || password.length < 3) {
       setMsg('Account name and password needs to be at least 3 characters')
     } else {
-      const request = await fetch('/api/register', {
+      const request = await fetch('/api/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, fname, lname, })
