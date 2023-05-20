@@ -1,0 +1,19 @@
+from core import db
+from ..genre.models import Genre
+
+class Games_genre(db.Model):
+    """ Connecting a many-to-many relationship between games and genres """
+
+    __tablename__ = 'games_genres'
+    
+    # Table Columns
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'))
+
+    # Relationships
+    game = db.relationship('Game', back_populates='games_genres')
+    genre = db.relationship(Genre, back_populates='games_genres')
+
+    def __repr__(self):
+        return f'<Games_Genre id={self.id}>'

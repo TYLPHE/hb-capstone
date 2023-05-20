@@ -14,5 +14,4 @@ Session(app)
 from .api import api_blueprint
 app.register_blueprint(api_blueprint)
 
-from core import model, server
 print(f'Connected to server!')
