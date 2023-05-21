@@ -14,6 +14,7 @@ import SearchResults from './pages/SearchResults/SearchResults';
 import ReviewEdit from './pages/ReviewEdit/ReviewEdit';
 import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
 import Authenticated from './layout/Authenticated';
+import NoMatch from './pages/NoMatch/NoMatch';
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: '*', // For any other URL, "Page does not exist."
+    element: <NoMatch />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

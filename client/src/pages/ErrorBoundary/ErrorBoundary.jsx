@@ -3,12 +3,10 @@ export default function ErrorBoundary() {
   let error = useRouteError();
   console.error(error);
   // Uncaught ReferenceError: path is not defined
-  return (
-    <div>
-      Error.
-      <div>
-        Note to self: Don't forget to "python3 server.py"
-      </div>
-    </div>
-  );
+  return <>
+    Error.
+    <ul>
+      <li>Note to self: Don't forget to "python3 server.py"</li>
+    </ul>
+  </>
 }

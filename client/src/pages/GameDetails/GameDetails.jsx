@@ -14,7 +14,7 @@ export default function GameDetails() {
 
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
-
+  
   async function handleAdd() {
     setAddBtnTxt('Adding...');
 
@@ -43,21 +43,20 @@ export default function GameDetails() {
     return <button disabled>Added to library</button>;
   }
 
-  return (
-    <div style={ { backgroundImage: background } }>
-      <div className="main-view">
-        <h1>{ name }</h1>
-        <div>
-          <img src={ header_image } alt="Game header"/>
-        </div>
-        <div>
-          <p>{ short_description }</p>
-          <p>Release Date: { release_date }</p>
-        </div>
-        <div>
-          {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
-        </div>
-      </div>
+  return <>
+    <h1>{ name }</h1>
+    
+    <div>
+      <img src={ header_image } alt="Game header"/>
     </div>
-  );
+    
+    <div>
+      <p>{ short_description }</p>
+      <p>Release Date: { release_date }</p>
+    </div>
+
+    <div>
+      {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
+    </div>
+  </>
 }

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import './ReviewDelete.css'
 
 export default function ReviewDelete() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { game, game_id, header_image, review_id } = state;
+  const { game, header_image, review_id } = state;
   const [disableBtn, setDisableBtn] = useState(false);
 
   async function handleDelete() {
@@ -26,28 +27,26 @@ export default function ReviewDelete() {
 
   function DeleteBtn() {
     if (disableBtn) {
-      return (
-        <button disabled>
+      return <button disabled>
           Yes, Delete review and remove from library
         </button>
-      );
     } else {
-      return (
-        <button onClick={handleDelete}>
+      return <button onClick={handleDelete}>
           Yes, Delete review and remove from library
         </button>
-      );
-
     }
   }
   
-  return (
-    <div>
-      <h1>Delete Confirmation</h1>
+  return <>
+    <h1>Delete Confirmation</h1>
+    
+    <div className="delete-container">
       <div>{game}</div>
+      
       <div>
         <img src={header_image} alt="" />
       </div>
+      
       <p>
         Are you sure you want to delete the review and remove the game from the library?
       </p>
@@ -55,5 +54,5 @@ export default function ReviewDelete() {
         <DeleteBtn />
       </div>
     </div>
-  );
+  </>
 }

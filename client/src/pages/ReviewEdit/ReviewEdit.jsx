@@ -45,24 +45,23 @@ export default function ReviewEdit() {
     }
   }
 
-  return (
-    <div className='edit-review-container'>
-      {msg && <Flash msg={ msg } />}
-      <div className="main-view">
-        <h1>Edit Review</h1>
-        <div className='edit-button-container'>
-          <Link to={`/review/${id}`}>
-            <button className='save-button'>Return</button>
-          </Link>
-          <UpdateButton />   
-        </div>
-        <MDEditor 
-          value={value} 
-          onChange={ (e) => handleValue(e) } 
-          previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
-          height={800}
-        />
-      </div>
+  return <>
+    {msg && <Flash msg={ msg } />}
+    
+    <h1>Edit Review</h1>
+
+    <div className='edit-button-container'>
+      <Link to={`/review/${id}`}>
+        <button className='save-button'>Return</button>
+      </Link>
+      <UpdateButton />   
     </div>
-  );
+
+    <MDEditor 
+      value={value} 
+      onChange={ (e) => handleValue(e) } 
+      previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
+      height={800}
+    />
+  </>
 }

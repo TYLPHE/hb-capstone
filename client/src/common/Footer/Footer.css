@@ -1,0 +1,19 @@
+.footer-container {
+  width: 100%;
+  height: 3rem;
+  background-color: #171a21;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 940px;
+  gap: 3rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: white;
+}

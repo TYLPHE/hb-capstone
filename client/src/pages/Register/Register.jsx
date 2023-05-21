@@ -66,31 +66,35 @@ export default function Register() {
     }
   }
   
-  return (
-    <div>
-      {msg && <Flash msg={ msg }/>}
-      <h1>Create your account</h1>
-      <form className="signin-form">
-        <div className="form-input-label">
-          <label htmlFor="username">Account name</label>
-          <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
-        </div>
-        <div className="form-input-label">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
-        </div>
-        <div className="form-input-label">
-          <label htmlFor="fname">First name</label>
-          <input type="text" id="fname" onChange={(e) => handleFname(e.target.value)} />
-        </div>
-        <div className="form-input-label">
-          <label htmlFor="lname">Last name</label>
-          <input type="text" id="lname" onChange={(e) => handleLname(e.target.value)} />
-        </div>
-        <div className="signin-button-container">
-          <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
-        </div>
-      </form>
-    </div>
-  )
+  return <>
+    {msg && <Flash msg={ msg }/>}
+    
+    <h1>Create your account</h1>
+    
+    <form className="signin-form">
+      <div className="form-input-label">
+        <label htmlFor="username">Account name</label>
+        <input type="text" id="username" onChange={(e) => handleUsername(e.target.value)} />
+      </div>
+      
+      <div className="form-input-label">
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" onChange={(e) => handlePassword(e.target.value)} />
+      </div>
+      
+      <div className="form-input-label">
+        <label htmlFor="fname">First name</label>
+        <input type="text" id="fname" onChange={(e) => handleFname(e.target.value)} />
+      </div>
+      
+      <div className="form-input-label">
+        <label htmlFor="lname">Last name</label>
+        <input type="text" id="lname" onChange={(e) => handleLname(e.target.value)} />
+      </div>
+      
+      <div className="signin-button-container">
+        <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
+      </div>
+    </form>
+  </>
 }
