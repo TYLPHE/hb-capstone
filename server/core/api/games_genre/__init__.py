@@ -1,0 +1,1 @@
+from .models import Games_genre

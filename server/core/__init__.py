@@ -14,4 +14,21 @@ Session(app)
 from .api import api_blueprint
 app.register_blueprint(api_blueprint)
 
+# Import all models for relationship()
+from .api import (
+    developer, 
+    game,
+    games_developer,
+    games_genre,
+    games_publisher,
+    genre,
+    library,
+    library_game,
+    movie,
+    publisher,
+    review,
+    screenshot, 
+    user, 
+)
+
 print(f'Connected to server!')

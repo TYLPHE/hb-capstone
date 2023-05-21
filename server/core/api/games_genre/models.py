@@ -1,5 +1,4 @@
 from core import db
-from ..genre.models import Genre
 
 class Games_genre(db.Model):
     """ Connecting a many-to-many relationship between games and genres """
@@ -13,7 +12,7 @@ class Games_genre(db.Model):
 
     # Relationships
     game = db.relationship('Game', back_populates='games_genres')
-    genre = db.relationship(Genre, back_populates='games_genres')
+    genre = db.relationship('Genre', back_populates='games_genres')
 
     def __repr__(self):
         return f'<Games_Genre id={self.id}>'

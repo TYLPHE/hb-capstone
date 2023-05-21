@@ -1,22 +1,22 @@
 from flask import Blueprint, session, request
-from .models import Game
-from ..library_game.models import Library_game
+from . import Game
+from .. import library_game as lg
 
 game_blueprint = Blueprint('game_blueprint', __name__, url_prefix='/games')
+
 
 @game_blueprint.route('/<id>')
 def game_details(id):
     """ Return game details """
 
     game = Game.search_by_id(id)
-
     if not game:
         return '', 400
 
     else:
         # Check if game already exists. If so, disable add to library button
         library_id = session.get('library_id')
-        library_game = Library_game.search_by_game_id(library_id, id)
+        library_game = lg.Library_game.search_by_game_id(library_id, id)
         
         return {
             'name': game.name,

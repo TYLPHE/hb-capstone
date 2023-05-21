@@ -1,6 +1,6 @@
 from core import db
 from datetime import datetime
-from ..game.models import Game
+from .. import game as g
 
 
 class Library_game(db.Model):
@@ -45,8 +45,8 @@ class Library_game(db.Model):
     def search_by_id(cls, id):
         """ Return a list of the user's added games """
 
-        return cls.query.join(Game).filter(cls.library_id==id)\
-                  .order_by(Game.name).all()
+        return cls.query.join(g.Game).filter(cls.library_id==id)\
+                  .order_by(g.Game.name).all()
 
 
     @classmethod

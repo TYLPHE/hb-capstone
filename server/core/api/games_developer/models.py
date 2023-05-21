@@ -1,5 +1,4 @@
 from core import db
-from ..developer.models import Developer
 
 class Games_developer(db.Model):
     """ Connecting a many-to-many relationship between games and developers """
@@ -13,7 +12,7 @@ class Games_developer(db.Model):
 
     # Relationships
     game = db.relationship('Game', back_populates='games_developers')
-    developer = db.relationship(Developer, back_populates='games_developers')
+    developer = db.relationship('Developer', back_populates='games_developers')
 
     def __repr__(self):
         return f'<Games_developer id={id}>'

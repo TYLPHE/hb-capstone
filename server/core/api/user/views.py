@@ -1,7 +1,7 @@
 from core import db
 from flask import Blueprint, session, request
-from .models import User
-from ..library.models import Library
+from . import User
+from .. import library as l
 
 user_blueprint = Blueprint('user_blueprint', __name__, url_prefix='/user')
 
@@ -44,7 +44,7 @@ def user_signin():
     signin_ok = User.validate(username, password)
 
     if (signin_ok):
-        library = Library.search_by_id(signin_ok.library.id)
+        library = l.Library.search_by_id(signin_ok.library.id)
 
         session['username'] = signin_ok.username
         session['user_id'] = signin_ok.id
@@ -71,7 +71,7 @@ def user_register():
     else:
         # Create user and create user's library
         user = User.create(username, password, fname, lname)
-        library = Library.create(user)
+        library = l.Library.create(user)
         db.session.add_all([user, library])
         db.session.commit()
 

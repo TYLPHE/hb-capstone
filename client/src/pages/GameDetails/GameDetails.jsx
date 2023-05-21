@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Header from '../../common/Header/Header'
 
@@ -13,7 +13,7 @@ export default function GameDetails() {
     release_date,
     short_description,
   } = useLoaderData();
-  
+
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
 

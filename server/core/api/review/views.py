@@ -1,6 +1,6 @@
 from core import db
 from flask import Blueprint, request
-from .models import Review
+from . import Review
 
 review_blueprint = Blueprint('review_blueprint', __name__, url_prefix='/review')
 

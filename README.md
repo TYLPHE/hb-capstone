@@ -154,6 +154,19 @@ This is really helpful to pull a game's details before the component renders, ho
 ### Thinking about styling for mobile devices
 [Refer to this for future reference](https://stackoverflow.com/questions/39435395/reactjs-how-to-determine-if-the-application-is-being-viewed-on-mobile-or-deskto) 
 
+
+### SQLAlchemy relationship() issue
+SQLAlchemy kept returning an error related to its `relationship()` function. For example,
+```python
+# In /game/models
+movies = db.relationship('Movie', back_populates='game')
+
+# And in /movie/models
+game = db.relationship('Game', back_populates='movies')
+```
+
+SQLAlchemy could not seem to detect `'Movie'` or `'Game'`. I fixed this issue by importing movie and game into `/core`.
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
@@ -248,3 +261,7 @@ I decided learn more about the back-end. I'm hoping to refactor my server's code
 Used this earlier in the week but helped with packaging (https://dev.to/nagatodev/getting-started-with-flask-1kn1)
 Playing with blueprints (https://realpython.com/flask-blueprint/)
 nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)
+
+### 5/20
+I've been playing a lot with how python packages work and I think I have a better idea of how it works. Thanks to the article linked below, I learned how to turn my folders into packages. This way, I can import the package and have access to its contents.
+ - [Helpful link to understanding `__init__.py`](https://web.archive.org/web/20200721150953/http://effbot.org/pyfaq/what-is-init-py-used-for.htm)

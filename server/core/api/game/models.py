@@ -1,12 +1,6 @@
 from core import db
 import json
 from random import choice
-from ..screenshot.models import Screenshot
-from ..movie.models import Movie
-from ..games_developer.models import Games_developer
-from ..games_publisher.models import Games_publisher
-from ..games_genre.models import Games_genre
-
 
 class Game(db.Model):
     """ A table of all games """
@@ -23,11 +17,11 @@ class Game(db.Model):
 
     # Relationships
     library_games = db.relationship('Library_game', back_populates='game')
-    screenshots = db.relationship(Screenshot, back_populates='game')
-    movies = db.relationship(Movie, back_populates='game')
-    games_developers = db.relationship(Games_developer, back_populates='game')
-    games_publishers = db.relationship(Games_publisher, back_populates='game')
-    games_genres = db.relationship(Games_genre, back_populates='game')
+    screenshots = db.relationship('Screenshot', back_populates='game')
+    movies = db.relationship('Movie', back_populates='game')
+    games_developers = db.relationship('Games_developer', back_populates='game')
+    games_publishers = db.relationship('Games_publisher', back_populates='game')
+    games_genres = db.relationship('Games_genre', back_populates='game')
     
     def __repr__(self):
         return f'<Game name={self.name} id={self.id}>'
