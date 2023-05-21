@@ -5,7 +5,10 @@
 .library-link {
   color: white;
   text-decoration: none;
+  display: flex;
+  align-items: center;
   width: 100%;
+  gap: 1rem;
 }
 
 .library-tr {
@@ -20,7 +23,7 @@
 .library-td {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  width: 100%;
 }
 
 .review-title {

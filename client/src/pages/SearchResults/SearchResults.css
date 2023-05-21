@@ -3,6 +3,15 @@
   flex-direction: column;
 }
 
+.search-results-tr {
+  display: flex;
+  width: 100%;
+}
+
+.search-results-td {
+  width: 100%;
+}
+
 .search-results-link {
   text-decoration: none;
   color: white;
