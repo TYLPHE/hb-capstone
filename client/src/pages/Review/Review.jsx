@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
-import Header from '../../common/Header/Header'
 import './Review.css';
 
 export default function Review() {
@@ -25,7 +24,6 @@ export default function Review() {
   
   return (
     <div>
-      <Header />
       <div className="main-view">
         <div className="review-header">
           <Link 

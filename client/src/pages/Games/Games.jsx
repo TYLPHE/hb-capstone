@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom"
-import Header from '../../common/Header/Header';
 import './Games.css';
 
 export default function Games() {
@@ -7,7 +6,6 @@ export default function Games() {
 
   return (
     <div>
-      <Header />
       <div className="main-view">
         <h1>Browse Games</h1>
         <div className="main-view">

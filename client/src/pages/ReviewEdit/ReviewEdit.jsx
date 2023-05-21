@@ -3,7 +3,6 @@ import rehypeSanitize from 'rehype-sanitize';
 import { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import Flash from '../../common/Flash/Flash';
-import Header from '../../common/Header/Header';
 import './ReviewEdit.css';
 
 export default function ReviewEdit() {
@@ -49,7 +48,6 @@ export default function ReviewEdit() {
   return (
     <div className='edit-review-container'>
       {msg && <Flash msg={ msg } />}
-      <Header />
       <div className="main-view">
         <h1>Edit Review</h1>
         <div className='edit-button-container'>

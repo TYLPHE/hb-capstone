@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import Header from '../../common/Header/Header'
 import './Library.css';
 
 export default function Library() {
@@ -10,7 +9,6 @@ export default function Library() {
 
   return (
     <div className='viewport'>
-      <Header />
       <div className="main-view">
         <h1>{library_name}</h1>
         <div>Reviews</div>

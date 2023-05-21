@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Header from '../../common/Header/Header'
 
 export default function ReviewDelete() {
   const navigate = useNavigate();
@@ -44,7 +43,6 @@ export default function ReviewDelete() {
   
   return (
     <div>
-      <Header />
       <h1>Delete Confirmation</h1>
       <div>{game}</div>
       <div>

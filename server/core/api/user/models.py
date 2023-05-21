@@ -20,6 +20,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User username={self.username} id={self.id}>'
     
+
     @classmethod
     def create(cls, username, password, fname, lname, created=datetime.now()):
         """ Create a user. """
@@ -35,8 +36,11 @@ class User(db.Model):
         return cls.query.filter(cls.username==username, 
                                 cls.password==password).first()
 
+
     @classmethod
     def exists(cls, username):
         """ Checks if user exists for registration """
 
         return cls.query.filter(cls.username==username).first()
+    
+    

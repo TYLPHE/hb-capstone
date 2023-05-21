@@ -14,7 +14,6 @@ export default function Header() {
       if (request.ok) {
         const response = await request.text();
         setUserInitials(response)
-
       }
     })();
   }, [])

@@ -265,3 +265,6 @@ nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)
 ### 5/20
 I've been playing a lot with how python packages work and I think I have a better idea of how it works. Thanks to the article linked below, I learned how to turn my folders into packages. This way, I can import the package and have access to its contents.
  - [Helpful link to understanding `__init__.py`](https://web.archive.org/web/20200721150953/http://effbot.org/pyfaq/what-is-init-py-used-for.htm)
+
+### 5/21
+[Nav bar with React Router](https://www.youtube.com/watch?v=5s57C7leXc4)

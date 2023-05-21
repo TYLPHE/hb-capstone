@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import Header from '../../common/Header/Header';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -7,7 +6,6 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Header />
       <div className="main-view">
         <h1>Welcome, { username }</h1>
         <div className="dashboard-buttons">

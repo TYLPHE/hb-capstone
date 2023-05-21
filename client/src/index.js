@@ -13,6 +13,7 @@ import Review from './pages/Review/Review';
 import SearchResults from './pages/SearchResults/SearchResults';
 import ReviewEdit from './pages/ReviewEdit/ReviewEdit';
 import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
+import Authenticated from './layout/Authenticated';
 
 const router = createBrowserRouter([
   {
@@ -37,87 +38,92 @@ const router = createBrowserRouter([
     element: <Register />
   },
   {
-    path:'/dashboard',
-    element: <Dashboard />,
-    loader: async () => {
-      const request = await fetch('/api/user/session-status');
-      if (request.ok) {
-        const response = await request.json();
-        return response;
-      }
-      else if (request.status === 401) {
-        return redirect('/');
-      }
-      return console.error('Loader error: path:"/dashboard"')
-    },
-    errorElement: <ErrorBoundary />,
+    element: <Authenticated />,
+    children: [
+      {
+        path:'/dashboard',
+        element: <Dashboard />,
+        loader: async () => {
+          const request = await fetch('/api/user/session-status');
+          if (request.ok) {
+            const response = await request.json();
+            return response;
+          }
+          else if (request.status === 401) {
+            return redirect('/');
+          }
+          return console.error('Loader error: path:"/dashboard"')
+        },
+        errorElement: <ErrorBoundary />,
+      },
+      {
+        path:'/games',
+        element: <Games />,
+        loader: async () => {
+          const request = await fetch('/api/games/random-games')
+          const response = await request.json()
+          return response
+        }
+      },
+      {
+        path:'/games/:id/:game_name',
+        element: <GameDetails />,
+        loader: async ({ params }) => {
+          const game_id = params.id;
+          const request = await fetch(`/api/games/${game_id}`) ;
+          if (request.ok) {
+            const response = await request.json();
+            return response;
+          } else {
+            console.error('Loader error: path: "/games/:id/:game_name"');
+            return null
+          }
+        }
+      },
+      {
+        path:'/library',
+        element: <Library />,
+        loader: async () => {
+          const request = await fetch('/api/library/data');
+          if (request.ok) {
+            const response = await request.json();
+            return response;
+          } 
+          else if (request.status === 401) {
+            return redirect ('/');
+          } 
+          return console.error('Loader error: path: "/Library"');
+        }
+      },
+      {
+        path:'/review/:id',
+        element: <Review />,
+        loader: async ({ params }) => {
+          const request = await fetch(`/api/review/${ params.id }`);
+          const response = await request.json();
+          return response;
+        }
+      },
+      {
+        path: '/games/search-results',
+        element: <SearchResults />,
+      },
+      {
+        path: '/review/edit/:id',
+        element: <ReviewEdit />,
+        loader: async ({ params }) => {
+          const request = await fetch(`/api/review/edit/${ params.id }`)
+          const response = await request.json();
+          return response;
+        }
+      },
+      {
+        path: 'review/delete/:id',
+        element: <ReviewDelete />,
+      },
+    ]
   },
-  {
-    path:'/games',
-    element: <Games />,
-    loader: async () => {
-      const request = await fetch('/api/games/random-games')
-      const response = await request.json()
-      return response
-    }
-  },
-  {
-    path:'/games/:id/:game_name',
-    element: <GameDetails />,
-    loader: async ({ params }) => {
-      const game_id = params.id;
-      const request = await fetch(`/api/games/${game_id}`) ;
-      if (request.ok) {
-        const response = await request.json();
-        return response;
-      } else {
-        console.error('Loader error: path: "/games/:id/:game_name"');
-        return null
-      }
-    }
-  },
-  {
-    path:'/library',
-    element: <Library />,
-    loader: async () => {
-      const request = await fetch('/api/library/data');
-      if (request.ok) {
-        const response = await request.json();
-        return response;
-      } 
-      else if (request.status === 401) {
-        return redirect ('/');
-      } 
-      return console.error('Loader error: path: "/Library"');
-    }
-  },
-  {
-    path:'/review/:id',
-    element: <Review />,
-    loader: async ({ params }) => {
-      const request = await fetch(`/api/review/${ params.id }`);
-      const response = await request.json();
-      return response;
-    }
-  },
-  {
-    path: '/games/search-results',
-    element: <SearchResults />,
-  },
-  {
-    path: '/review/edit/:id',
-    element: <ReviewEdit />,
-    loader: async ({ params }) => {
-      const request = await fetch(`/api/review/edit/${ params.id }`)
-      const response = await request.json();
-      return response;
-    }
-  },
-  {
-    path: 'review/delete/:id',
-    element: <ReviewDelete />,
-  }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

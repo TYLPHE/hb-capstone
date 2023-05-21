@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
-import Header from '../../common/Header/Header'
-
 
 export default function GameDetails() {
   const { id } = useParams();
@@ -47,7 +45,6 @@ export default function GameDetails() {
 
   return (
     <div style={ { backgroundImage: background } }>
-      <Header />
       <div className="main-view">
         <h1>{ name }</h1>
         <div>

@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import Header from '../../common/Header/Header'
 import './SearchResults.css';
 
 export default function SearchResults() {
@@ -7,7 +6,6 @@ export default function SearchResults() {
 
   return (
     <div>
-      <Header />
       <div className="main-view">
         <h1>Search Results</h1>
         <table className="search-results-table">
