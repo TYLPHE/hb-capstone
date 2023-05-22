@@ -71,7 +71,7 @@ def user_register():
     else:
         # Create user and create user's library
         user = User.create(username, password, fname, lname)
-        library = l.Library.create(user)
+        library = l.Library.create(user, username)
         db.session.add_all([user, library])
         db.session.commit()
 
@@ -86,3 +86,20 @@ def log_out():
     session.pop('library_id')
 
     return '', 200
+
+
+@user_blueprint.route('/all')
+def all():
+    """ List of all users with relevant data """
+
+    users = User.all_users()
+    response = { 'users': [] }
+
+    for user in users:
+        user_data = {
+            'id': user.id,
+            'username': user.username,
+        }
+        response['users'].append(user_data)
+    
+    return response

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
 import Flash from "../../common/Flash/Flash";
+import Footer from '../../common/Footer/Footer'
 import './Signin.css';
 
 export default function Signin() {
@@ -71,5 +72,6 @@ export default function Signin() {
         <button className="sign-register" onClick={() => navigate('/register')}>Register</button>
       </div>
     </form>
+    <Footer />
   </>
 }

@@ -15,6 +15,7 @@ import ReviewEdit from './pages/ReviewEdit/ReviewEdit';
 import ReviewDelete from './pages/ReviewDelete/ReviewDelete';
 import Authenticated from './layout/Authenticated';
 import NoMatch from './pages/NoMatch/NoMatch';
+import Users from './pages/Users/Users'
 
 const router = createBrowserRouter([
   {
@@ -119,8 +120,21 @@ const router = createBrowserRouter([
         }
       },
       {
-        path: 'review/delete/:id',
+        path: '/review/delete/:id',
         element: <ReviewDelete />,
+      },
+      {
+        path: '/users',
+        element: <Users />,
+        loader: async () => {
+          const request = await fetch('/api/user/all')
+          if (request.ok) {
+            const response = await request.json()
+            return response
+          } else {
+            return console.error('/api/user/all error')
+          }
+        }
       },
     ]
   },

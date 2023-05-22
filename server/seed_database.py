@@ -2,12 +2,11 @@
 
 import os, json
 from core import db
-from core.model import *
-from core.api.user.models import User
-from core.api.game.models import Game
-from core.api.library.models import Library
-from core.api.library_game.models import Library_game
-from core.api.review.models import Review
+from core.api.user import User
+from core.api.game import Game
+from core.api.library import Library
+from core.api.library_game import Library_game
+from core.api.review import Review
 
 # Commands to create a new 'tylphe-capstone' db
 os.system('dropdb tylphe_capstone')
@@ -58,7 +57,7 @@ for game in games:
                 f.write(json.dumps(h, indent=2))
             """
 
-l1 = Library.create(u1)
+l1 = Library.create(u1, u1.username)
 
 db.session.add_all([u1, l1])
 db.session.commit()

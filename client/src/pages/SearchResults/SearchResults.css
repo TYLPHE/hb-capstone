@@ -20,6 +20,6 @@
 }
 
 .search-results-link:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  filter: brightness(110%);
   font-weight: bold;
 }

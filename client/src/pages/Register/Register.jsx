@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import Flash from "../../common/Flash/Flash";
+import Footer from '../../common/Footer/Footer'
 import './Register.css'
 
 export default function Register() {
@@ -96,5 +97,6 @@ export default function Register() {
         <button className="create-account" onClick={(e) => handleSubmit(e)}>Create Account</button>
       </div>
     </form>
+    <Footer />
   </>
 }

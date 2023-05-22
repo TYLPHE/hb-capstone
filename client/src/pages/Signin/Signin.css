@@ -4,6 +4,7 @@
   width: 500px;
   display: flex;
   flex-direction: column;
+  margin-bottom: auto;
 }
 
 .signin-button-container {

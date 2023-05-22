@@ -28,6 +28,7 @@ def library_data():
                 'game_id': game_data.id,
                 'game_name': game_data.name,
                 'game_header_image': game_data.header_image,
+                'game_background': game_data.background,
             }
             
             response['library_games'].append(game_dict)

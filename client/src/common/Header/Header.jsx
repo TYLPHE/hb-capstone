@@ -43,6 +43,7 @@ export default function Header() {
           <NavLink to='/dashboard' className='nav-button'>Dashboard</NavLink>
           <NavLink to='/library' className='nav-button'>Library</NavLink>
           <NavLink to='/Games' className='nav-button'>Browse Games</NavLink>
+          <NavLink to='/Users' className='nav-button'>All Users</NavLink>
         </nav>
 
         <div className="header-search">

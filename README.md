@@ -167,6 +167,23 @@ game = db.relationship('Game', back_populates='movies')
 
 SQLAlchemy could not seem to detect `'Movie'` or `'Game'`. I fixed this issue by importing movie and game into `/core`.
 
+### Session.query() vs Model.query()
+I've learned that [New in version 1.4: Added Session.get(), which is moved from the now legacy Query.get() method.](https://docs.sqlalchemy.org/en/20/orm/session_api.html#sqlalchemy.orm.Session.get). Version 1.4 was released Jan-03-23. Right now I am using SQLAlchemy 2.0 (Released Apr-30-23).
+
+I want to use the more modern methods of SQLAlchemy so will try to use session.query(). Since I also modularized my models, I learned I can run the command `flask shell` to test my queries. 
+
+For example, [I now should](https://docs.sqlalchemy.org/en/14/glossary.html#term-2.0-style),
+```
+db.session.query(User).all()
+```
+
+This gives the same result as,
+```
+User.query.all()
+```
+
+I haven't found a clear answer to why Model.query is legacy code but I'll take it.
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.

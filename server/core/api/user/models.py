@@ -1,5 +1,6 @@
 from core import db
 from datetime import datetime
+from sqlalchemy import select
 
 class User(db.Model):
     """ A table of users """
@@ -44,3 +45,8 @@ class User(db.Model):
         return cls.query.filter(cls.username==username).first()
     
     
+    @classmethod
+    def all_users(cls):
+        """ Return list of all users """
+
+        return db.session.query(cls).all()
