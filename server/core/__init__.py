@@ -14,7 +14,8 @@ app.register_blueprint(api_blueprint)
 
 # Import all models (add to the module cache) for relationship() to work
 from .api import (
-    developer, 
+    developer,
+    follower,
     game,
     games_developer,
     games_genre,

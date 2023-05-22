@@ -8,19 +8,20 @@ review_blueprint = Blueprint('review_blueprint', __name__, url_prefix='/review')
 def review(lgame_id):
     """ Display review of game """
 
-    review = Review.search_by_id(lgame_id)
+    r = Review.search_by_id(lgame_id)
     current_library_id = session.get('library_id')
 
     return {
-        'review_id': review.id,
-        'review': review.review,
-        'game_id': review.library_game.game.id,
-        'game': review.library_game.game.name,
-        'header_image': review.library_game.game.header_image,
-        'score': review.score,
-        'votes_up': review.votes_up,
-        'owner_username': review.library_game.library.user.username,
-        'owner': (review.library_game.library_id == current_library_id)
+        'review_id': r.id,
+        'review': r.review,
+        'game_id': r.library_game.game.id,
+        'game': r.library_game.game.name,
+        'background': r.library_game.game.background,
+        'header_image': r.library_game.game.header_image,
+        'score': r.score,
+        'votes_up': r.votes_up,
+        'owner_username': r.library_game.library.user.username,
+        'owner': (r.library_game.library_id == current_library_id),
     }, 200
 
 
@@ -29,12 +30,14 @@ def review_edit(id):
     """ Return review data for edit page """
     
     r = Review.search_by_id(id)
+    current_library_id = session.get('library_id')
     
     return {
         'id': id,
         'review': r.review,
         'name': r.library_game.game.name,
-        'score': r.score
+        'score': r.score,
+        'owner': (r.library_game.library_id == current_library_id),
     }, 200
 
 

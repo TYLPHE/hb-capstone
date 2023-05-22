@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
 import './Review.css';
 
 export default function Review() {
   const {
+    background,
     game,
     game_id,
     header_image,
@@ -12,20 +13,24 @@ export default function Review() {
     owner_username,
     review,
     review_id,
-    score,
   } = useLoaderData();
-  const [myScore, setMyScore] = useState(score)
 
-  console.table(useLoaderData())
-  
   useEffect(() => {
-    setMyScore(5)
-  }, [])
+    const root = document.querySelector('#root');
+    root.style.backgroundImage = `url(${background})`;
+    
+  }, [background]);
+
+  useEffect(() => {
+    return () => {
+      const root = document.querySelector('#root');
+      root.style.backgroundImage = null;
+    }
+  });
 
   function EditButtons() {
     return <>
       <div className="review-data">
-        { score && <MyScore /> }
         <div>
           <Link to={`/review/edit/${review_id}`}>
             <button className="review-button">Edit Review</button>
@@ -45,11 +50,7 @@ export default function Review() {
       </div>
     </>
   }
-  
-  function MyScore() {
-    return <p>My Score: {myScore} / 5</p>
-  }
-  
+
   return <>
     <div className="review-header">
       <Link to={`/games/${ game_id }/${ game }`} className="review-image-link">
@@ -61,7 +62,7 @@ export default function Review() {
     </div>
 
     <h3>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h3>
-    
+
     <MDEditor.Markdown 
       source={review}
       style={{ 

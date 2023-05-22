@@ -17,6 +17,7 @@ class User(db.Model):
 
     # Relationships
     library = db.relationship('Library', back_populates='user', uselist=False)
+    follows = db.relationship('Follow', back_populates='user')
 
     def __repr__(self):
         return f'<User username={self.username} id={self.id}>'

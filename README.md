@@ -184,6 +184,11 @@ User.query.all()
 
 I haven't found a clear answer to why Model.query is legacy code but I'll take it.
 
+#### Addendum
+[I found a table on sqlalchemy.org](https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-query-usage) that compares 1.x style with the new 2.0 style! Personally, it looks worse.
+
+It seems like `session.query()` is old too. I should be using something like `scalars()` and `execute()` listed in the article mentioned above.
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.

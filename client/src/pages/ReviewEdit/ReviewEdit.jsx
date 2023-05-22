@@ -6,7 +6,7 @@ import Flash from '../../common/Flash/Flash';
 import './ReviewEdit.css';
 
 export default function ReviewEdit() {
-  const { id, review } = useLoaderData();
+  const { id, review, owner } = useLoaderData();
   const [value, setValue] = useState(review);
   const [msg, setMsg] = useState(null);
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
@@ -45,6 +45,15 @@ export default function ReviewEdit() {
     }
   }
 
+  function Editor() {
+    return <MDEditor 
+      value={value} 
+      onChange={ (e) => handleValue(e) } 
+      previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
+      height={800}
+    />
+  }
+  
   return <>
     {msg && <Flash msg={ msg } />}
     
@@ -57,11 +66,6 @@ export default function ReviewEdit() {
       <UpdateButton />   
     </div>
 
-    <MDEditor 
-      value={value} 
-      onChange={ (e) => handleValue(e) } 
-      previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
-      height={800}
-    />
+    {owner ? <Editor /> : 'You cannot edit another user\'s review'}
   </>
 }

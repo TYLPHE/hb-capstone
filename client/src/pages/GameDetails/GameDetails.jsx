@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 
 export default function GameDetails() {
@@ -14,6 +14,19 @@ export default function GameDetails() {
 
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
+  
+  useEffect(() => {
+    const root = document.querySelector('#root');
+    root.style.backgroundImage = `url(${background})`;
+    
+  }, [background]);
+
+  useEffect(() => {
+    return () => {
+      const root = document.querySelector('#root');
+      root.style.backgroundImage = null;
+    }
+  });
   
   async function handleAdd() {
     setAddBtnTxt('Adding...');

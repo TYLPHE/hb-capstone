@@ -47,6 +47,7 @@
   font-size: 5rem;
   text-decoration: none;
   color: white;
+  transform: rotate(45deg);
 }
 
 .profile {

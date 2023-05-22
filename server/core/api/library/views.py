@@ -1,7 +1,9 @@
+from core import db
 from flask import Blueprint, session, request
 from . import Library
 from .. import library_game as lg
 from .. import game as g
+from .. import follower as f
 
 library_blueprint = Blueprint('library_blueprint', __name__, url_prefix='/library')
 
@@ -9,13 +11,7 @@ library_blueprint = Blueprint('library_blueprint', __name__, url_prefix='/librar
 def library_data():
     """ Display user's library and their added games """
 
-    # print("@@@@ID: ", id)
-    # if (not id):
-        # print('NOTID')
     library_id = session.get('library_id')
-    # else:
-        # print("ID:", request.args.get('id'))
-        # library_id = request.args.get('id')
 
     response = { 'library_games': [] }
 
@@ -49,16 +45,22 @@ def library_data():
 def library_data_id(id):
     """ Display user's library and their added games """
 
-    library_id = id
+    library_id = int(id)
+    owner = session.get('library_id')
 
     response = { 'library_games': [] }
 
     library = Library.search_by_id(library_id)
 
     if (library != None):
-        response['library_name'] = library.name.capitalize()
         library_games = lg.Library_game.search_by_id(library.id)
-        
+        followed = db.session.query(f.Follow).filter(f.Follow.library_id==library_id).first()
+
+        response['library_name'] = library.name.capitalize()
+        response['library_id'] = library_id
+        response['library_owner'] = owner == library_id
+        response['followed'] = bool(followed)
+
         for game in library_games:
             # Query for game details to add to library
             game_data = g.Game.search_by_id(game.game_id)
@@ -69,6 +71,8 @@ def library_data_id(id):
                 'game_name': game_data.name,
                 'game_header_image': game_data.header_image,
                 'game_background': game_data.background,
+                # 'library_owner': (owner == library_id),
+                # 'followed': bool(followed),
             }
             
             response['library_games'].append(game_dict)

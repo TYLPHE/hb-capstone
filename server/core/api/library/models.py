@@ -15,9 +15,11 @@ class Library(db.Model):
     # Relationships
     user = db.relationship('User', back_populates='library')
     library_games = db.relationship('Library_game', back_populates='library')
+    follows = db.relationship('Follow', back_populates='library')
 
     def __repr__(self):
         return f'<Library name={self.name} id={self.id}>'
+
 
     @classmethod
     def create(cls, user, name='My Library', created=datetime.now()):

@@ -1,14 +1,67 @@
 import { Link, useLoaderData } from "react-router-dom";
 import './Library.css';
+import { useState } from "react";
 
 export default function Library() {
   const {
+    followed,
+    library_id,
     library_name,
     library_games,
   } = useLoaderData();
+  const [followBool, setFollowBool] = useState(followed)
+  const [disableBtn, setDisableBtn] = useState(false)
+
+  async function handleFollow() {
+    setDisableBtn(true)
+    const request = await fetch('/api/follow/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'library_id': library_id })
+    })
+    if (request.ok) {
+      const response = await request.text()
+      setFollowBool(true)
+      console.log(response)
+    }
+    setDisableBtn(false)
+  }
+  
+  async function handleUnfollow() {
+    setDisableBtn(true)
+    const request = await fetch('/api/follow/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'library_id': library_id })
+    })
+    if (request.ok) {
+      const response = await request.text()
+      setFollowBool(false)
+      console.log(response)
+    }
+    setDisableBtn(false)
+  }
+  
+  function FollowBtn() {
+    if (followBool) {
+      return <button onClick={handleUnfollow} disabled={disableBtn}>
+        {`Unfollow ${library_name}`}
+      </button>
+    } else {
+      return <button onClick={handleFollow} disabled={disableBtn}>
+        {`Follow ${library_name}`}
+      </button>
+    }
+  }
   
   return <>
     <h1>{library_name.charAt(0).toUpperCase() + library_name.slice(1)}'s Library</h1>
+
+    <div>
+      {followed && <div>{`You are following ${library_name}.`}</div>}
+      <FollowBtn />
+    </div>
+
     <div>Reviews</div>
     <table>
       <tbody>
