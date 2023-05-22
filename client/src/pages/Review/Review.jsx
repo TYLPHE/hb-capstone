@@ -8,26 +8,22 @@ export default function Review() {
     game,
     game_id,
     header_image,
+    owner,
+    owner_username,
     review,
     review_id,
     score,
   } = useLoaderData();
   const [myScore, setMyScore] = useState(score)
 
+  console.table(useLoaderData())
+  
   useEffect(() => {
     setMyScore(5)
   }, [])
 
-  function MyScore() {
-    return <p>My Score: {myScore} / 5</p>
-  }
-  
-  return <>
-    <div className="review-header">
-      <Link to={`/games/${ game_id }/${ game }`} className="review-image-link">
-        <img src={header_image} alt="header of game" />
-      </Link>
-
+  function EditButtons() {
+    return <>
       <div className="review-data">
         { score && <MyScore /> }
         <div>
@@ -47,8 +43,25 @@ export default function Review() {
           </Link>
         </div>
       </div>
+    </>
+  }
+  
+  function MyScore() {
+    return <p>My Score: {myScore} / 5</p>
+  }
+  
+  return <>
+    <div className="review-header">
+      <Link to={`/games/${ game_id }/${ game }`} className="review-image-link">
+        <img src={header_image} alt="header of game" />
+      </Link>
+
+      {owner && <EditButtons />}
+
     </div>
 
+    <h3>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h3>
+    
     <MDEditor.Markdown 
       source={review}
       style={{ 

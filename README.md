@@ -284,4 +284,9 @@ I've been playing a lot with how python packages work and I think I have a bette
  - [Helpful link to understanding `__init__.py`](https://web.archive.org/web/20200721150953/http://effbot.org/pyfaq/what-is-init-py-used-for.htm)
 
 ### 5/21
+Before today, I had my header rerender whenever a page was visited. This was a problem because the nav bar is designed to query for user initials to show that they've logged in. Whenver the user visits a new page, the nav bar would keep querying for the user initials.
+
+I learned from the video below that I could use React Router to set up a layout or template with children inside!
 [Nav bar with React Router](https://www.youtube.com/watch?v=5s57C7leXc4)
+
+### 5/22

@@ -6,7 +6,7 @@ export default function Library() {
     library_name,
     library_games,
   } = useLoaderData();
-  console.log(library_games)
+  
   return <>
     <h1>{library_name.charAt(0).toUpperCase() + library_name.slice(1)}'s Library</h1>
     <div>Reviews</div>

@@ -78,7 +78,7 @@ const router = createBrowserRouter([
             return response;
           } else {
             console.error('Loader error: path: "/games/:id/:game_name"');
-            return null
+            return null;
           }
         }
       },
@@ -94,7 +94,24 @@ const router = createBrowserRouter([
           else if (request.status === 401) {
             return redirect ('/');
           } 
-          return console.error('Loader error: path: "/Library"');
+          console.error('Loader error: path: "/Library"');
+          return null;
+        }
+      },
+      {
+        path:'/library/:id',
+        element: <Library />,
+        loader: async ({ params }) => {
+          const request = await fetch(`/api/library/data/${params.id}`);
+          if (request.ok) {
+            const response = await request.json();
+            return response;
+          } 
+          else if (request.status === 401) {
+            return redirect ('/');
+          } 
+          console.error('Loader error: path: "/Library/:id"');
+          return null;
         }
       },
       {

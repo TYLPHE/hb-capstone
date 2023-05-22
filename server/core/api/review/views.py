@@ -1,5 +1,5 @@
 from core import db
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from . import Review
 
 review_blueprint = Blueprint('review_blueprint', __name__, url_prefix='/review')
@@ -9,6 +9,7 @@ def review(lgame_id):
     """ Display review of game """
 
     review = Review.search_by_id(lgame_id)
+    current_library_id = session.get('library_id')
 
     return {
         'review_id': review.id,
@@ -18,6 +19,8 @@ def review(lgame_id):
         'header_image': review.library_game.game.header_image,
         'score': review.score,
         'votes_up': review.votes_up,
+        'owner_username': review.library_game.library.user.username,
+        'owner': (review.library_game.library_id == current_library_id)
     }, 200
 
 

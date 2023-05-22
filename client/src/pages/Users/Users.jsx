@@ -1,4 +1,5 @@
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, Link } from "react-router-dom"
+import './Users.css';
 
 export default function Users() {
   const { users } = useLoaderData();
@@ -10,7 +11,9 @@ export default function Users() {
         {users.map((user) => {
           return <tr key={user.id}>
             <td id={user.id}>
-              {user.username}
+              <Link to={`/library/${user.id}`} className="user-link">
+                {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
+              </Link>
             </td>
           </tr>
         })}
