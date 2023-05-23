@@ -16,6 +16,19 @@ main {
   flex: 1;
 }
 
+button {
+  background-color: #4d6b0d;
+  border: none;
+  color: #c5c3c0;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+  color: white;
+}
+
 #root{
   flex: 1;
   background: rgb(27,40,56);
