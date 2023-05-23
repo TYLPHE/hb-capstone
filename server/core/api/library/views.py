@@ -12,6 +12,7 @@ def library_data():
     """ Display user's library and their added games """
 
     library_id = session.get('library_id')
+    owner = session.get('library_id')
 
     response = { 'library_games': [] }
 
@@ -19,6 +20,7 @@ def library_data():
 
     if (library != None):
         response['library_name'] = library.name.capitalize()
+        response['library_owner'] = owner == library_id
         library_games = lg.Library_game.search_by_id(library.id)
         
         for game in library_games:
@@ -47,14 +49,15 @@ def library_data_id(id):
 
     library_id = int(id)
     owner = session.get('library_id')
-
     response = { 'library_games': [] }
 
     library = Library.search_by_id(library_id)
 
     if (library != None):
         library_games = lg.Library_game.search_by_id(library.id)
-        followed = db.session.query(f.Follow).filter(f.Follow.library_id==library_id).first()
+        followed = db.session.query(f.Follow)\
+            .filter(f.Follow.library_id==library_id, f.Follow.user_id==owner)\
+            .first()
 
         response['library_name'] = library.name.capitalize()
         response['library_id'] = library_id
@@ -71,8 +74,6 @@ def library_data_id(id):
                 'game_name': game_data.name,
                 'game_header_image': game_data.header_image,
                 'game_background': game_data.background,
-                # 'library_owner': (owner == library_id),
-                # 'followed': bool(followed),
             }
             
             response['library_games'].append(game_dict)

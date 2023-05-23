@@ -25,7 +25,7 @@ class Follow(db.Model):
 
         user = db.session.get(u.User, user_id)
         library = db.session.get(l.Library, library_id)
-        
+        print('@@@@@user/library', user, library)
         return cls(user=user, library=library)
 
     @classmethod

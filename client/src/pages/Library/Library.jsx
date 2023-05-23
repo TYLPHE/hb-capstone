@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "react-router-dom";
 import './Library.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Library() {
   const {
@@ -8,10 +8,18 @@ export default function Library() {
     library_id,
     library_name,
     library_games,
+    library_owner,
   } = useLoaderData();
   const [followBool, setFollowBool] = useState(followed)
   const [disableBtn, setDisableBtn] = useState(false)
+  const [owner, setOwner] = useState(null)
 
+  useEffect(() => {
+    setOwner(library_owner)
+    setFollowBool(followed)
+  }, [library_owner, followed])
+
+  console.log(useLoaderData())
   async function handleFollow() {
     setDisableBtn(true)
     const request = await fetch('/api/follow/add', {
@@ -20,13 +28,11 @@ export default function Library() {
       body: JSON.stringify({ 'library_id': library_id })
     })
     if (request.ok) {
-      const response = await request.text()
       setFollowBool(true)
-      console.log(response)
     }
     setDisableBtn(false)
   }
-  
+
   async function handleUnfollow() {
     setDisableBtn(true)
     const request = await fetch('/api/follow/delete', {
@@ -35,9 +41,7 @@ export default function Library() {
       body: JSON.stringify({ 'library_id': library_id })
     })
     if (request.ok) {
-      const response = await request.text()
       setFollowBool(false)
-      console.log(response)
     }
     setDisableBtn(false)
   }
@@ -54,12 +58,16 @@ export default function Library() {
     }
   }
   
+  function FollowingUser() {
+    return <div>{`You are following ${library_name}.`}</div>
+  }
+  
   return <>
     <h1>{library_name.charAt(0).toUpperCase() + library_name.slice(1)}'s Library</h1>
 
     <div>
-      {followed && <div>{`You are following ${library_name}.`}</div>}
-      <FollowBtn />
+      {followBool && <FollowingUser />}
+      {!owner && <FollowBtn />}
     </div>
 
     <div>Reviews</div>

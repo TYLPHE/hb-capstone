@@ -26,7 +26,7 @@ export default function Review() {
       const root = document.querySelector('#root');
       root.style.backgroundImage = null;
     }
-  });
+  }, []);
 
   function EditButtons() {
     return <>

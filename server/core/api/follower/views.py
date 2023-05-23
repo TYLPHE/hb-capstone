@@ -16,7 +16,7 @@ def add():
     db.session.add(follow)
     db.session.commit()
 
-    return 'followed', 201
+    return '', 201
 
 
 @follow_blueprint.route('/delete', methods=['POST'])
@@ -31,4 +31,4 @@ def delete():
     db.session.delete(follow)
     db.session.commit()
 
-    return 'unfollowed', 204
+    return '', 204

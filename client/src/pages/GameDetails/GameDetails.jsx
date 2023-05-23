@@ -12,13 +12,16 @@ export default function GameDetails() {
     short_description,
   } = useLoaderData();
 
-  const [inLibrary, setInLibrary] = useState(in_library);
+  const [inLibrary, setInLibrary] = useState(null);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
+  
+  useEffect(() => {
+    setInLibrary(in_library)
+  }, [in_library])
   
   useEffect(() => {
     const root = document.querySelector('#root');
     root.style.backgroundImage = `url(${background})`;
-    
   }, [background]);
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function GameDetails() {
       const root = document.querySelector('#root');
       root.style.backgroundImage = null;
     }
-  });
+  }, []);
   
   async function handleAdd() {
     setAddBtnTxt('Adding...');
