@@ -189,6 +189,19 @@ I haven't found a clear answer to why Model.query is legacy code but I'll take i
 
 It seems like `session.query()` is old too. I should be using something like `scalars()` and `execute()` listed in the article mentioned above.
 
+### React Strict Mode triggers useEffect() twice
+I noticed that react was fetching my api twice on refresh. [I learned](https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode?rq=4) that react's strict mode does this and should trigger only once in production.
+
+```javascript
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+```
+
+
 ## Log of progress
 ### 5/8
 Day 1, I had my database tables approved and managed to write all the tables and their relationships in SQLAlchemy. Planning to write classmethods to be able to seed the database with data.
@@ -295,3 +308,32 @@ I learned from the video below that I could use React Router to set up a layout 
 [Nav bar with React Router](https://www.youtube.com/watch?v=5s57C7leXc4)
 
 ### 5/22
+I added a follow feature to my app. In order to implement it, I added an extra many-to-many table. This is updated in the 'Links' section of this README under 'Data Table'. I'm surprised that I was able to implement this without big roadblocks!
+
+I did run into a React issue where navigating from another user's library, which has the follow/unfollow button, to their own library. The issue is that the follow button would stay on the page. I learned to add a `useEffect()` that will set states on render:
+
+```javascript
+useEffect(() => {
+  setOwner(library_owner)
+  setFollowBool(followed)
+}, [library_owner, followed])
+```
+
+This bug was also happening to the game details page with the 'Add to library' button, which was fixed. 
+
+I also fixed another bug. When a user visits a game details page, useEffect sets the background of the #root element. However, when they navigated away from the page, the background would not change. I learned to use `useEffect()` again.
+
+If we return a funciton on useEffect, we can tell react to do things to the component when it is 'unmounted'. [If your effect returns a function, React will run it when it is time to clean up](https://legacy.reactjs.org/docs/hooks-effect.html#example-using-hooks-1).
+
+To make my background return to null, I added the following code:
+```javascript
+useEffect(() => {
+  return () => {
+    const root = document.querySelector('#root');
+    root.style.backgroundImage = null;
+  }
+}, []);
+```
+
+### 5/23
+`Promise.all()` is blowing my mind but I think I have a solution thanks to [this](https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all)

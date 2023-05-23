@@ -28,10 +28,35 @@ class Follow(db.Model):
         print('@@@@@user/library', user, library)
         return cls(user=user, library=library)
 
+
     @classmethod
     def search_by_id(cls, user_id, library_id):
         """ Search and return Class based on id """
 
         return cls.query.filter_by(user_id=user_id, library_id=library_id).first()
 
-        
+
+    @classmethod
+    def followers(cls, user_id, library_id):
+        """ return list of followers and its count """
+
+        count = cls.query.filter_by(library_id=library_id).count()
+        followers = cls.query.filter_by(library_id=library_id).all()
+
+        return {
+            'count': count,
+            'followers': followers,
+        }
+
+    
+    @classmethod
+    def following(cls, user_id, library_id):
+        """ return list of who the user follows and its count """
+
+        count = cls.query.filter_by(user_id=user_id).count()
+        following = cls.query.filter_by(user_id=user_id).all()
+
+        return {
+            'count': count,
+            'following': following,
+        }

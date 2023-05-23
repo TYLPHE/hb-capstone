@@ -32,3 +32,43 @@ def delete():
     db.session.commit()
 
     return '', 204
+
+
+@follow_blueprint.route('/all')
+def all():
+    """ returns followers/following and respective counts """
+
+    user_id = session.get('user_id')
+    library_id = session.get('library_id')
+
+    following = f.Follow.following(user_id, library_id)
+    followers = f.Follow.followers(user_id, library_id)
+
+    response = {
+        'following': {
+            'count': following.get('count'),
+            'users': [],
+        },
+        'followers': {
+            'count': followers.get('count'),
+            'users': [],
+        },
+    }
+
+    for user in following.get('following'):
+        users = response['following'].get('users')
+
+        users.append({
+            'user_name': user.library.user.username,
+            'library_id': user.library_id,
+        })
+    
+    for user in followers.get('followers'):
+        users = response['followers'].get('users')
+        users.append({
+            'user_id': user.user_id,
+            'user_name': user.user.username,
+            'library_id': user.user.library.id,
+        })
+    
+    return response, 200

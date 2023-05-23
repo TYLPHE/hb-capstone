@@ -19,7 +19,6 @@ export default function Library() {
     setFollowBool(followed)
   }, [library_owner, followed])
 
-  console.log(useLoaderData())
   async function handleFollow() {
     setDisableBtn(true)
     const request = await fetch('/api/follow/add', {
@@ -76,7 +75,7 @@ export default function Library() {
         {library_games.map((game) => {
           return (
             <tr key={ game.library_game_id } className="library-tr">
-              <td 
+              <td
                 className="library-td" 
                 style={{
                   backgroundImage: `url(${game.game_background})`,

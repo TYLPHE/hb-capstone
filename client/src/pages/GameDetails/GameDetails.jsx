@@ -18,11 +18,24 @@ export default function GameDetails() {
   useEffect(() => {
     setInLibrary(in_library)
   }, [in_library])
-  
+
   useEffect(() => {
     const root = document.querySelector('#root');
     root.style.backgroundImage = `url(${background})`;
   }, [background]);
+  
+  // BUG FIX FOR WHITE BACKGROUNDS (404 background)
+  // useEffect(() => {
+  //   const root = document.querySelector('#root');
+  //   (async ()=> {
+  //     const request = await fetch(`/api/games/checkbg?url=${background}`);
+  //     if (request.ok) {
+  //         root.style.backgroundImage = `url(${background})`;
+  //       } else {
+  //         root.style.backgroundImage = null;
+  //       }
+  //   })()
+  // }, [background]);
 
   useEffect(() => {
     return () => {
