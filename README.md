@@ -336,6 +336,27 @@ useEffect(() => {
 ```
 
 ### 5/23
-`Promise.all()` is blowing my mind but I think I have a solution thanks to [this](https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all)
+`Promise.all()` is blowing my mind but I think I have a solution thanks to [this](https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all).
 
-This was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags.
+After some trial-and-error, I was able to perform multiple fetch requests by using `Promise.all()`. As soon as I figured that out, I immediately hit another bug in react.
+
+React was returning null in my states despite using hooks to set the state variables with the responses from `Promise.all()`. In order to fix this bug, I had to also set the variables in `setState()` like so:
+```javascript
+const { username, following, followers, random_review } = useLoaderData();
+const [name, setName] = useState(username)
+const [fing, setFing] = useState(following)
+const [fers, setFers] = useState(followers)
+const [randomReview, setRandomReview] = useState(random_review)
+
+useEffect(() => {
+  setName(username);
+  setFing(following);
+  setFers(followers);
+  setRandomReview(randomReview)
+}, [username, following, followers, randomReview])
+```
+Again, I was setting `useState(null)` instead of something like, `useState(username)`. In case anybody is wondering, I set the `useEffect()` to ensure that if I switch to another user's library page, all the components update to the new user's data.
+
+After figuring out how to deliver data from my API to React, I started working a little bit on the dashboard. First, I decided to show a list of followers and followed users. In order to do this, I created new methods for the API to distribute the right users. Next I combined React Router to link the followed/following list of users to their respective libraries. Finally, I styled it so it would look ok on the user's dashboard.
+
+As for the styling, this was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags. I felt like this was a really nice way of displaying things on the dashboard and it was easy to implement because theyre just `<details>` and `<summary>` tags!
