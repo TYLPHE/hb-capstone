@@ -1,4 +1,14 @@
 .user-link {
   color: white;
   text-decoration: none;
+  display: flex;
+  padding: 5px 15px;
+  transition: 100ms;
+}
+
+.user-link:hover {
+  /* background-color: rgba(255, 255, 255, 0.10); */
+  background-color: #95bbd4;
+  color: black;
+  transition: 100ms;
 }

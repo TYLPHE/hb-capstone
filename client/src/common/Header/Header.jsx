@@ -2,6 +2,7 @@ import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Header.css';
 import Search from '../Search/Search';
+import Flash from '../Flash/Flash'
 
 export default function Header() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function Header() {
 
   return (
     <div className='header-container'>
+      {msg && <Flash msg={msg}/>}
       <header className='main-header'>
         <Link to='/' className='logo'>🤂</Link>
 

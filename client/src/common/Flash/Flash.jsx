@@ -8,6 +8,8 @@
  * {msg && <Flash msg={ msg }/>}
  */
 
+import './Flash.css';
+
 export default function Flash({ msg }) {
   return (
     <div className="flash">

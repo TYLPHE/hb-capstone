@@ -8,7 +8,6 @@ A game review blog app
 - [User Flow](https://app.diagrams.net/#G1z9lyHXlRGCrXEbBrZIRROnVPUq8ySHBm)
 - [GitHub Gist](https://gist.github.com/TYLPHE/a33813691689b10cf085195d5944d48c)
 
-
 ## MVP
  - Users can create a review page
  - Users can search and filter a game library
@@ -360,3 +359,5 @@ Again, I was setting `useState(null)` instead of something like, `useState(usern
 After figuring out how to deliver data from my API to React, I started working a little bit on the dashboard. First, I decided to show a list of followers and followed users. In order to do this, I created new methods for the API to distribute the right users. Next I combined React Router to link the followed/following list of users to their respective libraries. Finally, I styled it so it would look ok on the user's dashboard.
 
 As for the styling, this was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags. I felt like this was a really nice way of displaying things on the dashboard and it was easy to implement because theyre just `<details>` and `<summary>` tags!
+
+### 5/24

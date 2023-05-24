@@ -88,12 +88,6 @@ export default function Dashboard() {
   return <>
     <h1>Welcome, { name }</h1>
     <div className="dashboard-buttons">
-      <Link to='/library'>
-        <button className='sign-register'>View My Library</button>
-      </Link>
-      <Link to='/games'>
-        <button className='sign-register'>Browse Games</button>
-      </Link>
       <Followers />
       <RandomReview />
     </div>

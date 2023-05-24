@@ -1,9 +1,3 @@
-/* * { border: 1px solid cyan} */
-
-.dashboard-buttons {
-  margin-left: 1rem;
-}
-
 summary {
   font-weight: bold;
   font-size: 1.3rem;
@@ -31,10 +25,13 @@ details[open] {
   color: #c5c3c0;
   text-decoration: none;
   display: flex;
+  transition: 100ms;
 }
 
 .follow-link:hover {
-  color: white;
+  background-color: #95bbd4;
+  color: black;
+  transition: 100ms;
 }
 
 .follow-table {

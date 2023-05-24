@@ -9,15 +9,18 @@
   align-items: center;
   width: 100%;
   gap: 1rem;
+  transition: 100ms
+}
+
+.library-link:hover {
+  background-color: #95bbd4;
+  color: black;
+  transition: 100ms;
 }
 
 .library-tr {
   display: flex;
   padding: 4px;
-}
-
-.library-tr:hover {
-  filter: brightness(110%);
 }
 
 .library-td {
@@ -29,4 +32,12 @@
 .review-title {
   font-size: 2rem;
   font-weight: bold;
+}
+
+.reviews-container {
+  padding-top: 1rem;
+}
+
+.library-container {
+  width: 100%;
 }

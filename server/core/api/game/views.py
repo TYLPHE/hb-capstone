@@ -34,6 +34,7 @@ def search():
     """ search for game and render details """
 
     name = request.args.get('search')
+    print('@@@@@@@@NAME', name)
     result = Game.search_by_name(name)
     
     if (len(result) > 1):

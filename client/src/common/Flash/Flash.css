@@ -1,0 +1,10 @@
+.flash {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  padding: 5px;
+  background-color: rgba(14, 14, 14, 0.798);
+  width: 100%
+}
