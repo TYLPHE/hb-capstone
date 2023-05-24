@@ -1,3 +1,42 @@
+/* * { border: 1px solid cyan} */
+
 .dashboard-buttons {
   margin-left: 1rem;
+}
+
+summary {
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 5px;
+  color: #c5c3c0;
+  user-select: none;
+  background-color: #3b6491;
+}
+
+summary:hover {
+  cursor: pointer;
+  color: white
+}
+
+details[open] summary {
+  color: white;
+}
+
+details[open] {
+  font-weight: bold;
+  color: #c5c3c0;
+}
+
+.follow-link {
+  color: #c5c3c0;
+  text-decoration: none;
+  display: flex;
+}
+
+.follow-link:hover {
+  color: white;
+}
+
+.follow-table {
+  width: 100%;
 }

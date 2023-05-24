@@ -1,6 +1,6 @@
 from core import db
 from flask import Blueprint, session, request
-from . import models as f
+from . import Follow
 
 follow_blueprint = Blueprint('follow_blueprint', __name__, url_prefix='/follow')
 
@@ -11,7 +11,7 @@ def add():
     user_id = session.get('user_id')
     library_id = request.json.get('library_id')
 
-    follow = f.Follow.create(user_id, library_id)
+    follow = Follow.create(user_id, library_id)
 
     db.session.add(follow)
     db.session.commit()
@@ -26,7 +26,7 @@ def delete():
     user_id = session.get('user_id')
     library_id = request.json.get('library_id')
 
-    follow = f.Follow.search_by_id(user_id, library_id)
+    follow = Follow.search_by_id(user_id, library_id)
     
     db.session.delete(follow)
     db.session.commit()
@@ -41,8 +41,8 @@ def all():
     user_id = session.get('user_id')
     library_id = session.get('library_id')
 
-    following = f.Follow.following(user_id, library_id)
-    followers = f.Follow.followers(user_id, library_id)
+    following = Follow.following(user_id, library_id)
+    followers = Follow.followers(user_id, library_id)
 
     response = {
         'following': {
@@ -72,3 +72,25 @@ def all():
         })
     
     return response, 200
+
+   
+@follow_blueprint.route('/random-review')
+def random_review():
+    """ return a random review """
+
+    user_id = session.get('user_id')
+
+    lg = Follow.random_library_game(user_id)
+    
+    return {
+        'random_review': {
+            'library_id': lg.library_id,
+            'library_game_id': lg.id,
+            'review_id': lg.review.id,
+            'username': lg.library.user.username,
+            'game_name': lg.game.name,
+            'game_background': lg.game.background,
+            'game_header_image': lg.game.header_image,
+        }
+    }, 200
+

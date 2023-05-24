@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import './GameDetails.css'
 
 export default function GameDetails() {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export default function GameDetails() {
     short_description,
   } = useLoaderData();
 
-  const [inLibrary, setInLibrary] = useState(null);
+  const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
   
   useEffect(() => {

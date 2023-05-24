@@ -337,3 +337,5 @@ useEffect(() => {
 
 ### 5/23
 `Promise.all()` is blowing my mind but I think I have a solution thanks to [this](https://stackoverflow.com/questions/31710768/how-can-i-fetch-an-array-of-urls-with-promise-all)
+
+This was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags.

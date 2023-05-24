@@ -1,6 +1,7 @@
 from core import db
 from .. import library as l
 from .. import user as u
+from random import choice
 
 class Follow(db.Model):
     """ A table of users and their followed libraries """
@@ -60,3 +61,14 @@ class Follow(db.Model):
             'count': count,
             'following': following,
         }
+    
+
+    @classmethod
+    def random_library_game(cls, user_id):
+        """ returns a random library that the user follows """
+
+        random_follower = choice(Follow.query.filter_by(user_id=user_id).all())
+        library = random_follower.library
+        random_library_game = choice(library.library_games)
+
+        return random_library_game

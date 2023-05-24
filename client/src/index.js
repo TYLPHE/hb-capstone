@@ -49,6 +49,7 @@ const router = createBrowserRouter([
           const requests = await Promise.all([
             await fetch('/api/user/session-status'),
             await fetch('/api/follow/all'),
+            await fetch('/api/follow/random-review')
           ].map(async (res) => {
             const response = await res.json()
             return response
@@ -60,26 +61,9 @@ const router = createBrowserRouter([
               response[key] = value;
             }
           });
-          // requests.map(async (res) => {
-          //   const data = await res.json();
-          //   for (const [key, value] of Object.entries(data)) {
-          //     response[key] = value;
-          //   }
-          // });
+
           return response
         }
-      //   loader: async () => {
-      //     const request = await fetch('/api/user/session-status');
-      //     if (request.ok) {
-      //       const response = await request.json();
-      //       return response;
-      //     }
-      //     else if (request.status === 401) {
-      //       return redirect('/');
-      //     }
-      //     return console.error('Loader error: path:"/dashboard"')
-      //   },
-      //   errorElement: <ErrorBoundary />,
       },
       {
         path:'/games',

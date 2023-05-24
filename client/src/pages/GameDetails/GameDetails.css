@@ -1,0 +1,8 @@
+button:disabled {
+  background-color: gray;
+  cursor: default;
+}
+
+button:disabled:hover {
+  color: #c5c3c0
+}

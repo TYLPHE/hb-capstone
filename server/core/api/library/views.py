@@ -1,5 +1,5 @@
 from core import db
-from flask import Blueprint, session, request
+from flask import Blueprint, session
 from . import Library
 from .. import library_game as lg
 from .. import game as g
