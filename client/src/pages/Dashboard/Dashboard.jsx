@@ -9,29 +9,12 @@ export default function Dashboard() {
   const [fers, setFers] = useState(followers)
   const [randomReview, setRandomReview] = useState(random_review)
 
-  // useEffect(() => {
-  //   setName(username);
-  // }, [username])
-  
-  // useEffect(() => {
-  //   setFing(following);
-  // }, [following])
-
-  // useEffect(() => {
-  //   setFers(followers);
-  // }, [followers])
-
-  // useEffect(() => {
-  //   setRandomReview(randomReview)
-  // }, [randomReview])
-
   useEffect(() => {
     setName(username);
     setFing(following);
     setFers(followers);
     setRandomReview(randomReview)
   }, [username, following, followers, randomReview])
-
 
   function Followers() {
     return <div>
@@ -70,8 +53,6 @@ export default function Dashboard() {
     </div>
   }
   
-  console.table(randomReview)
-  
   function RandomReview() {
       return <div>
         <details open>
@@ -81,7 +62,7 @@ export default function Dashboard() {
               {`${randomReview.username.charAt(0).toUpperCase() + randomReview.username.slice(1)}'s review of ${randomReview.game_name}`}
             </div>
           </div>
-          <table>
+          <table className="dashboard-table">
             <thead>
               <tr className="library-tr">
                 <td
@@ -101,7 +82,6 @@ export default function Dashboard() {
             </thead>
           </table>
         </details>
-
       </div>
     }
   
