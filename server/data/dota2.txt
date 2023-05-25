@@ -1,5 +1,3 @@
-"unrendered markdown" review
-
 # Dota 2 Review
 
 ## Introduction

@@ -14,7 +14,7 @@ class Developer(db.Model):
                                        back_populates='developer')
 
     def __repr__(self):
-        return f'<Developer name={self.name}'
+        return f'<Developer name={self.name}>'
 
 
     @classmethod

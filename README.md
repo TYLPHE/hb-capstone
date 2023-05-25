@@ -361,3 +361,6 @@ After figuring out how to deliver data from my API to React, I started working a
 As for the styling, this was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags. I felt like this was a really nice way of displaying things on the dashboard and it was easy to implement because theyre just `<details>` and `<summary>` tags!
 
 ### 5/24
+Working on styling and animations; Mosre specifically the hover functionality.
+Thinking about extracting more details for my games API.
+Fixed bug about if user has no followers or followers with no reviews, random review breaks.

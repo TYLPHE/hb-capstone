@@ -67,8 +67,11 @@ class Follow(db.Model):
     def random_library_game(cls, user_id):
         """ returns a random library that the user follows """
 
-        random_follower = choice(Follow.query.filter_by(user_id=user_id).all())
-        library = random_follower.library
-        random_library_game = choice(library.library_games)
-
-        return random_library_game
+        followers = Follow.query.filter_by(user_id=user_id).all()
+        if len(followers) > 0:
+            random_follower = choice(followers)
+            library = random_follower.library
+            random_library_game = choice(library.library_games)
+            return random_library_game
+        else:
+            return None

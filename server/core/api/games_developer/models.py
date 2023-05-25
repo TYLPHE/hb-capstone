@@ -15,4 +15,10 @@ class Games_developer(db.Model):
     developer = db.relationship('Developer', back_populates='games_developers')
 
     def __repr__(self):
-        return f'<Games_developer id={id}>'
+        return f'<Games_developer id={self.id}>'
+    
+    @classmethod
+    def create(cls, game, developer):
+        """ Create class. Does not add and commit to db """
+
+        return cls(game=game, developer=developer)

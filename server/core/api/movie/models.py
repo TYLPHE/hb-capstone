@@ -18,7 +18,7 @@ class Movie(db.Model):
 
 
     @classmethod
-    def create(cls, path):
+    def create(cls, path, game_cls):
         """ Create class. Does not add and commit to db """
 
-        return cls(path=path)
+        return cls(path=path, game=game_cls)

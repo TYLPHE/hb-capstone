@@ -1,6 +1,5 @@
 from core import db
 from datetime import datetime
-from sqlalchemy import select
 
 class User(db.Model):
     """ A table of users """

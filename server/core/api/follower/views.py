@@ -81,6 +81,8 @@ def random_review():
     user_id = session.get('user_id')
 
     lg = Follow.random_library_game(user_id)
+    if lg == None:
+        return {}, 200
     
     return {
         'random_review': {

@@ -16,3 +16,9 @@ class Games_genre(db.Model):
 
     def __repr__(self):
         return f'<Games_Genre id={self.id}>'
+    
+    @classmethod
+    def create(cls, game, genre):
+        """ Create class. Does not add and commit to db """
+
+        return cls(game=game, genre=genre)

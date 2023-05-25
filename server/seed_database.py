@@ -2,20 +2,26 @@
 
 import os, json
 from core import db
+from random import choice, randint
 from core.api.user import User
 from core.api.game import Game
 from core.api.library import Library
 from core.api.library_game import Library_game
 from core.api.review import Review
+from core.api.screenshot import Screenshot
+from core.api.movie import Movie
+from core.api.developer import Developer
+from core.api.games_developer import Games_developer
+from core.api.publisher import Publisher
+from core.api.games_publisher import Games_publisher
+from core.api.genre import Genre
+from core.api.games_genre import Games_genre
+from core.api.follower import Follow
 
 # Commands to create a new 'tylphe-capstone' db
 os.system('dropdb tylphe_capstone')
 os.system('createdb tylphe_capstone')
-# connect_to_db(app)
 db.create_all()
-
-# Seed db
-u1 = User.create('tylphe','123','Tyler', 'Phet')
 
 # Seed Games
 with open('data/games.json') as f:
@@ -23,7 +29,14 @@ with open('data/games.json') as f:
 
 games = json.loads(data)
 
-games_class = []
+games_list = []
+screenshot_list = []
+movie_list = []
+developer_set = set()
+games_developer_list = []
+genre_set = set()
+description_set = set() # This is for genre_set because it kept adding duplicates to set
+games_genre_list = []
 for game in games:
     if(game.get('id') == None):
         continue
@@ -36,16 +49,67 @@ for game in games:
         release_date = game.get('release_date')
 
         # Search for matching game ids and exclude from seeding
-        match = [entry for entry in games_class if entry.id == id]              
+        match = [entry for entry in games_list if entry.id == id]              
         
         if len(match) > 0:
             continue
         else:
+            # Create game
             g = Game.create(id, name, short_description, 
                             header_image, background, release_date)
-            games_class.append(g)
+            games_list.append(g)
 
-            """ 
+            # Create the game's screenshot paths
+            screenshots = game.get('screenshots')
+            if (screenshots):
+                for screenshot in screenshots:
+                    path = screenshot.get('path_full')
+                    s = Screenshot.create(path, g)
+                    screenshot_list.append(s)
+
+            # Create the game's movie paths
+            movies = game.get('movies')
+            if (movies):
+                for mv in movies:
+                    vid = mv.get('mp4')
+                    if (vid):
+                        path = vid.get('480')
+                        if (path):
+                            m = Movie.create(path, g)
+                            movie_list.append(m)
+            
+            # Create developers table
+            developers = game.get('developers')
+            if (developers):
+                for developer in developers:
+                    d = Developer.create(developer)
+                    developer_set.add(d)
+
+                    # Create games_developer relationship
+                    for devClass in developer_set:
+                        if developer == devClass.name:
+                            gd = Games_developer.create(g, devClass) 
+                            games_developer_list.append(gd)
+
+            # Create genres table
+            genres = game.get('genres')
+            if (genres):
+                for genre in genres:
+                    description = genre.get('description')
+                    if description not in description_set:
+                        description_set.add(description)
+                        ge = Genre.create(description)
+                        genre_set.add(ge)
+
+
+                    # Create games_genre relationship
+                    for genreClass in genre_set:
+                        if description == genreClass.name:
+                            gg = Games_genre.create(g, genreClass)                            
+                            games_genre_list.append(gg)
+            
+
+            """
             # Comment-in to generate a new list of appids
             with open('/data/games-filtered.json', 'r') as f:
                 data = f.read()
@@ -57,48 +121,104 @@ for game in games:
                 f.write(json.dumps(h, indent=2))
             """
 
-l1 = Library.create(u1, u1.username)
-
-db.session.add_all([u1, l1])
+# commit games and its related tables
+genre_list = list(genre_set)
+developer_list = list(developer_set)
+db.session.add_all((
+    games_list + 
+    screenshot_list + 
+    movie_list + 
+    developer_list + 
+    games_developer_list + 
+    genre_list + 
+    games_genre_list 
+))
 db.session.commit()
 
-lg1 = Library_game.create(l1, games_class[0])
+# seed users
+usernames = [
+    'tylphe',
+    'cozycat',
+    'funnyferret',
+    'sillysquirrel',
+    'playfulpenguin',
+    'happyhamster',
+    'dashingdolphin',
+    'cuddlykoala',
+    'quirkyquokka',
+    'wittywalrus',
+    'sneakysnake',
+    'charmingcheetah',
+    'luckyladybug',
+    'bravebulldog',
+    'sleepysloth',
+    'jollyjellyfish',
+    'cleverchameleon',
+    'bashfulbunny',
+    'prancingpony',
+    'wisewolf',
+    'purringpanther',
+]
+fname_lname = [
+    ('Tyler', 'Phet'),
+    ('Cozy', 'Cat'),
+    ('Funny', 'Ferret'),
+    ('Silly', 'Squirrel'),
+    ('Playful', 'Penguin'),
+    ('Happy', 'Hamster'),
+    ('Dashing', 'Dolphin'),
+    ('Cuddly', 'Koala'),
+    ('Quirky', 'Quokka'),
+    ('Witty', 'Walrus'),
+    ('Sneaky', 'Snake'),
+    ('Charming', 'Cheetah'),
+    ('Lucky', 'Ladybug'),
+    ('Brave', 'Bulldog'),
+    ('Sleepy', 'Sloth'),
+    ('Jolly', 'Jellyfish'),
+    ('Clever', 'Chameleon'),
+    ('Bashful', 'Bunny'),
+    ('Prancing', 'Pony'),
+    ('Wise', 'Wolf'),
+    ('Purring', 'Panther'),
+]
 
-r1_markdown = """ # Dota 2 Review
+def create(usernames, fname_lname):
+    """ Create users, their library, games, and followers """
 
-## Introduction
+    to_add = []
 
-Dota 2 is a multiplayer online battle arena (MOBA) game developed and published by Valve Corporation. It is the sequel to the popular Warcraft III mod, Defense of the Ancients (DotA). In Dota 2, players engage in intense team-based battles, utilizing strategic gameplay and hero selection to defeat the opposing team. As an avid player of the game, I would like to share my review and thoughts on Dota 2.
+    # to create random follows
+    users = []
+    libraries = []
+    
+    for i, username in enumerate(usernames):
+        u = User.create(username, '123', fname_lname[i][0], fname_lname[i][1])
+        l = Library.create(u, u.username)
+        to_add.extend([u,l])
+        users.append(u)
+        libraries.append(l)
 
-## Gameplay
+        # create the user's list of games in their library
+        with open('data/generic-review.txt', 'r') as review:
+            mkdn = review.read() 
 
-Dota 2 offers an incredibly deep and complex gameplay experience. The game revolves around two teams of five players, each controlling a hero with unique abilities and roles. The objective is to destroy the enemy's Ancient, a heavily fortified structure located in their base. To achieve this, players must navigate through three lanes, engaging in skirmishes, farming gold and experience, and pushing towers.
+        for _ in range(randint(3, 5)):
+            lg = Library_game(library=l, game=choice(games_list))
+            r = Review.create(lg, mkdn)
+            to_add.extend([lg, r])
+            
 
-The gameplay mechanics in Dota 2 are well-balanced and provide a high level of depth. Each hero has its strengths and weaknesses, and the strategic decision-making involved in hero selection, itemization, and team composition is crucial. The game rewards teamwork, coordination, and individual skill, creating an exhilarating and satisfying experience.
+    # create followers
+    for user in users:
+        l_copy = libraries[:]
+        for _ in range(randint(5, 20)):
+            random_library = l_copy.pop(randint(0, len(l_copy) - 1))
+            f = Follow(user=user, library=random_library)
+            to_add.append(f)
 
-## Graphics and Sound
+    db.session.add_all(to_add)
+    db.session.commit()
 
-Visually, Dota 2 is stunning. The game features detailed character models, beautiful environments, and impressive spell effects. The art style is distinctive and cohesive, enhancing the overall immersion. The sound design is also top-notch, with impactful ability sounds and an epic soundtrack that adds to the intensity of battles.
-
-## Community and Esports
-
-The Dota 2 community is diverse and passionate, with a dedicated player base. However, it is important to note that like any online competitive game, toxic behavior exists. Valve has implemented systems to combat toxicity, but occasional negative encounters can still occur. Nevertheless, Dota 2 provides a great opportunity to connect and play with friends or join teams to compete in leagues or tournaments.
-
-Dota 2 has become one of the leading titles in the esports scene. The annual tournament, The International, features the world's best teams battling for a massive prize pool. The competitive scene is well-structured and provides thrilling matches, making it a joy to watch and follow.
-
-## Updates and Support
-
-Valve has done an excellent job of consistently updating Dota 2 with new content and balance patches. The developers actively listen to the community, addressing bugs and introducing gameplay improvements. Furthermore, the game is free-to-play, and all heroes are available from the start, ensuring a level playing field for all players.
-
-## Conclusion
-
-Dota 2 is a masterpiece of the MOBA genre, offering deep gameplay, stunning graphics, and a vibrant community. The strategic gameplay, hero variety, and the constant updates from Valve keep the game fresh and exciting. While toxicity can be an issue, the overall experience of Dota 2 is highly rewarding, making it a must-play for fans of competitive gaming.
- """
-
-r1 = Review.create(
-    lg1, 
-    r1_markdown
-    )
-
-db.session.add_all(games_class + [lg1, r1])
-db.session.commit()
+# commit users with random seeded data
+create(usernames, fname_lname)
