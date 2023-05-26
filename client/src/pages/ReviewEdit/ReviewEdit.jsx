@@ -44,15 +44,6 @@ export default function ReviewEdit() {
       return <button className='save-button' onClick={handleUpdate}>Save & Update Review</button>
     }
   }
-
-  function Editor() {
-    return <MDEditor 
-      value={value} 
-      onChange={ (e) => handleValue(e) } 
-      previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
-      height={800}
-    />
-  }
   
   return <>
     {msg && <Flash msg={ msg } />}
@@ -66,6 +57,11 @@ export default function ReviewEdit() {
       <UpdateButton />   
     </div>
 
-    {owner ? <Editor /> : 'You cannot edit another user\'s review'}
+    {owner ? <MDEditor 
+      value={value} 
+      onChange={ (e) => handleValue(e) } 
+      previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
+      height={800}
+    /> : 'You cannot edit another user\'s review'}
   </>
 }

@@ -11,7 +11,7 @@ export default function Users() {
         {users.map((user) => {
           return <tr key={user.id}>
             <td id={user.id}>
-              <Link to={`/library/${user.id}`} className="user-link">
+              <Link to={`/dashboard/${user.id}`} className="user-link">
                 {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
               </Link>
             </td>

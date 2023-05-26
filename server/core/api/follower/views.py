@@ -1,6 +1,7 @@
 from core import db
 from flask import Blueprint, session, request
 from . import Follow
+from .. import user as u
 
 follow_blueprint = Blueprint('follow_blueprint', __name__, url_prefix='/follow')
 
@@ -73,6 +74,45 @@ def all():
     
     return response, 200
 
+@follow_blueprint.route('/all/<id>')
+def all_id(id):
+    """ returns followers/following and respective counts for a user """
+
+    user_id = int(id)
+    library_id = u.User.get_library_id(id)
+    print('USERIDLIBRARYID', user_id, library_id)
+
+    following = Follow.following(user_id, library_id)
+    followers = Follow.followers(user_id, library_id)
+
+    response = {
+        'following': {
+            'count': following.get('count'),
+            'users': [],
+        },
+        'followers': {
+            'count': followers.get('count'),
+            'users': [],
+        },
+    }
+
+    for user in following.get('following'):
+        users = response['following'].get('users')
+
+        users.append({
+            'user_name': user.library.user.username,
+            'library_id': user.library_id,
+        })
+    
+    for user in followers.get('followers'):
+        users = response['followers'].get('users')
+        users.append({
+            'user_id': user.user_id,
+            'user_name': user.user.username,
+            'library_id': user.user.library.id,
+        })
+    
+    return response, 200
    
 @follow_blueprint.route('/random-review')
 def random_review():

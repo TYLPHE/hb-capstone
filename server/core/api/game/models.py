@@ -60,7 +60,7 @@ class Game(db.Model):
     def search_by_name(cls, name):
         """ Return game by name """
 
-        return cls.query.filter(cls.name.ilike(f'%{name}%')).all()
+        return cls.query.filter(cls.name.ilike(f'%{name}%')).order_by(cls.name).all()
 
 
     @classmethod

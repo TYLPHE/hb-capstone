@@ -81,7 +81,7 @@ export default function GameDetails() {
     </div>
     
     <div>
-      <p>{ short_description }</p>
+      <p dangerouslySetInnerHTML={{__html: short_description}} />
       <p>Release Date: { release_date }</p>
     </div>
 

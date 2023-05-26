@@ -34,10 +34,10 @@
   font-weight: bold;
 }
 
-.reviews-container {
-  padding-top: 1rem;
-}
-
 .library-container {
   width: 100%;
+}
+
+.unfollowed {
+  background-color: rgba(255, 255, 255, 0.253);;
 }

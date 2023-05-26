@@ -9,16 +9,16 @@ A game review blog app
 - [GitHub Gist](https://gist.github.com/TYLPHE/a33813691689b10cf085195d5944d48c)
 
 ## MVP
- - Users can create a review page
- - Users can search and filter a game library
- - Users can log in
+- Users can create a review page
+- Users can search and filter a game library
+- Users can log in
 
 ## About
 hb-capstone is a web application where users can create a review blog about the games that they have played.
 
 ## Ideas for later
- - Maybe add a sidebar in User Home to display a list of reviews of followed reviewers
- - Search in nav to find game 
+- Maybe add a sidebar in User Home to display a list of reviews of followed reviewers
+- Search in nav to find game 
 
 ## Challenges
 ### Database Seeds
@@ -26,7 +26,7 @@ Steam API cannot provide a list of games in JSON. I had to learn how to write a 
 
 ## Helpful Notes
 ### One-to-one relationships
-[Helpful link](https://stackoverflow.com/questions/3464443/how-to-create-one-to-one-relationships-with-declarative/9611874#9611874) - Set `uselist=False` on the parent:
+[Helpful link](https://stackoverflow.com/questions/3464443/how-to-create-one-to-one-relationships-with-declarative/9611874#9611874)- Set `uselist=False` on the parent:
 ```python
 class Parent(Base):
     __tablename__ = "parent_table"
@@ -232,9 +232,9 @@ Next I will work on the review page where the user can edit their review. That w
 Thinking about the review editing to be similar to the GitHub's markdown editor. I hope it exists somewhere out there. But before working on the review page, I'm going to try to figure if I can incorporate React into this project...
 
 It's about 2 AM and I have followed 3 different guides:
- - [dev.to Getting Started with Flask](https://dev.to/nagatodev/getting-started-with-flask-1kn1)
- - [dev.to How to connect Flask to ReactJs](https://dev.to/nagatodev/how-to-connect-flask-to-reactjs-1k8i)
- - [Authentication in React app using Flask Server-Sided Sessions](https://www.youtube.com/watch?v=sBw0O5YTT4Q)
+- [dev.to Getting Started with Flask](https://dev.to/nagatodev/getting-started-with-flask-1kn1)
+- [dev.to How to connect Flask to ReactJs](https://dev.to/nagatodev/how-to-connect-flask-to-reactjs-1k8i)
+- [Authentication in React app using Flask Server-Sided Sessions](https://www.youtube.com/watch?v=sBw0O5YTT4Q)
 
  The first two I actually coded along the guide and learned a lot. The third, YouTube video, guide helped me understand how to use sessions between the back-end and front-end. It also showed me how I could structure my files.
 
@@ -276,9 +276,9 @@ In the morning lecutre, I noticed in the lecture's demo code how the API is call
 I learned from [Flask's tips about making responses](https://flask.palletsprojects.com/en/2.3.x/quickstart/?highlight=about%20responses#about-responses) that There are multiple ways to return responses and their codes. I paired that with [MDN's list of response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) to properly label my API's responses. Some of my website does not need a response body so [I learned to create an empty body](https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response) by `return Response(code=200)`. Eventually, though, I decided to send an empty string since it felt easier to read. I instead `return '', 200` as my empty response.
 
 Extra tasks completed:
- - Library is now sorted.
- - FLASK QUESTION: What is the difference between a URL converter and request.args?
-    - [Answer](https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api)
+- Library is now sorted.
+- FLASK QUESTION: What is the difference between a URL converter and request.args?
+   - [Answer](https://www.alibabacloud.com/topic-center/dev-faq/ghgfdxwc43-when-do-i-use-path-params-vs-query-params-in-a-restful-api)
 
 ### 5/18
 I spent pretty much all day styling my website so it looks cool.
@@ -286,8 +286,8 @@ I spent pretty much all day styling my website so it looks cool.
 Thinking about what to do next for today. MVP is complete so I'm thinking about adding extra features.
 
 Thoughts:
- - Tomorrow's TODO: Fix bug when searching for 1 game only
- - Dashboard - image carousel that shows some games in library.
+- Tomorrow's TODO: Fix bug when searching for 1 game only
+- Dashboard- image carousel that shows some games in library.
 
 ### 5/19
 I decided learn more about the back-end. I'm hoping to refactor my server's code for better understanding and scalability. I think just about all of the cohort, including me, are using the Movie Ratings app as a template to build their models and views. If I can understand Flask a little better, maybe I can refactor that template code into something more readable.
@@ -298,7 +298,7 @@ nesting blueprints (https://flask.palletsprojects.com/en/2.3.x/blueprints/)
 
 ### 5/20
 I've been playing a lot with how python packages work and I think I have a better idea of how it works. Thanks to the article linked below, I learned how to turn my folders into packages. This way, I can import the package and have access to its contents.
- - [Helpful link to understanding `__init__.py`](https://web.archive.org/web/20200721150953/http://effbot.org/pyfaq/what-is-init-py-used-for.htm)
+- [Helpful link to understanding `__init__.py`](https://web.archive.org/web/20200721150953/http://effbot.org/pyfaq/what-is-init-py-used-for.htm)
 
 ### 5/21
 Before today, I had my header rerender whenever a page was visited. This was a problem because the nav bar is designed to query for user initials to show that they've logged in. Whenver the user visits a new page, the nav bar would keep querying for the user initials.
@@ -361,6 +361,19 @@ After figuring out how to deliver data from my API to React, I started working a
 As for the styling, this was a [really cool guide](https://dev.to/jordanfinners/creating-a-collapsible-section-with-nothing-but-html-4ip9) to create a collapsible section with just HTML tags. I felt like this was a really nice way of displaying things on the dashboard and it was easy to implement because theyre just `<details>` and `<summary>` tags!
 
 ### 5/24
-Working on styling and animations; Mosre specifically the hover functionality.
-Thinking about extracting more details for my games API.
-Fixed bug about if user has no followers or followers with no reviews, random review breaks.
+Notes throughout the day:
+- Working on styling and animations; More specifically the hover functionality.
+- Thinking about extracting more details for my games API.
+- Fixed bug about if user has no followers or followers with no reviews, random review breaks.
+
+What a day. I started with styling and animations; More specifically the hover functionality. 
+
+Next, I really wanted to expand on the game details page. In order to do that, I needed to expand on my database seeding file. It was not using all the tables listed in my data model. I still needed to populate screenshots, movies, and developers. This was a big task for me because of the number of games I'm adding to my database. I skipped populating these fields because I was not sure how long it would take to create an MVP. Now that I have some extra time, I can go back to this task and populate the rest of the tables.
+
+The biggest challenge about expanding my own table was traversing through all the nested objects and lists. I had to break it down into smaller parts too. For example, pulling just screenshots, then just movies, etc., and then pulling all the data at once.
+
+
+### 5/25
+Notes throughout the day
+- Maybe take a break from this project to memorize python built in functions for whiteboarding.
+- I had my wife browse my page and she had a hard time navigating though each page and understanding what to do. I'm going to focus on navigation logic.

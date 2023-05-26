@@ -49,7 +49,8 @@ const router = createBrowserRouter([
           const requests = await Promise.all([
             await fetch('/api/user/session-status'),
             await fetch('/api/follow/all'),
-            await fetch('/api/follow/random-review')
+            await fetch('/api/follow/random-review'),
+            await fetch('/api/library/data'),
           ].map(async (res) => {
             const response = await res.json()
             return response
@@ -64,6 +65,30 @@ const router = createBrowserRouter([
 
           return response
         }
+      },
+      {
+        path:'/dashboard/:id',
+        element: <Dashboard />,
+        loader: async ({ params }) => {
+          const requests = await Promise.all([
+            await fetch('/api/user/session-status'),
+            await fetch(`/api/follow/all/${params.id}`),
+            await fetch('/api/follow/random-review'),
+            await fetch(`/api/library/data/${params.id}`),
+          ].map(async (res) => {
+            const response = await res.json()
+            return response
+          }));
+
+          const response = {}
+          requests.forEach((data) => {
+            for (const [key, value] of Object.entries(data)) {
+              response[key] = value;
+            }
+          });
+
+          return response
+        }        
       },
       {
         path:'/games',
@@ -89,6 +114,7 @@ const router = createBrowserRouter([
           }
         }
       },
+      // Will try to phase out library page
       {
         path:'/library',
         element: <Library />,
@@ -121,6 +147,7 @@ const router = createBrowserRouter([
           return null;
         }
       },
+      //End of phase out
       {
         path:'/review/:id',
         element: <Review />,

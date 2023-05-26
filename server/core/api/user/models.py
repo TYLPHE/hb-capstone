@@ -49,4 +49,13 @@ class User(db.Model):
     def all_users(cls):
         """ Return list of all users """
 
-        return db.session.query(cls).all()
+        return db.session.query(cls).order_by(cls.username).all()
+
+    
+    @classmethod
+    def get_library_id(cls, id):
+        """ return user's library id based on user id """
+
+        user = db.session.get(cls, id)
+
+        return user.library.id

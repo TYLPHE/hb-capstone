@@ -58,7 +58,6 @@ export default function Review() {
       </Link>
 
       {owner && <EditButtons />}
-
     </div>
 
     <h3>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h3>
