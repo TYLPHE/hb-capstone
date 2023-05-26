@@ -1,6 +1,7 @@
 from core import db
 from .. import library as l
 from .. import user as u
+from .. import review as r
 from random import choice
 
 class Follow(db.Model):
@@ -67,11 +68,20 @@ class Follow(db.Model):
     def random_library_game(cls, user_id):
         """ returns a random library that the user follows """
 
-        followers = Follow.query.filter_by(user_id=user_id).all()
+        followers = cls.query.filter(cls.user_id==user_id).all()
         if len(followers) > 0:
             random_follower = choice(followers)
             library = random_follower.library
-            random_library_game = choice(library.library_games)
-            return random_library_game
+            reviewed_reviews = []
+
+            for lgame in library.library_games:
+                if lgame.review.reviewed:
+                    reviewed_reviews.append(lgame)
+            
+            if len(reviewed_reviews) == 0:
+                return None
+            else:
+                random_library_game = choice(reviewed_reviews)
+                return random_library_game
         else:
             return None

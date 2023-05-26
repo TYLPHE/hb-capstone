@@ -15,10 +15,12 @@ export default function Review() {
     review_id,
   } = useLoaderData();
 
+  console.log(useLoaderData())
+  
   useEffect(() => {
     const root = document.querySelector('#root');
     root.style.backgroundImage = `url(${background})`;
-    
+    window.scrollTo(0,0)
   }, [background]);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Review() {
 
   return <>
     <div className="review-header">
-      <Link to={`/games/${ game_id }/${ game }`} className="review-image-link">
+      <Link to={`/games/${ game_id }/${ game.replace('/', '') }`} className="review-image-link">
         <img src={header_image} alt="header of game" />
       </Link>
 

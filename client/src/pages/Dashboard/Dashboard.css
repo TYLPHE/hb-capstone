@@ -21,23 +21,6 @@ details[open] {
   color: #c5c3c0;
 }
 
-.follow-link {
-  color: #c5c3c0;
-  text-decoration: none;
-  display: flex;
-  transition: 100ms;
-}
-
-.follow-link:hover {
-  background-color: #95bbd4;
-  color: black;
-  transition: 100ms;
-}
-
-.follow-table {
-  width: 100%;
-}
-
 .dashboard-table {
   width: 100%;
 }

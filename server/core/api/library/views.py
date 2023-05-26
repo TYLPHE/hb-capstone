@@ -29,6 +29,7 @@ def library_data():
 
             game_dict = {
                 'library_game_id': game.id,
+                'reviewed': game.review.reviewed,
                 'game_id': game_data.id,
                 'game_name': game_data.name,
                 'game_header_image': game_data.header_image,
@@ -70,6 +71,7 @@ def library_data_id(id):
 
             game_dict = {
                 'library_game_id': game.id,
+                'reviewed': game.review.reviewed,
                 'game_id': game_data.id,
                 'game_name': game_data.name,
                 'game_header_image': game_data.header_image,

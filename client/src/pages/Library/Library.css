@@ -1,5 +1,7 @@
+/* *{border: 1px solid goldenrod} */
+
 .library-thumbnail {
-  max-height: 7rem;
+  max-height: 5rem;
 }
 
 .library-link {
@@ -7,15 +9,14 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   gap: 1rem;
-  transition: 100ms
 }
 
 .library-link:hover {
   background-color: #95bbd4;
   color: black;
-  transition: 100ms;
 }
 
 .library-tr {
@@ -30,7 +31,8 @@
 }
 
 .review-title {
-  font-size: 2rem;
+  flex: 1;
+  font-size: 1.6rem;
   font-weight: bold;
 }
 
@@ -40,4 +42,20 @@
 
 .unfollowed {
   background-color: rgba(255, 255, 255, 0.253);;
+}
+
+.reviewed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  align-self: stretch;
+  width: 15ch;
+  text-decoration: none;
+  color: #c5c3c0;
+  background-color: rgba(0, 0, 0, 0.192);
+  font-size: .9rem;
+}
+.reviewed:hover{
+  color: white;
 }

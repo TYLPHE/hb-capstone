@@ -13,6 +13,7 @@ class Review(db.Model):
     score = db.Column(db.Integer)
     votes_up = db.Column(db.Integer)
     created = db.Column(db.DateTime)
+    reviewed = db.Column(db.Boolean, default=False)
 
     # Relationships    
     library_game = db.relationship('Library_game', back_populates='review')
@@ -21,11 +22,12 @@ class Review(db.Model):
         return f'<Review id={self.id}>'
 
     @classmethod
-    def create(cls, library_game, review=''):
+    def create(cls, library_game, review='', reviewed=False):
         """ Create class. Does not add and commit to db """
 
         return cls(library_game=library_game,
-                   review=review, 
+                   review=review,
+                   reviewed=reviewed,
                    created=datetime.now(), 
                    votes_up=0)
 

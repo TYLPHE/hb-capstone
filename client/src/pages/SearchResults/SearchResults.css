@@ -17,11 +17,9 @@
   color: white;
   display: flex;
   padding: 5px 15px;
-  transition: 100ms;
 }
 
 .search-results-link:hover {
   background-color: #95bbd4;
   color: black;
-  transition: 100ms;
 }

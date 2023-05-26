@@ -14,7 +14,7 @@ export default function SearchResults() {
             <tr key={game.id} className="search-results-tr">
               <td className="search-results-td">
                 <Link 
-                  to={`/games/${game.id}/${game.name}`}
+                  to={`/games/${game.id}/${game.name.replace('/', '')}`}
                   className="search-results-link"
                 >{game.name}</Link>
               </td>

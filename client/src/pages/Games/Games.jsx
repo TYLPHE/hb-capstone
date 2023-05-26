@@ -13,7 +13,7 @@ export default function Games() {
       {random_games.map((game) => {
         return (
           <div key={game.id}>
-            <Link to={`/games/${game.id}/${game.name}`}>
+            <Link to={`/games/${game.id}/${game.name.replace('/', '')}`}>
               <img 
                 src={game.header_image} 
                 alt='Header of game'

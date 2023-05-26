@@ -12,13 +12,11 @@
   color: #c5c3c0;
   border: none;
   border-radius: 2px;
-  transition: 100ms;
 }
 
 .search-button:hover {
   background-color: #95bbd4;
   color: black;
-  transition: 100ms;
   cursor: pointer;
 }
 

@@ -46,7 +46,7 @@ export default function Header() {
           {/* to be deleted */}
           {/* <NavLink to='/library' className='nav-button'>User Reviews</NavLink> */} 
           <NavLink to='/Users' className='nav-button'>Users</NavLink>
-          <NavLink to='/Games' className='nav-button'>Browse Games</NavLink>
+          <NavLink to='/Games' className='nav-button'>Games</NavLink>
         </nav>
 
         <div className="header-search">

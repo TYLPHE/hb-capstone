@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import './Dashboard.css';
 import Library from '../Library/Library'
 import Follow from '../../common/Follow/Follow'
+import Followers from "../../common/Followers/Followers";
 
 export default function Dashboard() {
   const {
@@ -20,100 +21,20 @@ export default function Dashboard() {
   const [fers, setFers] = useState(followers)
   const [owner, setOwner] = useState(library_owner)
   const [randomReview, setRandomReview] = useState(random_review)
-  const [followBool, setFollowBool] = useState(followed)
-  const [disableBtn, setDisableBtn] = useState(false)
+  
   useEffect(() => {
     setName(library_name);
     setFing(following);
     setFers(followers);
     setOwner(library_owner);
-    setFollowBool(followed);
     setRandomReview(randomReview)
-  }, [library_name, following, followers, randomReview, library_owner, followed])
+  }, [library_name, following, followers, randomReview, library_owner])
 
-  console.log('DSH', useLoaderData())
-  
   useEffect(() => {
     return () => {
       setOwner(null)
     }
   }, [])
-  
-  async function handleFollow() {
-    setDisableBtn(true)
-    const request = await fetch('/api/follow/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'library_id': library_id })
-    })
-    if (request.ok) {
-      setFollowBool(true)
-    }
-    setDisableBtn(false)
-  }
-
-  async function handleUnfollow() {
-    setDisableBtn(true)
-    const request = await fetch('/api/follow/delete', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'library_id': library_id })
-    })
-    if (request.ok) {
-      setFollowBool(false)
-    }
-    setDisableBtn(false)
-  }
-  
-  function FollowBtn() {
-    if (followBool) {
-      return <button className="unfollowed" onClick={handleUnfollow} disabled={disableBtn}>
-        {`Unfollow ${library_name}`}
-      </button>
-    } else {
-      return <button onClick={handleFollow} disabled={disableBtn}>
-        {`Follow ${library_name}`}
-      </button>
-    }
-  }
-    
-  
-  function Followers() {
-    return <div>
-      <details>
-        <summary>{fing.count} following</summary>
-        <table className="follow-table">
-          <tbody>
-            {fing.users.map((user) => {
-              return <tr key={user.user_id}>
-                <td>
-                  <Link to={`/dashboard/${user.library_id}`} className="follow-link">
-                    {user.user_name.charAt(0).toUpperCase() + user.user_name.slice(1)}
-                  </Link>
-                </td>
-              </tr>
-            })}
-          </tbody>
-        </table>
-      </details>
-      <details>
-        <summary>{fers.count} followers</summary>
-        <table className="follow-table">
-          <tbody>
-            {fers.users.map((user) => {
-              return <tr key={user.library_id}>
-                <td>
-                  <Link to={`/dashboard/${user.library_id}`} className="follow-link">
-                    {user.user_name.charAt(0).toUpperCase() + user.user_name.slice(1)}
-                  </Link>
-                </td>
-              </tr>
-            })}
-          </tbody>
-        </table>
-      </details>
-    </div>
-  }
   
   function RandomReview() {
       if (randomReview) {
@@ -162,12 +83,11 @@ export default function Dashboard() {
   
   return <>
     <h1>{ name }'s Profile</h1>
-    {/* {!owner && <FollowBtn />} */}
     {!owner && <Follow followed={followed} library_id={library_id} library_name={library_name}/> }
 
     <div className="dashboard-buttons">
       {owner && <RandomReview />}
-      <Followers />
+      <Followers fing={fing} fers={fers}/>
     </div>
 
     <Library 

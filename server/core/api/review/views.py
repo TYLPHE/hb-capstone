@@ -22,6 +22,7 @@ def review(lgame_id):
         'votes_up': r.votes_up,
         'owner_username': r.library_game.library.user.username,
         'owner': (r.library_game.library_id == current_library_id),
+        'reviewed': r.reviewed,
     }, 200
 
 

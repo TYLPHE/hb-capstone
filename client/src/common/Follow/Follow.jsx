@@ -1,4 +1,4 @@
-// Params need: followed, library_id, library_name
+// Params need: followed (boolean), library_id (int), library_name (str)
 import { useState } from "react"
 
 export default function FollowBtn(params) {

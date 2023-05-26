@@ -16,7 +16,7 @@ def add_game():
     game_id = request.json.get('id')
     game = g.Game.search_by_id(game_id)
     library_game = Library_game.create(library, game)
-    review = r.Review.create(library_game, f'# {game.name} Review')
+    review = r.Review.create(library_game)
     
     if (library_game):
         db.session.add_all([library_game, review])

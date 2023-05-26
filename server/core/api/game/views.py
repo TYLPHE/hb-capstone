@@ -34,7 +34,6 @@ def search():
     """ search for game and render details """
 
     name = request.args.get('search')
-    print('@@@@@@@@NAME', name)
     result = Game.search_by_name(name)
     
     if (len(result) > 1):
@@ -53,7 +52,7 @@ def search():
     elif (len(result) == 1):
         return {
             'status': 'Success', 
-            'url': f'/games/{ result[0].id }/{ result[0].name }' 
+            'url': f'/games/{ result[0].id }/{ result[0].name.replace("/", "") }' 
         }, 200
     else: 
         return {

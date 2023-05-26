@@ -377,3 +377,8 @@ The biggest challenge about expanding my own table was traversing through all th
 Notes throughout the day
 - Maybe take a break from this project to memorize python built in functions for whiteboarding.
 - I had my wife browse my page and she had a hard time navigating though each page and understanding what to do. I'm going to focus on navigation logic.
+
+The day was spent rearranging my UI to make more sense as a user navigates through my web site.
+
+### 5/26
+- Fixed links that have a '/' in its name, for example, `http://localhost:3000/games/2130460/FATAL FRAME / PROJECT ZERO: Mask of the Luna Eclipse` would return a 404. I learned that it's because of the '/' in its title. I only use the game's id to find the game but I felt like it would be helpful to include the game's title in the URL too.

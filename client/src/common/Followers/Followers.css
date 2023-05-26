@@ -1,11 +1,14 @@
-.user-link {
-  color: white;
+.follow-link {
+  color: #c5c3c0;
   text-decoration: none;
   display: flex;
-  padding: 5px 15px;
 }
 
-.user-link:hover {
+.follow-link:hover {
   background-color: #95bbd4;
   color: black;
+}
+
+.follow-table {
+  width: 100%;
 }
