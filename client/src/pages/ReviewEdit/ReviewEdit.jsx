@@ -6,7 +6,7 @@ import Flash from '../../common/Flash/Flash';
 import './ReviewEdit.css';
 
 export default function ReviewEdit() {
-  const { id, review, owner } = useLoaderData();
+  const { id, review, owner, reviewed } = useLoaderData();
   const [value, setValue] = useState(review);
   const [msg, setMsg] = useState(null);
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
@@ -45,6 +45,28 @@ export default function ReviewEdit() {
     }
   }
   
+  function Publish() {
+    const [active, setActive] = useState(false);
+    
+    return <div className='publish-container'>
+      <button 
+        onMouseOver={() => setActive(true)}
+        onMouseOut={() => setActive(false)}
+        className='save-button' 
+      >
+        Publish
+      </button>
+      <div 
+        className={`publish-popup ${active ? "popup" : ""}`}
+        onMouseOver={() => setActive(true)}
+        onMouseOut={() => setActive(false)}        
+      >
+        Publishing will allow other users to see your review.
+      </div>
+    </div>
+    
+  }
+
   return <>
     {msg && <Flash msg={ msg } />}
     
@@ -54,7 +76,8 @@ export default function ReviewEdit() {
       <Link to={`/review/${id}`}>
         <button className='save-button'>Return</button>
       </Link>
-      <UpdateButton />   
+      <UpdateButton />
+      <Publish />
     </div>
 
     {owner ? <MDEditor 

@@ -12,3 +12,7 @@
 .follow-table {
   width: 100%;
 }
+
+.unfollowed {
+  background-color: #ffffff41;
+}

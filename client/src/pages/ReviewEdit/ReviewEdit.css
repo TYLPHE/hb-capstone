@@ -7,3 +7,23 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
+
+.publish-container {
+  position: relative;
+}
+
+.publish-popup{
+  visibility: hidden;
+  background-color: #52545a;
+  position:absolute;
+  z-index: 1;
+  right: 0;
+  top: 1;
+  width: 23ch;
+  padding: .5rem;
+  opacity:0;
+}
+.publish-popup.popup {
+  visibility: visible;
+  opacity:1;
+}

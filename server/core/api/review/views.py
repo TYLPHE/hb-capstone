@@ -23,6 +23,7 @@ def review(lgame_id):
         'owner_username': r.library_game.library.user.username,
         'owner': (r.library_game.library_id == current_library_id),
         'reviewed': r.reviewed,
+        'user_id':r.library_game.library.user.id,
     }, 200
 
 
@@ -39,6 +40,7 @@ def review_edit(id):
         'name': r.library_game.game.name,
         'score': r.score,
         'owner': (r.library_game.library_id == current_library_id),
+        'reviewed': r.reviewed,
     }, 200
 
 

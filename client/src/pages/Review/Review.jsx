@@ -13,6 +13,7 @@ export default function Review() {
     owner_username,
     review,
     review_id,
+    user_id,
   } = useLoaderData();
 
   console.log(useLoaderData())
@@ -30,39 +31,47 @@ export default function Review() {
     }
   }, []);
 
-  function EditButtons() {
-    return <>
-      <div className="review-data">
-        <div>
-          <Link to={`/review/edit/${review_id}`}>
-            <button className="review-button">Edit Review</button>
-          </Link>
+  function EditButtons(params) {
+    const { owner } = params
+    if (owner) {
+      return <>
+        <div className="review-data">
+          <div>
+            <Link to={`/dashboard/${user_id}`}>
+              <button className="review-button">Return</button>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/review/edit/${review_id}`}>
+              <button className="review-button">Edit Review</button>
+            </Link>
+          </div>
+          
+          <div>
+            <Link 
+              to={`/review/delete/${review_id}`} 
+              state={{ game, game_id, header_image, review_id }}
+            >
+              <button className="review-button">
+                Delete review and remove from library
+              </button>
+            </Link>
+          </div>
         </div>
-        
-        <div>
-          <Link 
-            to={`/review/delete/${review_id}`} 
-            state={{ game, game_id, header_image, review_id }}
-          >
-            <button className="review-button">
-              Delete review and remove from library
-            </button>
-          </Link>
-        </div>
-      </div>
-    </>
+      </>
+    }
   }
 
   return <>
+    <h1>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h1>
     <div className="review-header">
       <Link to={`/games/${ game_id }/${ game.replace('/', '') }`} className="review-image-link">
         <img src={header_image} alt="header of game" />
       </Link>
 
-      {owner && <EditButtons />}
+      <EditButtons owner={owner}/>
     </div>
 
-    <h3>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h3>
 
     <MDEditor.Markdown 
       source={review}

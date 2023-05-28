@@ -40,10 +40,6 @@
   width: 100%;
 }
 
-.unfollowed {
-  background-color: rgba(255, 255, 255, 0.253);;
-}
-
 .reviewed {
   display: flex;
   align-items: center;
@@ -53,9 +49,15 @@
   width: 15ch;
   text-decoration: none;
   color: #c5c3c0;
-  background-color: rgba(0, 0, 0, 0.192);
+  /* background-color: rgba(0, 0, 0, 0.192); */
+  background-color: #4d6b0dcb;
   font-size: .9rem;
+  font-weight: bold;
 }
 .reviewed:hover{
   color: white;
+}
+
+.not {
+  background-color: #202020cb;;
 }

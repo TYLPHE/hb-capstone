@@ -37,7 +37,7 @@ export default function Library(params) {
       return (
         <Link 
         to={`/review/${game.library_game_id}`} 
-        className="reviewed"
+        className="reviewed not"
         onMouseOver={() => setNotReviewTxt('Add Review')}
         onMouseOut={() => setNotReviewTxt('Not Reviewed')}
       >

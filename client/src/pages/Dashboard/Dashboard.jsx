@@ -1,6 +1,6 @@
+import './Dashboard.css';
 import { Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
-import './Dashboard.css';
 import Library from '../Library/Library'
 import Follow from '../../common/Follow/Follow'
 import Followers from "../../common/Followers/Followers";
@@ -16,11 +16,15 @@ export default function Dashboard() {
     library_id,
     library_games,
   } = useLoaderData();
+
+  console.log(useLoaderData())
+  
   const [name, setName] = useState(library_name)
   const [fing, setFing] = useState(following)
   const [fers, setFers] = useState(followers)
   const [owner, setOwner] = useState(library_owner)
   const [randomReview, setRandomReview] = useState(random_review)
+  const [libGames, setLibGames] = useState(library_games)
   
   useEffect(() => {
     setName(library_name);
@@ -28,7 +32,8 @@ export default function Dashboard() {
     setFers(followers);
     setOwner(library_owner);
     setRandomReview(randomReview)
-  }, [library_name, following, followers, randomReview, library_owner])
+    setLibGames(library_games)
+  }, [library_name, following, followers, randomReview, library_owner, library_games])
 
   useEffect(() => {
     return () => {
@@ -94,7 +99,7 @@ export default function Dashboard() {
       followed={followed}
       library_id={library_id}
       library_name={library_name}
-      library_games={library_games}
+      library_games={libGames}
       library_owner={library_owner}
     />
   </>

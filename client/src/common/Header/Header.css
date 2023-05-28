@@ -30,13 +30,13 @@
 }
 
 .nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: #ffffff1a;
   color: white;
 }
 
 .active {
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: #ffffff1a;
   color: white;
 }
 
@@ -64,7 +64,7 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.253);
+  background-color: #ffffff41;
   border-radius: 50%;
   height: 3rem;
   width: 3rem;
