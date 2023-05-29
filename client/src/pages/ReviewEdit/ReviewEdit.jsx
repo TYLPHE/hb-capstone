@@ -79,7 +79,7 @@ export default function ReviewEdit() {
         onMouseOver={() => setActive(true)}
         onMouseOut={() => setActive(false)}
         onClick={handlePublish}
-        className={`save-button ${isReviewed ? 'reviewed' : ''}`} 
+        className={`save-button ${isReviewed ? 'is-reviewed' : ''}`} 
       >
         {isReviewed ? 'Published' : 'Publish'}
       </button>

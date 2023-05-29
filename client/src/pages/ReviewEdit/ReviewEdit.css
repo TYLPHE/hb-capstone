@@ -2,7 +2,7 @@
   padding:10px 30px;
   width: 200px;
 }
-.save-button.reviewed{
+.save-button.is-reviewed{
   background-color: #52545a;
 }
 
@@ -22,9 +22,12 @@
   z-index: 1;
   right: 0;
   top: 1;
-  width: 23ch;
+  width: 300px;
   padding: .5rem;
   opacity:0;
+  border: 1px solid #c5c3c0;
+  display: flex;
+  justify-content: center;
 }
 .publish-popup.popup {
   visibility: visible;

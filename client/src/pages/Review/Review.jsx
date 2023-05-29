@@ -13,11 +13,10 @@ export default function Review() {
     owner_username,
     review,
     review_id,
+    reviewed,
     user_id,
   } = useLoaderData();
 
-  console.log(useLoaderData())
-  
   useEffect(() => {
     const root = document.querySelector('#root');
     root.style.backgroundImage = `url(${background})`;
@@ -70,16 +69,15 @@ export default function Review() {
       <Link to={`/games/${ game_id }/${ game.replace('/', '') }`} className="review-image-link">
         <img src={header_image} alt="header of game" />
       </Link>
-
     </div>
 
-
-    <MDEditor.Markdown 
+    {reviewed ? <MDEditor.Markdown 
       source={review}
       style={{ 
         padding: '2rem',
         borderRadius: '4px'
       }} 
-    />
+    /> : <div className="not-published">This review is not published.</div>}
+
   </>
 }

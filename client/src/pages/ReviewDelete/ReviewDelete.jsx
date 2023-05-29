@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import './ReviewDelete.css'
 
 export default function ReviewDelete() {
@@ -8,31 +8,32 @@ export default function ReviewDelete() {
   const { game, header_image, review_id } = state;
   const [disableBtn, setDisableBtn] = useState(false);
 
-  async function handleDelete() {
-    setDisableBtn(true);
-    
-    const request = await fetch('/api/review/delete', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ review_id }),
-    });
-
-    if (request.ok) {
-      return navigate('/library');
-    } else {
-      setDisableBtn(false);
-      return console.error('Error: /app/review/delete. Did not delete.');
-    }
-  }
-
+  
   function DeleteBtn() {
+    async function handleDelete() {
+      setDisableBtn(true);
+      
+      const request = await fetch('/api/review/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ review_id }),
+      });
+  
+      if (request.ok) {
+        return navigate('/library');
+      } else {
+        setDisableBtn(false);
+        return console.error('Error: /app/review/delete. Did not delete.');
+      }
+    }
+
     if (disableBtn) {
-      return <button disabled>
-          Yes, Delete review and remove from library
+      return <button className="delete-btn" disabled>
+          Deleting...
         </button>
     } else {
-      return <button onClick={handleDelete}>
-          Yes, Delete review and remove from library
+      return <button className="delete-btn" onClick={handleDelete}>
+          Yes, delete review and remove from library
         </button>
     }
   }
@@ -50,8 +51,11 @@ export default function ReviewDelete() {
       <p>
         Are you sure you want to delete the review and remove the game from the library?
       </p>
-      <div>
+      <div className="delete-container">
         <DeleteBtn />
+        <Link to={`/review/${review_id}`}>
+          <button className="delete-btn">No, do not delete and return</button>
+        </Link>
       </div>
     </div>
   </>

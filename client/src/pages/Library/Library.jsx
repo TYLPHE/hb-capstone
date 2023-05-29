@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import './Library.css';
 
 export default function Library(params) {
-  const { library_games } = params;
+  const { library_games, library_owner } = params;
   const [libGames, setLibGames] = useState(library_games)
   
   useEffect(() => {
@@ -33,17 +33,19 @@ export default function Library(params) {
           {publishTxt}
         </Link>
       )
-    } else {
+    } else if (library_owner) {
       return (
         <Link 
-        to={`/review/${game.library_game_id}`} 
-        className="reviewed not"
-        onMouseOver={() => setNotReviewTxt('Add Review')}
-        onMouseOut={() => setNotReviewTxt('Not Reviewed')}
-      >
-        {notReviewTxt}
-      </Link>
+          to={`/review/${game.library_game_id}`} 
+          className="reviewed not-reviewed"
+          onMouseOver={() => setNotReviewTxt('Add review')}
+          onMouseOut={() => setNotReviewTxt('Not Reviewed')}
+        >
+          {notReviewTxt}
+        </Link>
       )
+    } else {
+      return <div className="reviewed not-reviewed">Not reviewed</div>
     }
   }
   
