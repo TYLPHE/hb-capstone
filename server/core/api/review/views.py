@@ -74,3 +74,15 @@ def delete_review():
 
     return '', 204
 
+@review_blueprint.route('/publish', methods=['POST'])
+def publish():
+    """ toggle publish status (bool) """
+    
+    review_id = request.json.get('review_id')
+    print('REVIEWID', review_id)
+    r = Review.search_by_id(review_id)
+
+    r.reviewed = not r.reviewed
+    db.session.commit()
+
+    return { 'reviewed': r.reviewed }, 201

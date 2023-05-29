@@ -1,11 +1,14 @@
 .save-button {
   padding:10px 30px;
+  width: 200px;
+}
+.save-button.reviewed{
+  background-color: #52545a;
 }
 
 .edit-button-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
 }
 
 .publish-container {
@@ -26,4 +29,8 @@
 .publish-popup.popup {
   visibility: visible;
   opacity:1;
+}
+
+.editor{
+  margin-top: 1rem;
 }

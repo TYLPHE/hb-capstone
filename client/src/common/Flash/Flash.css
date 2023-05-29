@@ -3,7 +3,8 @@
   justify-content: center;
   z-index: 1;
   position: fixed;
-  top: 0px;
+  top: 0;
+  left: 0;
   padding: 5px;
   background-color: rgba(14, 14, 14, 0.798);
   width: 100%

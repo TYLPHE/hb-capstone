@@ -7,10 +7,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
 }
 .review-button {
   padding:10px 30px;
+  width: 200px;
 }
 .review-image-link {
   width: 100%;

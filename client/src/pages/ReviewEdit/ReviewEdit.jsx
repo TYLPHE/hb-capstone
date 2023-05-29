@@ -1,6 +1,6 @@
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import Flash from '../../common/Flash/Flash';
 import './ReviewEdit.css';
@@ -11,6 +11,8 @@ export default function ReviewEdit() {
   const [msg, setMsg] = useState(null);
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
 
+  console.log('REVIEWEDIT', useLoaderData())
+  
   async function handleUpdate() {
     setDisableUpdateBtn(true);
 
@@ -39,29 +41,54 @@ export default function ReviewEdit() {
   
   function UpdateButton() {
     if (disableUpdateBtn) {
-      return <button className='save-button' disabled>Save & Update Review</button>
+      return <button className='save-button' disabled>Save</button>
     } else {
-      return <button className='save-button' onClick={handleUpdate}>Save & Update Review</button>
+      return <button className='save-button' onClick={handleUpdate}>Save</button>
     }
   }
   
-  function Publish() {
+  function Publish(params) {
+    const { reviewed } = params
     const [active, setActive] = useState(false);
+    const [isReviewed, setReviewed] = useState(reviewed)
+    
+    async function handlePublish() {
+      const request = await fetch('/api/review/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ review_id: id })
+      })
+      if (request.ok) {
+        const response = await request.json();
+        setReviewed(response['reviewed']);
+      } else {
+        console.error('ReviewEdit error. Publish error.')
+      }
+    }
+    
+    function popupMessage() {
+      if (isReviewed) {
+        return 'Click to hide your review from other users.'
+      } else {
+        return 'Publishing will allow other users to see your review.'
+      }
+    }
     
     return <div className='publish-container'>
       <button 
         onMouseOver={() => setActive(true)}
         onMouseOut={() => setActive(false)}
-        className='save-button' 
+        onClick={handlePublish}
+        className={`save-button ${isReviewed ? 'reviewed' : ''}`} 
       >
-        Publish
+        {isReviewed ? 'Published' : 'Publish'}
       </button>
       <div 
         className={`publish-popup ${active ? "popup" : ""}`}
         onMouseOver={() => setActive(true)}
         onMouseOut={() => setActive(false)}        
       >
-        Publishing will allow other users to see your review.
+        {popupMessage()}
       </div>
     </div>
     
@@ -77,7 +104,7 @@ export default function ReviewEdit() {
         <button className='save-button'>Return</button>
       </Link>
       <UpdateButton />
-      <Publish />
+      <Publish reviewed={reviewed}/>
     </div>
 
     {owner ? <MDEditor 
@@ -85,6 +112,7 @@ export default function ReviewEdit() {
       onChange={ (e) => handleValue(e) } 
       previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
       height={800}
+      className='editor'
     /> : 'You cannot edit another user\'s review'}
   </>
 }

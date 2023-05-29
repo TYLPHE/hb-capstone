@@ -53,7 +53,7 @@ export default function Review() {
               state={{ game, game_id, header_image, review_id }}
             >
               <button className="review-button">
-                Delete review and remove from library
+                Delete
               </button>
             </Link>
           </div>
@@ -65,11 +65,12 @@ export default function Review() {
   return <>
     <h1>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h1>
     <div className="review-header">
+      <EditButtons owner={owner}/>
+
       <Link to={`/games/${ game_id }/${ game.replace('/', '') }`} className="review-image-link">
         <img src={header_image} alt="header of game" />
       </Link>
 
-      <EditButtons owner={owner}/>
     </div>
 
 
