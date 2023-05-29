@@ -17,8 +17,6 @@ export default function Dashboard() {
     library_games,
   } = useLoaderData();
 
-  console.log(useLoaderData())
-  
   const [name, setName] = useState(library_name)
   const [fing, setFing] = useState(following)
   const [fers, setFers] = useState(followers)

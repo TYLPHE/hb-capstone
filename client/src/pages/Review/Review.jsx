@@ -40,13 +40,19 @@ export default function Review() {
               <button className="review-button">Return</button>
             </Link>
           </div>
+
           <div>
             <Link to={`/review/edit/${review_id}`}>
-              <button className="review-button">Edit Review</button>
+              <button 
+                className="review-button"
+                state={{ game, game_id, header_image, review_id }}
+              >
+                Edit Review
+              </button>
             </Link>
           </div>
           
-          <div>
+          {/* <div>
             <Link 
               to={`/review/delete/${review_id}`} 
               state={{ game, game_id, header_image, review_id }}
@@ -55,7 +61,7 @@ export default function Review() {
                 Delete
               </button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </>
     }

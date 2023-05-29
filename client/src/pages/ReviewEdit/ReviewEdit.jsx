@@ -1,18 +1,17 @@
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
-import { useEffect, useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import Flash from '../../common/Flash/Flash';
 import './ReviewEdit.css';
 
 export default function ReviewEdit() {
   const { id, review, owner, reviewed } = useLoaderData();
+  const { state } = useLocation();
   const [value, setValue] = useState(review);
   const [msg, setMsg] = useState(null);
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
 
-  console.log('REVIEWEDIT', useLoaderData())
-  
   async function handleUpdate() {
     setDisableUpdateBtn(true);
 
@@ -48,9 +47,11 @@ export default function ReviewEdit() {
   }
   
   function Publish(params) {
-    const { reviewed } = params
+    const { reviewed } = params;
     const [active, setActive] = useState(false);
     const [isReviewed, setReviewed] = useState(reviewed)
+    
+
     
     async function handlePublish() {
       const request = await fetch('/api/review/publish', {
@@ -103,7 +104,20 @@ export default function ReviewEdit() {
       <Link to={`/review/${id}`}>
         <button className='save-button'>Return</button>
       </Link>
+      
+      <div>
+        <Link 
+          to={`/review/delete/${id}`} 
+          state={state}
+        >
+          <button className="review-button">
+            Delete
+          </button>
+        </Link>
+      </div>
+
       <UpdateButton />
+      
       <Publish reviewed={reviewed}/>
     </div>
 

@@ -20,7 +20,7 @@ export default function ReviewDelete() {
       });
   
       if (request.ok) {
-        return navigate('/library');
+        return navigate('/dashboard');
       } else {
         setDisableBtn(false);
         return console.error('Error: /app/review/delete. Did not delete.');
