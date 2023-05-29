@@ -382,3 +382,14 @@ The day was spent rearranging my UI to make more sense as a user navigates throu
 
 ### 5/26
 - Fixed links that have a '/' in its name, for example, `http://localhost:3000/games/2130460/FATAL FRAME / PROJECT ZERO: Mask of the Luna Eclipse` would return a 404. I learned that it's because of the '/' in its title. I only use the game's id to find the game but I felt like it would be helpful to include the game's title in the URL too.
+
+### 5/27
+I decided to include a publish button. The ultimate goal is to allow users to add games to their library without needing to add a review. This means that I also need to add an indicator in the library to show whether or not a review has been published or not. 
+
+### 5/28
+Worked on some functionality that hopefully makes sense when someone else uses it.
+- Library now has proper functionality if its an owner accesssing it
+- Delete now has a decline button
+- Review is not hidden if not published
+
+### 5/29
