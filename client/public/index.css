@@ -56,10 +56,6 @@ button:hover {
   align-items: center;
 }
 
-h1 {
-  margin: 2rem 0;
-}
-
 .form-input-label {
   display: flex;
   flex-direction: column;

@@ -393,3 +393,4 @@ Worked on some functionality that hopefully makes sense when someone else uses i
 - Review is not hidden if not published
 
 ### 5/29
+- Resolved bug: State is null on delete. I passed state in button and not the <Link > component.

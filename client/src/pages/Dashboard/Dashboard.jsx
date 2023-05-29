@@ -42,7 +42,7 @@ export default function Dashboard() {
   function RandomReview() {
       if (randomReview) {
         return <div>
-          <details open>
+          <details>
             <summary>See a review by someone you followed</summary>
             <div>
               <div>
@@ -86,6 +86,7 @@ export default function Dashboard() {
   
   return <>
     <h1>{ name }'s Profile</h1>
+    <h2>Followers</h2>
     {!owner && <Follow followed={followed} library_id={library_id} library_name={library_name}/> }
 
     <div className="dashboard-buttons">

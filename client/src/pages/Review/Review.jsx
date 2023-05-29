@@ -31,7 +31,9 @@ export default function Review() {
   }, []);
 
   function EditButtons(params) {
+    // const { owner, game, game_id, header_image, review_id } = params
     const { owner } = params
+    console.log(game, game_id, header_image, review_id)
     if (owner) {
       return <>
         <div className="review-data">
@@ -42,26 +44,18 @@ export default function Review() {
           </div>
 
           <div>
-            <Link to={`/review/edit/${review_id}`}>
+            <Link 
+              to={`/review/edit/${review_id}`}
+              state={{ game, game_id, header_image, review_id }}
+            >
               <button 
                 className="review-button"
-                state={{ game, game_id, header_image, review_id }}
+                
               >
                 Edit Review
               </button>
             </Link>
           </div>
-          
-          {/* <div>
-            <Link 
-              to={`/review/delete/${review_id}`} 
-              state={{ game, game_id, header_image, review_id }}
-            >
-              <button className="review-button">
-                Delete
-              </button>
-            </Link>
-          </div> */}
         </div>
       </>
     }
@@ -70,7 +64,13 @@ export default function Review() {
   return <>
     <h1>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h1>
     <div className="review-header">
-      <EditButtons owner={owner}/>
+      <EditButtons 
+        owner={owner}
+        game={game}
+        game_id={game_id}
+        header_image={header_image}
+        review_id={review_id}
+      />
 
       <Link to={`/games/${ game_id }/${ game.replace('/', '') }`} className="review-image-link">
         <img src={header_image} alt="header of game" />
