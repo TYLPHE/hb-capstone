@@ -16,7 +16,7 @@ details[open] summary {
   color: white;
 }
 
-details[open] {
+details {
   font-weight: bold;
   color: #c5c3c0;
 }

@@ -31,9 +31,8 @@ export default function Review() {
   }, []);
 
   function EditButtons(params) {
-    // const { owner, game, game_id, header_image, review_id } = params
-    const { owner } = params
-    console.log(game, game_id, header_image, review_id)
+    const { owner, game, game_id, header_image, review_id } = params
+
     if (owner) {
       return <>
         <div className="review-data">
@@ -54,6 +53,16 @@ export default function Review() {
               >
                 Edit Review
               </button>
+            </Link>
+          </div>
+        </div>
+      </>
+    } else {
+      return <>
+        <div className="review-data">
+          <div>
+            <Link to={`/dashboard/${user_id}`}>
+              <button className="review-button">Return</button>
             </Link>
           </div>
         </div>

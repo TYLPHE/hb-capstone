@@ -86,8 +86,8 @@ export default function Dashboard() {
   
   return <>
     <h1>{ name }'s Profile</h1>
-    <h2>Followers</h2>
     {!owner && <Follow followed={followed} library_id={library_id} library_name={library_name}/> }
+    <h2>Followers</h2>
 
     <div className="dashboard-buttons">
       {owner && <RandomReview />}

@@ -12,8 +12,6 @@ export default function ReviewEdit() {
   const [msg, setMsg] = useState(null);
   const [disableUpdateBtn, setDisableUpdateBtn] = useState(true);
 
-  console.log(state)
-
   async function handleUpdate() {
     setDisableUpdateBtn(true);
 

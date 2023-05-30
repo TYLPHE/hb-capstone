@@ -6,6 +6,7 @@ export default function ReviewDelete() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { game, header_image, review_id } = state;
+  console.log('reviewdelete', state)
   const [disableBtn, setDisableBtn] = useState(false);
 
   

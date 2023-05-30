@@ -19,13 +19,13 @@ export default function Library(params) {
   // Link to the user's review page
   function Reviewed(params) {
     const { game } = params;
-    console.log('reviewed', game)
-    
     const [publishTxt,setPublishTxt] = useState('Reviewed');
     const [notReviewTxt, setNotReviewTxt] = useState('Not reviewed')
+    console.log('reviewed', params)
 
     function DeleteButton(params) {
       const { id, state } = params
+
       return <>
         <Link 
           to={`/review/delete/${id}`} 
@@ -54,8 +54,8 @@ export default function Library(params) {
             state={{
               game: game.game_name, 
               game_id: game.game_id, 
-              header_image: game.header_image, 
-              review_id: game.review_id
+              header_image: game.game_header_image, 
+              review_id: game.library_game_id
             }} 
           />
         }
@@ -78,7 +78,7 @@ export default function Library(params) {
               game: game.game_name, 
               game_id: game.game_id, 
               header_image: game.game_header_image, 
-              review_id: game.review_id
+              review_id: game.library_game_id
             }} 
           />
         }
@@ -99,7 +99,7 @@ export default function Library(params) {
             return (
               <tr 
                 key={`$game${game.library_game_id}`} 
-                className={`library-tr`} 
+                className={library_owner ? `library-tr` : 'library-tr-visitor'} 
               >
                 <td
                   className="library-td" 
@@ -121,6 +121,7 @@ export default function Library(params) {
 
                     <div className="review-title">{ game.game_name }</div>
                   </Link>
+
                   <Reviewed game={game}/>
                 </td>
               </tr>

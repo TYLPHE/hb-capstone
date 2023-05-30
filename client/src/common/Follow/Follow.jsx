@@ -1,4 +1,5 @@
 // Params need: followed (boolean), library_id (int), library_name (str)
+import './Follow.css'
 import { useState } from "react"
 
 export default function FollowBtn(params) {
@@ -33,11 +34,11 @@ export default function FollowBtn(params) {
   }
   
   if (followBool) {
-    return <button className="unfollowed" onClick={handleUnfollow} disabled={disableBtn}>
+    return <button className="follow-btn unfollowed" onClick={handleUnfollow} disabled={disableBtn}>
       {`Unfollow ${library_name}`}
     </button>
   } else {
-    return <button onClick={handleFollow} disabled={disableBtn}>
+    return <button className='follow-btn' onClick={handleFollow} disabled={disableBtn}>
       {`Follow ${library_name}`}
     </button>
   }

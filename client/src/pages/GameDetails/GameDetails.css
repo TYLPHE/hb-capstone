@@ -6,3 +6,13 @@ button:disabled {
 button:disabled:hover {
   color: #c5c3c0
 }
+
+.details-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-details-btn {
+  padding:10px 30px;
+  width: 200px;
+}

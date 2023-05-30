@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import './GameDetails.css'
 
 export default function GameDetails() {
@@ -12,9 +12,10 @@ export default function GameDetails() {
     release_date,
     short_description,
   } = useLoaderData();
+  const navigate = useNavigate();
 
   const [inLibrary, setInLibrary] = useState(in_library);
-  const [AddBtnTxt, setAddBtnTxt] = useState('Add to library');
+  const [AddBtnTxt, setAddBtnTxt] = useState('Add to my library');
   
   useEffect(() => {
     setInLibrary(in_library)
@@ -32,6 +33,12 @@ export default function GameDetails() {
     }
   }, []);
   
+  function handleReturn() {
+    const root = document.querySelector('#root')
+    root.style.backgroundImage = null;
+    navigate(-1)
+  }
+  
   async function handleAdd() {
     setAddBtnTxt('Adding...');
 
@@ -47,24 +54,34 @@ export default function GameDetails() {
     } 
     else {
       const response = await request.text();
-      setAddBtnTxt('Add to library')
+      setAddBtnTxt('Add to my library')
       return console.error(response)
     }
   }
 
   function AddBtn() {
-    return <button onClick={handleAdd}>{AddBtnTxt}</button>;
+    return <button className="game-details-btn" onClick={handleAdd}>{AddBtnTxt}</button>;
   }
 
   function AddBtnDisabled() {
-    return <button disabled>Added to library</button>;
+    return <button className="game-details-btn" disabled>Added to my library</button>;
   }
 
   
 
   return <>
     <h1>{ name }</h1>
-    
+    <div className="details-btn-container">
+      <button 
+        onClick={handleReturn} 
+        className="game-details-btn"
+      >
+        Return
+      </button>
+      <button className="game-details-btn">Return to library</button>
+      <button className="game-details-btn">Add review</button>
+      {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
+    </div>
     <div>
       <img src={ header_image } alt="Game header"/>
     </div>
@@ -75,7 +92,6 @@ export default function GameDetails() {
     </div>
 
     <div>
-      {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
   </>
 }
