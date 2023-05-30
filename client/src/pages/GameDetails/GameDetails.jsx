@@ -13,7 +13,6 @@ export default function GameDetails() {
     short_description,
   } = useLoaderData();
   const navigate = useNavigate();
-
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to my library');
   

@@ -103,7 +103,8 @@ export default function Library(params) {
                 <td
                   className="library-td" 
                   style={{
-                    backgroundImage: `url(${game.game_background})`,
+                    backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%), 
+                      url(${game.game_background})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}

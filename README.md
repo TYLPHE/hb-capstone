@@ -406,3 +406,4 @@ TODO: Add proper game filter
 ### 5/30
 Wife had another look at the user flow. I think it makes more sense now. Making more updates to UI
 - bug fix: Background not properly updating from background-image to plain background-color. I had to move background-color and background-image to the same layer. Before they were split between `root` element and the `body` element. They are now both sitting in `root`.
+- Note for later: This is a nice complementary color: #644a22

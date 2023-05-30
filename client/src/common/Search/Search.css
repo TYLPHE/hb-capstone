@@ -23,6 +23,8 @@
 input#search {
   height: 100%;
   border: none;
+  background-color: #2e3a4b;
+  color: white
 }
 
 input#search:focus{

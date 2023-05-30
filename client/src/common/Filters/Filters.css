@@ -1,0 +1,18 @@
+.filter-check-container {
+  display: flex;
+}
+
+.filter-name {
+  width: 100%;
+  padding-left: 5px;
+}
+.filter-name:hover {
+  user-select: none;
+  cursor: pointer;
+  background-color: #95bbd4;
+  color: black;
+}
+
+.reset-filter-btn {
+  width: 100%;
+}
