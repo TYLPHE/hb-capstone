@@ -1,10 +1,8 @@
 from flask import Blueprint, session, request
 from . import Game
 from .. import library_game as lg
-import requests
 
 game_blueprint = Blueprint('game_blueprint', __name__, url_prefix='/games')
-
 
 @game_blueprint.route('/<id>')
 def game_details(id):
@@ -76,16 +74,3 @@ def random_games():
         })
 
     return response, 200
-
-@game_blueprint.route('/checkbg')
-def check_bg():
-    """ checks to see if url is 404 or not """
-    url = request.args.get('url')
-    
-    try:
-        r = requests.get(url)
-        print(r.status_code)
-        return '', 200
-    except:
-        print(r.status_code)
-        return '', 404

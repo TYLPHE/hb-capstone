@@ -37,3 +37,7 @@
 .editor{
   margin-top: 1rem;
 }
+
+.delete {
+  background-color: #5D151E;
+}

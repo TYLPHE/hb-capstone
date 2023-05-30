@@ -1,6 +1,6 @@
+import './Library.css';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import './Library.css';
 
 export default function Library(params) {
   const { library_games, library_owner } = params;
@@ -19,22 +19,49 @@ export default function Library(params) {
   // Link to the user's review page
   function Reviewed(params) {
     const { game } = params;
+    console.log('reviewed', game)
+    
     const [publishTxt,setPublishTxt] = useState('Reviewed');
     const [notReviewTxt, setNotReviewTxt] = useState('Not reviewed')
 
+    function DeleteButton(params) {
+      const { id, state } = params
+      return <>
+        <Link 
+          to={`/review/delete/${id}`} 
+          state={state}
+          className="reviewed delete-lib-btn"
+        >
+          Remove
+        </Link>
+      </>
+    }
+    
     if (game.reviewed) {
-      return (
+      return <div className="reviewed-container">
         <Link 
           to={`/review/${game.library_game_id}`} 
-          className="reviewed"
+          className="reviewed reviewed-btn"
           onMouseOver={() => setPublishTxt('See Review')}
           onMouseOut={() => setPublishTxt('Reviewed')}
         >
           {publishTxt}
         </Link>
-      )
+        {
+          library_owner && 
+          <DeleteButton 
+            id={game.library_game_id} 
+            state={{
+              game: game.game_name, 
+              game_id: game.game_id, 
+              header_image: game.header_image, 
+              review_id: game.review_id
+            }} 
+          />
+        }
+      </div>
     } else if (library_owner) {
-      return (
+      return <div className="reviewed-container">
         <Link 
           to={`/review/${game.library_game_id}`} 
           className="reviewed not-reviewed"
@@ -43,9 +70,23 @@ export default function Library(params) {
         >
           {notReviewTxt}
         </Link>
-      )
+        {
+          library_owner && 
+          <DeleteButton 
+            id={game.library_game_id} 
+            state={{
+              game: game.game_name, 
+              game_id: game.game_id, 
+              header_image: game.game_header_image, 
+              review_id: game.review_id
+            }} 
+          />
+        }
+      </div>
     } else {
-      return <div className="reviewed not-reviewed">Not reviewed</div>
+      return <div className="reviewed-container">
+        <div className="reviewed not-reviewed">Not reviewed</div>
+      </div>
     }
   }
   
@@ -56,7 +97,10 @@ export default function Library(params) {
         <tbody>
           {libGames.map((game) => {
             return (
-              <tr key={`$game${game.library_game_id}`} className="library-tr">
+              <tr 
+                key={`$game${game.library_game_id}`} 
+                className={`library-tr`} 
+              >
                 <td
                   className="library-td" 
                   style={{
@@ -76,7 +120,6 @@ export default function Library(params) {
                     />
 
                     <div className="review-title">{ game.game_name }</div>
-                    
                   </Link>
                   <Reviewed game={game}/>
                 </td>

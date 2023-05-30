@@ -71,6 +71,7 @@ def library_data_id(id):
 
             game_dict = {
                 'library_game_id': game.id,
+                'review_id': game.review.id,
                 'reviewed': game.review.reviewed,
                 'game_id': game_data.id,
                 'game_name': game_data.name,

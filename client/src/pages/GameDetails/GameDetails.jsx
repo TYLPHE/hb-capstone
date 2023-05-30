@@ -25,19 +25,6 @@ export default function GameDetails() {
     root.style.backgroundImage = `url(${background})`;
   }, [background]);
   
-  // BUG FIX FOR WHITE BACKGROUNDS (404 background)
-  // useEffect(() => {
-  //   const root = document.querySelector('#root');
-  //   (async ()=> {
-  //     const request = await fetch(`/api/games/checkbg?url=${background}`);
-  //     if (request.ok) {
-  //         root.style.backgroundImage = `url(${background})`;
-  //       } else {
-  //         root.style.backgroundImage = null;
-  //       }
-  //   })()
-  // }, [background]);
-
   useEffect(() => {
     return () => {
       const root = document.querySelector('#root');
@@ -72,6 +59,8 @@ export default function GameDetails() {
   function AddBtnDisabled() {
     return <button disabled>Added to library</button>;
   }
+
+  
 
   return <>
     <h1>{ name }</h1>

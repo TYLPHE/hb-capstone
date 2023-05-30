@@ -112,7 +112,7 @@ export default function ReviewEdit() {
           to={`/review/delete/${id}`} 
           state={state}
         >
-          <button className="review-button">
+          <button className="review-button delete">
             Delete
           </button>
         </Link>

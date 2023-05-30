@@ -33,7 +33,7 @@ export default function ReviewDelete() {
         </button>
     } else {
       return <button className="delete-btn" onClick={handleDelete}>
-          Yes, delete review and remove from library
+          Yes, remove from library and delete review
         </button>
     }
   }
@@ -49,7 +49,7 @@ export default function ReviewDelete() {
       </div>
       
       <p>
-        Are you sure you want to delete the review and remove the game from the library?
+        Are you sure you want to remove the game and, if reviewed, delete review from the library?
       </p>
       <div className="delete-container">
         <DeleteBtn />
