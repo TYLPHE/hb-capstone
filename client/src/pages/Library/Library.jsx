@@ -21,7 +21,6 @@ export default function Library(params) {
     const { game } = params;
     const [publishTxt,setPublishTxt] = useState('Reviewed');
     const [notReviewTxt, setNotReviewTxt] = useState('Not reviewed')
-    console.log('reviewed', params)
 
     function DeleteButton(params) {
       const { id, state } = params

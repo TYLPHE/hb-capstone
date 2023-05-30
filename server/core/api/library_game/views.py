@@ -24,3 +24,14 @@ def add_game():
         return 'Added to library', 201
     else:
         return 'Game already exists', 400
+    
+@library_game_blueprint.route('/to-add-review')
+def to_add_review():
+    """ search game by game_id and return a link to its review page """
+
+    game_id = request.args.get('game_id')
+    library_id = session.get('library_id')
+    library_game = Library_game.search_by_game_id(library_id, game_id)
+
+    return f'/review/{library_game.id}', 200
+

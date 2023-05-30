@@ -67,8 +67,28 @@ export default function GameDetails() {
     return <button className="game-details-btn" disabled>Added to my library</button>;
   }
 
-  
+  function ToLibrary() {
+    return <Link to='/dashboard'>
+      <button className="game-details-btn">Return to library</button>
+    </Link>
+  }
 
+  function ToAddReview() {
+    async function redirectToReview() {
+      const request = await fetch(`/api/library-game/to-add-review?game_id=${id}`) ;
+      if (request.ok) {
+        const response = await request.text();
+        console.log(typeof response)
+        return navigate(response)
+      } else {
+        return console.error('ToAddReview error')
+      }
+    }
+    return <button className="game-details-btn" onClick={redirectToReview}>
+      Add review
+    </button>
+  }
+  
   return <>
     <h1>{ name }</h1>
     <div className="details-btn-container">
@@ -78,8 +98,8 @@ export default function GameDetails() {
       >
         Return
       </button>
-      <button className="game-details-btn">Return to library</button>
-      <button className="game-details-btn">Add review</button>
+      {inLibrary && <ToLibrary />}
+      {inLibrary && <ToAddReview />}
       {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
     <div>
