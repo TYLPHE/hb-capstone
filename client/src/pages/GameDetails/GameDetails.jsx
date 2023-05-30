@@ -78,7 +78,6 @@ export default function GameDetails() {
       const request = await fetch(`/api/library-game/to-add-review?game_id=${id}`) ;
       if (request.ok) {
         const response = await request.text();
-        console.log(typeof response)
         return navigate(response)
       } else {
         return console.error('ToAddReview error')

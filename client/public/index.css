@@ -9,9 +9,6 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgb(27,40,56);
-  background: linear-gradient(140deg, rgba(27,40,56,0.95) 0%, rgba(27,40,56,1) 50%, rgba(27,40,56,0.95) 100%); 
-  background-attachment: fixed;
 }
 
 main {
@@ -44,6 +41,9 @@ button:hover {
   flex-direction: column;
   align-items: center;
   height: 100%;
+  background: rgb(27,40,56);
+  background: linear-gradient(140deg, rgba(27,40,56,0.95) 0%, rgba(27,40,56,1) 50%, rgba(27,40,56,0.95) 100%); 
+  background-attachment: fixed;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

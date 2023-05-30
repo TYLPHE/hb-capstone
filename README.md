@@ -388,9 +388,21 @@ I decided to include a publish button. The ultimate goal is to allow users to ad
 
 ### 5/28
 Worked on some functionality that hopefully makes sense when someone else uses it.
-- Library now has proper functionality if its an owner accesssing it
+- Library now has proper functionality if its owner is accesssing it
 - Delete now has a decline button
 - Review is not hidden if not published
 
 ### 5/29
-- Resolved bug: State is null on delete. I passed state in button and not the <Link > component.
+- Moved delete button from review to editReview
+- Added delete button to library so user can remove games they've recently added
+- UI animations in library to make deleting more intuitive
+- Updated follow button style
+- Game details has proper navigation before and after adding the game to library
+
+- bug fix: State is null on delete. I passed state in button and not the <Link> component.
+
+TODO: Add proper game filter
+
+### 5/30
+Wife had another look at the user flow. I think it makes more sense now. Making more updates to UI
+- bug fix: Background not properly updating from background-image to plain background-color. I had to move background-color and background-image to the same layer. Before they were split between `root` element and the `body` element. They are now both sitting in `root`.
