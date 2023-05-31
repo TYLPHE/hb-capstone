@@ -74,3 +74,23 @@ def random_games():
         })
 
     return response, 200
+
+@game_blueprint.route('/filter', methods=['POST'])
+def filter():
+    """ Query list of games based on filter """
+
+    filters = request.json.get('filters')
+    print('FILTERS', filters)
+    if len(filters) == 0:
+        return { 'games': [] }, 200
+    
+    games = Game.search_by_filters(filters)
+    games_list = []
+    for game in games:
+        games_list.append({
+            'id': game.id,
+            'header_image': game.header_image,
+            'name': game.name,
+        })
+
+    return { 'games': games_list }, 200

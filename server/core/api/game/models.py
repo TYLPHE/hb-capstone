@@ -1,6 +1,7 @@
 from core import db
 import json
 from random import choice
+from sqlalchemy import or_, and_
 
 class Game(db.Model):
     """ A table of all games """
@@ -69,4 +70,16 @@ class Game(db.Model):
 
         return db.session.get(cls, id)
     
-    
+    @classmethod
+    def search_by_filters(cls, filters):
+        """ search games by list of filters """
+        
+        all_filters = []
+        for filter in filters:
+            if len(filter) == 1 and filter.isalpha():
+                all_filters.append(cls.name.ilike(f'{filter}%'))
+            else:
+                all_filters.append(cls.name.ilike(f'%{filter}%'))
+
+        return db.session.query(cls).filter(and_(*all_filters)).all()
+

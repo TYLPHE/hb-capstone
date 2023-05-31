@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react';
 
 export default function Games() {
   const random_games = useLoaderData();
-  const [games, setGames] = useState(random_games);
+  const [games, setGames] = useState([]);
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState(null);
-  
-  useEffect(() => {
-    if (filters.length === 0) {
-      setGames(random_games)
-    }
-  }, [filters, random_games])
+  console.log(random_games)
+  // useEffect(() => {
+  //   if (filters.length === 0) {
+  //     setGames(random_games)
+  //   }
+  // }, [filters, random_games])
   
   useEffect(() => {
     async function reqFilter() {
@@ -23,11 +23,16 @@ export default function Games() {
         body: JSON.stringify({ filters }),
       });
        if (request.ok) {
-        const response = request.json();
-        setGames(response);
+        const response = await request.json();
+        if (response.games.length === 0) {
+          console.log('response len(0)',response.games)
+          return setGames([]);
+        } else {
+          console.log('response',response.games)
+          return setGames(response.games);
+        }
        }
     }
-    
     reqFilter();
   }, [filters])
 

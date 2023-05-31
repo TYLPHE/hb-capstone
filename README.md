@@ -407,3 +407,9 @@ TODO: Add proper game filter
 Wife had another look at the user flow. I think it makes more sense now. Making more updates to UI
 - bug fix: Background not properly updating from background-image to plain background-color. I had to move background-color and background-image to the same layer. Before they were split between `root` element and the `body` element. They are now both sitting in `root`.
 - Note for later: This is a nice complementary color: #644a22
+
+Today I created a UI for filtering games. Since I don't have very strong tags for my game, I decided to be able to filter by letters and include a text input to better refine the search.
+
+I was able to produce a list of filters to pass to SQLAlchemy but the challenge today was what to do with the list of filters. 
+
+I learned about the `and_` and `or_` functions today. 
