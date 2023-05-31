@@ -1,6 +1,9 @@
 .filter-check-container {
   display: flex;
 }
+.filter-container {
+  background-color: #00000099;
+}
 
 .filter-name {
   width: 100%;

@@ -81,5 +81,5 @@ class Game(db.Model):
             else:
                 all_filters.append(cls.name.ilike(f'%{filter}%'))
 
-        return db.session.query(cls).filter(and_(*all_filters)).all()
+        return db.session.query(cls).filter(and_(*all_filters)).order_by(cls.name).all()
 

@@ -76,12 +76,12 @@ export default function Games() {
             type='text' 
             id='game-search' 
             name='search'
-            placeholder='Filter for a game' 
+            placeholder='Search for a game' 
             onChange={(e) => handleSearch(e.target.value)}
           />
           <input 
             type='submit' 
-            value='Filter' 
+            value='Search' 
             className="search-button"
           />
         </form>
