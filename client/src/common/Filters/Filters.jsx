@@ -19,7 +19,8 @@ export default function Filters(params) {
   return <>
     <fieldset>
       <legend>Filters</legend>
-      <details>
+      <Reset />
+      <details open>
         <summary>A - Z</summary>
           {filterArr.map((charCode) => {
             const letter = String.fromCharCode(charCode);
@@ -37,7 +38,7 @@ export default function Filters(params) {
           })}
 
       </details>
-      <Reset />
+
     </fieldset>
   </>
 }

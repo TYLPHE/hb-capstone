@@ -24,7 +24,10 @@ input#search {
   height: 100%;
   border: none;
   background-color: #2e3a4b;
-  color: white
+  color: white;
+  padding: 5px;
+  font-size: 1rem;
+  width: 100%;
 }
 
 input#search:focus{

@@ -1,14 +1,23 @@
 import './Games.css';
 import { Link, useLoaderData } from "react-router-dom"
 import Filters from '../../common/Filters/Filters'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Games() {
   const random_games = useLoaderData();
   const [games, setGames] = useState([]);
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState(null);
+  const inputElement = useRef(null);
   console.log(random_games)
+
+  // Autofocus search bar after loading components
+  useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus();
+    }
+  }, [])
+  
   // useEffect(() => {
   //   if (filters.length === 0) {
   //     setGames(random_games)
@@ -25,10 +34,8 @@ export default function Games() {
        if (request.ok) {
         const response = await request.json();
         if (response.games.length === 0) {
-          console.log('response len(0)',response.games)
           return setGames([]);
         } else {
-          console.log('response',response.games)
           return setGames(response.games);
         }
        }
@@ -43,11 +50,11 @@ export default function Games() {
     setFilters(filters.filter((item) => item !== letter))
   }
   function handleSubmit(e) {
-    e.preventDefault()
-    setFilters([...filters, search])
-  }
-  function handleSearch(value) {
-    setSearch(value)
+    e.preventDefault();
+    if (!filters.includes(search)) {
+      setFilters([...filters, search]);
+    }
+    e.target.firstChild.value = '';
   }
   
   function FilterList() {
@@ -60,8 +67,6 @@ export default function Games() {
       })}
     </>
   }
-  
-
   
   return <>
     <h1>Browse Games</h1>
@@ -77,7 +82,8 @@ export default function Games() {
             id='game-search' 
             name='search'
             placeholder='Search for a game' 
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
+            ref={inputElement}
           />
           <input 
             type='submit' 

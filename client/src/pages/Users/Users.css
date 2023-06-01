@@ -9,3 +9,54 @@
   background-color: #95bbd4;
   color: black;
 }
+
+.users-table {
+  width: 100%;
+  height: 100%;
+  background-color: #00000099;
+}
+.users-tr {
+  display: flex;
+  padding: 2px;
+}
+.users-td {
+  width: 100%;
+  background-color: #00000050;
+}
+.users-link {
+  flex: 1;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+.user-title {
+  flex: 1;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.users-search-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3px;
+  height: 2.5rem;
+}
+input#user-search {
+  height: 100%;
+  border: none;
+  background-color: #171e27;
+  color: white;
+  width: 100%;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+}
+input#user-search:focus{
+  outline: 1px solid #c5c3c0;
+}

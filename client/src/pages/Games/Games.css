@@ -34,6 +34,9 @@
   height: 2rem;
   gap: 5px;
 }
+.filter-search-container {
+  margin: 5px 0;
+}
 
 .games-table {
   width: 100%;
@@ -83,8 +86,8 @@ input#game-search {
   background-color: #171e27;
   color: white;
   width: 100%;
+  font-size: 1rem;
 }
-
 input#game-search:focus{
   outline: 1px solid #c5c3c0;
 }
