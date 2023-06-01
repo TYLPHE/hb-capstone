@@ -4,9 +4,9 @@ import './Followers.css'
 
 export default function Followers(params) {
   const { fing, fers } = params;
-  return <div>
-    <details>
-      <summary>{fing.count} following</summary>
+  return <div className='followers-container'>
+    <details className='followers-details'>
+      <summary className='summary-followers-title'>{fing.count} following</summary>
       <table className="follow-table">
         <tbody>
           {fing.users.map((user) => {
@@ -21,8 +21,8 @@ export default function Followers(params) {
         </tbody>
       </table>
     </details>
-    <details>
-      <summary>{fers.count} followers</summary>
+    <details className='followers-details'>
+      <summary className='summary-followers-title'>{fers.count} followers</summary>
       <table className="follow-table">
         <tbody>
           {fers.users.map((user) => {

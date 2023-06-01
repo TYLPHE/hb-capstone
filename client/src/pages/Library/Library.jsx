@@ -90,7 +90,6 @@ export default function Library(params) {
   }
   
   return <>
-    <h2>Library</h2>
     <div>
       <table className="library-container">
         <tbody>

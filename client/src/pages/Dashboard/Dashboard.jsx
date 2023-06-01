@@ -42,38 +42,27 @@ export default function Dashboard() {
   function RandomReview() {
       if (randomReview) {
         return <div>
-          <details>
-            <summary>See a review by someone you followed</summary>
-            <div>
-              <div>
+          <div className='dashboard-title'>Random review by someone you followed</div>
+          <div
+            className="random-library-thumbnail" 
+            style={{
+              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.1) 100%), url(${randomReview.game_background})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <Link to={ `/review/${randomReview.library_game_id}`}  className='random-library-link'>
+              <div className='random-review-title'>
                 {`${randomReview.username.charAt(0).toUpperCase() + randomReview.username.slice(1)}'s review of ${randomReview.game_name}`}
               </div>
-            </div>
-            <table className="dashboard-table">
-              <thead>
-                <tr className="library-tr">
-                  <td
-                    className="library-td" 
-                    style={{
-                      backgroundImage: `url(${randomReview.game_background})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <Link to={ `/review/${randomReview.library_game_id}`}  className='library-link'>
-                        <img src={ randomReview.game_header_image } alt='Game thumbnail' className="library-thumbnail"></img>
-                        <span className="review-title">{ randomReview.game_name }</span>
-                    </Link>
-                  </td>
-                </tr>    
-              </thead>
-            </table>
-          </details>
+              <img src={ randomReview.game_header_image } alt='Game thumbnail' className="random-library-thumbnail"></img>
+            </Link>
+          </div>
         </div>
       } else {
         return <div>
-          <details open>
-            <summary>See a review by someone you followed</summary>
+          <details>
+            <summary>Random review by someone you followed</summary>
             <div>
               <div>
                 You are not following a user with reviews.
@@ -84,16 +73,62 @@ export default function Dashboard() {
       }
   }
   
+  // function RandomReview() {
+  //   if (randomReview) {
+  //     return <div>
+  //       <details>
+  //         <summary>See a review by someone you followed</summary>
+  //         <div>
+  //           <div>
+  //             {`${randomReview.username.charAt(0).toUpperCase() + randomReview.username.slice(1)}'s review of ${randomReview.game_name}`}
+  //           </div>
+  //         </div>
+  //         <table className="dashboard-table">
+  //           <thead>
+  //             <tr className="library-tr">
+  //               <td
+  //                 className="library-td" 
+  //                 style={{
+  //                   backgroundImage: `url(${randomReview.game_background})`,
+  //                   backgroundSize: 'cover',
+  //                   backgroundPosition: 'center'
+  //                 }}
+  //               >
+  //                 <Link to={ `/review/${randomReview.library_game_id}`}  className='library-link'>
+  //                     <img src={ randomReview.game_header_image } alt='Game thumbnail' className="library-thumbnail"></img>
+  //                     <span className="review-title">{ randomReview.game_name }</span>
+  //                 </Link>
+  //               </td>
+  //             </tr>    
+  //           </thead>
+  //         </table>
+  //       </details>
+  //     </div>
+  //   } else {
+  //     return <div>
+  //       <details open>
+  //         <summary>See a review by someone you followed</summary>
+  //         <div>
+  //           <div>
+  //             You are not following a user with reviews.
+  //           </div>
+  //         </div>
+  //       </details>
+  //     </div>
+  //   }
+  // }
+  
   return <>
-    <h1>{ name }'s Profile</h1>
+    {library_owner ? <h1>My Library</h1> : <h1>{ name }'s Profile</h1>}
+    
     {!owner && <Follow followed={followed} library_id={library_id} library_name={library_name}/> }
-    <h2>Followers</h2>
+    <div className='dashboard-title'>Followers</div>
 
     <div className="dashboard-buttons">
-      {owner && <RandomReview />}
       <Followers fing={fing} fers={fers}/>
+      {owner && <RandomReview />}
     </div>
-
+    <div className='dashboard-title'>Library</div>
     <Library 
       followed={followed}
       library_id={library_id}

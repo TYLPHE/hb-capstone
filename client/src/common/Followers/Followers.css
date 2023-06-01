@@ -16,3 +16,36 @@
 .unfollowed {
   background-color: #ffffff41;
 }
+
+.followers-container {
+  display: flex;;
+}
+
+.summary-followers-title {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 5px;
+  color: #c5c3c0;
+  user-select: none;
+  background-color: #3b659196;
+}
+
+.summary-followers-title:hover {
+  cursor: pointer;
+  color: white
+}
+
+details[open] summary {
+  color: white;
+}
+
+details {
+  font-weight: bold;
+  color: #c5c3c0;
+}
+
+.followers-details {
+  color: #c5c3c0;
+  width: 100%;
+  background-color: #00000099;
+}

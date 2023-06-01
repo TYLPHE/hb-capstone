@@ -34,12 +34,16 @@ export default function FollowBtn(params) {
   }
   
   if (followBool) {
-    return <button className="follow-btn unfollowed" onClick={handleUnfollow} disabled={disableBtn}>
-      {`Unfollow ${library_name}`}
-    </button>
+    return <div className='follow-container'>
+      <button className="follow-btn unfollowed" onClick={handleUnfollow} disabled={disableBtn}>
+        {`Unfollow ${library_name}`}
+      </button>
+    </div>
   } else {
-    return <button className='follow-btn' onClick={handleFollow} disabled={disableBtn}>
-      {`Follow ${library_name}`}
-    </button>
+    return <div className='follow-container'>
+      <button className='follow-btn' onClick={handleFollow} disabled={disableBtn}>
+        {`Follow ${library_name}`}
+      </button>
+    </div>
   }
 }

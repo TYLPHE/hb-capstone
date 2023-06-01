@@ -47,6 +47,8 @@
 
 .library-container {
   width: 100%;
+  background-color: #00000014;
+
 }
 
 .reviewed-container {
