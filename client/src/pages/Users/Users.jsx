@@ -81,7 +81,7 @@ export default function Users() {
                   <td className="users-td" >
                     <Link 
                       to={`/dashboard/${user.id}`} 
-                      className='users-link'
+                      className='user-link'
                     >
 
                       <div className="user-title">{ user.username }</div>

@@ -6,10 +6,10 @@ import { useEffect, useState, useRef } from 'react';
 export default function Games() {
   const random_games = useLoaderData();
   const [games, setGames] = useState([]);
+  const [randGames, setRandGames] = useState(random_games)
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState(null);
   const inputElement = useRef(null);
-  console.log(random_games)
 
   // Autofocus search bar after loading components
   useEffect(() => {
@@ -18,11 +18,9 @@ export default function Games() {
     }
   }, [])
   
-  // useEffect(() => {
-  //   if (filters.length === 0) {
-  //     setGames(random_games)
-  //   }
-  // }, [filters, random_games])
+  useEffect(() => {
+    setRandGames(random_games);
+  }, [random_games]);
   
   useEffect(() => {
     async function reqFilter() {
@@ -68,9 +66,31 @@ export default function Games() {
     </>
   }
   
+  function RandomGames() {
+    return <div className='random-games-container'>
+      {randGames.map((game) => {
+        return <div key={game.id} className='games-tr'>
+          <div className="games-td" >
+            <Link 
+              to={`/games/${game.id}/${game.name}`} 
+              className='games-link'
+            >
+              <img 
+                src={ game.header_image } 
+                alt='Game thumbnail' 
+                className="rand-games-thumbnail"
+              />
+            </Link>
+          </div>
+        </div>
+      })}
+    </div>
+  }
+
   return <>
     <h1>Browse Games</h1>
-    
+    <div>Random Games</div>
+    <RandomGames />
     <div className="browse-container">
       <div className='filter-list-container'>
         <FilterList />

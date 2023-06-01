@@ -63,7 +63,7 @@ def search():
 def random_games():
     """ return 6 random games """
 
-    games = Game.random_games(10)
+    games = Game.random_games(4)
     response = []
 
     for game in games:

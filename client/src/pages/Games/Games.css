@@ -10,10 +10,6 @@
   padding: 0rem;
 }
 
-.game-img:hover {
-  opacity: 60%;
-}
-
 .browse-container {
   display: flex;
   flex-direction: column;
@@ -90,4 +86,19 @@ input#game-search {
 }
 input#game-search:focus{
   outline: 1px solid #c5c3c0;
+}
+
+.rand-games-thumbnail {
+  height: 180px;
+}
+.rand-games-thumbnail:hover {
+  filter: opacity(70%);
+}
+.random-games-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #00000099;
+  padding: 5px;
 }
