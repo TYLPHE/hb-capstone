@@ -3,10 +3,11 @@ import rehypeSanitize from 'rehype-sanitize';
 import { useState } from 'react';
 import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import Flash from '../../common/Flash/Flash';
+import VoteButtons from '../../common/VoteButtons/VoteButtons';
 import './ReviewEdit.css';
 
 export default function ReviewEdit() {
-  const { id, review, owner, reviewed } = useLoaderData();
+  const { id, review, owner, reviewed, name } = useLoaderData();
   const { state } = useLocation();
   const [value, setValue] = useState(review);
   const [msg, setMsg] = useState(null);
@@ -99,7 +100,7 @@ export default function ReviewEdit() {
     {msg && <Flash msg={ msg } />}
     
     <h1>Edit Review</h1>
-
+    <div className='review-edit-game-title'>{name}</div>
     <div className='edit-button-container'>
       <Link to={`/review/${id}`}>
         <button className='save-button'>Return</button>
@@ -115,7 +116,7 @@ export default function ReviewEdit() {
           </button>
         </Link>
       </div>
-
+      <VoteButtons />
       <UpdateButton />
       
       <Publish reviewed={reviewed}/>

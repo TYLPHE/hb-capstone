@@ -11,7 +11,7 @@ class Review(db.Model):
     library_games_id = db.Column(db.Integer, db.ForeignKey('library_games.id'))
     review = db.Column(db.Text)
     score = db.Column(db.Integer)
-    votes_up = db.Column(db.Integer)
+    votes_up = db.Column(db.Boolean)
     created = db.Column(db.DateTime)
     reviewed = db.Column(db.Boolean, default=False)
 
@@ -22,14 +22,14 @@ class Review(db.Model):
         return f'<Review id={self.id}>'
 
     @classmethod
-    def create(cls, library_game, review='', reviewed=False):
+    def create(cls, library_game, review='', reviewed=False, votes_up=None):
         """ Create class. Does not add and commit to db """
 
         return cls(library_game=library_game,
                    review=review,
                    reviewed=reviewed,
                    created=datetime.now(), 
-                   votes_up=0)
+                   votes_up=votes_up)
 
 
     @classmethod
@@ -38,3 +38,13 @@ class Review(db.Model):
 
         return db.session.get(cls, id)
     
+
+    @classmethod
+    def set_vote(cls, votes_up, id):
+        """ set votes_up to True (positive), False (negative), or None """
+
+        r = db.session.get(cls, id)
+        r.votes_up = votes_up
+
+        return r
+

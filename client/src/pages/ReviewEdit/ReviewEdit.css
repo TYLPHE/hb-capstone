@@ -1,6 +1,11 @@
+.review-edit-game-title {
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem;
+}
 .save-button {
   padding:10px 30px;
-  width: 200px;
+  width: 150px;
 }
 .save-button.is-reviewed{
   background-color: #52545a;
@@ -41,3 +46,4 @@
 .delete {
   background-color: #5D151E;
 }
+

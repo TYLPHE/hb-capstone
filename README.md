@@ -420,3 +420,18 @@ I spent more time on the filters today. I implemented filters for both the games
 Filters on the games page will send a fetch request to the server for a list of games. However, since there are fewer users than games, I decided to load all users first, and then use React to display what was filtered. Surprisingly, having react filter the right users was difficult. I learned that sometimes the warnings for `useEffect()` can be ignored.
 
 In this case, I wanted to only update the users if the `filter` state changed. Once `filter` updated, I wanted to update a different state called `users`, which is an array of objects. React wanted me to add `users` to `useEffect` like so: `useEffect(() =>, [filter, users])`. I learned that we can apply a quick fix, which adds a comment in the line above, letting VSCode know to ignore this warning!
+```javascript
+useEffect(() => {
+  if (!filters.length) {
+    return setUsers(users);
+  } else {
+    filters.forEach((filter) => {
+      setUsers(users.filter((user) => user.username.includes(filter)));
+    });
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [filters])
+```
+
+### 6/1
+- Upvote,downvote arrows I want to use later: 🡅🡇

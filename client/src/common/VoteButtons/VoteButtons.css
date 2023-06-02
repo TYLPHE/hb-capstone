@@ -1,0 +1,32 @@
+.vote-container {
+  /* border: 1px solid gold; */
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* gap: 5px; */
+}
+
+.vote-title {
+  font-size: .7rem;
+}
+
+.vote-buttons-container {
+  display: flex;
+  gap: 5px;
+}
+.upvote, .downvote {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  width: 50px;
+  height: 20px;
+}
+.downvote {
+  background-color: #5d151e;
+}
+.voted {
+  border: 2px solid #95bbd4;
+}

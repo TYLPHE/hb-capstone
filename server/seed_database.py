@@ -354,9 +354,13 @@ def create(usernames, fname_lname):
         for _ in range(randint(2, 15)):
             lg = Library_game(library=l, game=choice(games_list))
             for num in range(randint(1, 10)):
-                # 80% of the games are reviewed to review
+                # 80% of the games are marked reviewed
                 if num <= 8:
-                    r = Review.create(lg, mkdn, True)
+                    for num in range(randint(1,10)):
+                        if num < 8:
+                            r = Review.create(lg, mkdn, True, True)
+                        else:
+                            r = Review.create(lg, mkdn, True, False)
                 else:
                     r = Review.create(lg)
             to_add.extend([lg, r])

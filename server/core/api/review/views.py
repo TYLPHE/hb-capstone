@@ -38,7 +38,7 @@ def review_edit(id):
         'id': id,
         'review': r.review,
         'name': r.library_game.game.name,
-        'score': r.score,
+        'votes_up': r.votes_up,
         'owner': (r.library_game.library_id == current_library_id),
         'reviewed': r.reviewed,
     }, 200
@@ -86,3 +86,15 @@ def publish():
     db.session.commit()
 
     return { 'reviewed': r.reviewed }, 201
+
+@review_blueprint.route('/vote', methods=["POST"])
+def vote():
+    """ Mark review of game up, down, or null """
+
+    vote_status = request.json.get('vote')
+    review_id = request.json.get('id')
+
+    r = Review.set_vote(vote_status, review_id)
+    db.session.commit()
+
+    return { 'votes_up': r.votes_up }, 201
