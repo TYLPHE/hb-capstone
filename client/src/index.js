@@ -114,40 +114,6 @@ const router = createBrowserRouter([
           }
         }
       },
-      // Will try to phase out library page
-      {
-        path:'/library',
-        element: <Library />,
-        loader: async () => {
-          const request = await fetch('/api/library/data');
-          if (request.ok) {
-            const response = await request.json();
-            return response;
-          } 
-          else if (request.status === 401) {
-            return redirect ('/');
-          } 
-          console.error('Loader error: path: "/Library"');
-          return null;
-        }
-      },
-      {
-        path:'/library/:id',
-        element: <Library />,
-        loader: async ({ params }) => {
-          const request = await fetch(`/api/library/data/${params.id}`);
-          if (request.ok) {
-            const response = await request.json();
-            return response;
-          } 
-          else if (request.status === 401) {
-            return redirect ('/');
-          } 
-          console.error('Loader error: path: "/Library/:id"');
-          return null;
-        }
-      },
-      //End of phase out
       {
         path:'/review/:id',
         element: <Review />,

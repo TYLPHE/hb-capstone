@@ -17,8 +17,6 @@ export default function Review() {
     user_id,
     votes_up,
   } = useLoaderData();
-
-  console.log(useLoaderData())
   
   useEffect(() => {
     const root = document.querySelector('#root');

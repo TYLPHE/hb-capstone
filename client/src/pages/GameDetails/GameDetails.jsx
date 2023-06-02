@@ -11,6 +11,11 @@ export default function GameDetails() {
     name,
     release_date,
     short_description,
+    screenshots,
+    movies,
+    developers,
+    genres,
+    reviews,
   } = useLoaderData();
   const navigate = useNavigate();
   const [inLibrary, setInLibrary] = useState(in_library);
@@ -87,6 +92,47 @@ export default function GameDetails() {
     </button>
   }
   
+  function GameDetailsReviews(params) {
+    const { reviews } = params;
+
+    function UserLink(params) {
+      const { reviews } = params;
+      return reviews.map((r) => {
+        if (r.votes_up) {
+          return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
+            <div className={`user-title`}>
+              {r.user_name} 🡅
+            </div>
+          </Link> 
+        } else if (r.votes_up === false) {
+          return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
+            <div className={`user-title`}>
+              {r.user_name} 🡇
+            </div>
+          </Link> 
+        } else {
+          return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
+            <div className={`user-title`}>
+              {r.user_name}
+            </div>
+          </Link> 
+        }
+      });
+    }
+    
+    if (params.length === 0) {
+      return <div>No reviews for this game</div>
+    }
+    return <div className="GTR-container">
+      <details open>
+        <summary>User Reviews</summary>
+        <UserLink reviews={reviews} />
+      </details>
+
+
+    </div>
+  }
+
   return <>
     <h1>{ name }</h1>
     <div className="details-btn-container">
@@ -100,14 +146,19 @@ export default function GameDetails() {
       {inLibrary && <ToAddReview />}
       {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
-    <div>
+    <div className="details-header-container">
       <img src={ header_image } alt="Game header"/>
+
+      <div className="details-right-container">
+        <div className="description">
+          <p className="desc-paragraph" dangerouslySetInnerHTML={{__html: short_description}} />
+        </div>
+        <div>Genre: {genres[0]}</div>
+        <div>Release Date: { release_date }</div>
+        <div>Developer: {developers[0]}</div>
+      </div>
     </div>
-    
-    <div>
-      <p dangerouslySetInnerHTML={{__html: short_description}} />
-      <p>Release Date: { release_date }</p>
-    </div>
+    <GameDetailsReviews reviews={reviews}/>
 
     <div>
     </div>

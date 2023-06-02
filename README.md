@@ -434,4 +434,9 @@ useEffect(() => {
 ```
 
 ### 6/1
-- Upvote,downvote arrows I want to use later: 🡅🡇
+- Upvote/downvote arrows I want to use later: 🡅🡇
+- Added arrows to Review Edit page.
+- Arrows now appear in Review page.
+
+- Final section I need to expand on is the Game Details page.
+  - I would like to first add a review section to show a list of users who reviewed the game.

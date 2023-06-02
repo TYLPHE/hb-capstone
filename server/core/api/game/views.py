@@ -16,7 +16,38 @@ def game_details(id):
         # Check if game already exists. If so, disable add to library button
         library_id = session.get('library_id')
         library_game = lg.Library_game.search_by_game_id(library_id, id)
+        all_lg = lg.Library_game.search_all_by_game_id(id)
+        screenshots = []
+        movies = []
+        developers = []
+        genres = []
+        reviews = []
+
+        for screenshot in game.screenshots:
+            screenshots.append(screenshot.path)
+
+
+        for movie in game.movies:
+            movies.append(movie.path)
+
         
+        for developer in game.games_developers:
+            developers.append(developer.developer.name)
+
+
+        for genre in game.games_genres:
+            genres.append(genre.genre.name)
+
+
+        for lib_game in all_lg:
+            data = {
+                'review_id': lib_game.review.id,
+                'votes_up': lib_game.review.votes_up,
+                'user_name': lib_game.library.user.username
+            }
+            reviews.append(data)
+        
+
         return {
             'name': game.name,
             'short_description': game.short_description,
@@ -24,6 +55,11 @@ def game_details(id):
             'background': game.background,
             'release_date': game.release_date,
             'in_library': bool(library_game),
+            'screenshots': screenshots,
+            'movies': movies,
+            'developers': developers,
+            'genres': genres,
+            'reviews': reviews,
         }, 200
 
 
@@ -75,15 +111,16 @@ def random_games():
 
     return response, 200
 
+
 @game_blueprint.route('/filter', methods=['POST'])
 def filter():
     """ Query list of games based on filter """
 
     filters = request.json.get('filters')
-    print('FILTERS', filters)
     if len(filters) == 0:
         return { 'games': [] }, 200
     
+
     games = Game.search_by_filters(filters)
     games_list = []
     for game in games:

@@ -55,3 +55,9 @@ class Library_game(db.Model):
         
         return cls.query.filter(cls.library_id==library_id,
                                   cls.game_id==game_id).first()
+    
+    @classmethod
+    def search_all_by_game_id(cls, game_id):
+        """ returns all reviews for game. To be posted in game details pg """
+
+        return db.session.query(cls).filter(cls.game_id==game_id).all()
