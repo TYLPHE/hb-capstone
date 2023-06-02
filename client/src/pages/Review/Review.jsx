@@ -15,8 +15,11 @@ export default function Review() {
     review_id,
     reviewed,
     user_id,
+    votes_up,
   } = useLoaderData();
 
+  console.log(useLoaderData())
+  
   useEffect(() => {
     const root = document.querySelector('#root');
     root.style.backgroundImage = `url(${background})`;
@@ -38,7 +41,7 @@ export default function Review() {
         <div className="review-data">
           <div>
             <Link to={`/dashboard/${user_id}`}>
-              <button className="review-button">Return</button>
+              <button className="review-button">My Profile</button>
             </Link>
           </div>
 
@@ -58,10 +61,10 @@ export default function Review() {
       </>
     } else {
       return <>
-        <div className="review-data">
+        <div className="review-data-unowned">
           <div>
             <Link to={`/dashboard/${user_id}`}>
-              <button className="review-button">Return</button>
+              <button className="review-button-unowned">To {owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s Profile</button>
             </Link>
           </div>
         </div>
@@ -69,6 +72,23 @@ export default function Review() {
     }
   }
 
+  function RecommendedStatus() {
+    if (votes_up) {
+      return <div className="recommendation-container positive-rec">
+        <div className="rec-arrow">🡅</div>
+        <div className="recommendation">Recommended by {owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}</div>
+      </div>
+    } 
+    else if (votes_up === false) {
+      return <div className="recommendation-container negative-rec">
+        <div className="rec-arrow">🡇</div>
+        <div className="recommendation">Not recommended by {owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}</div>
+      </div>
+    } else {
+      return
+    }
+  }
+  
   return <>
     <h1>{owner_username.charAt(0).toUpperCase() + owner_username.slice(1)}'s review of {game}</h1>
     <div className="review-header">
@@ -84,7 +104,7 @@ export default function Review() {
         <img src={header_image} alt="header of game" />
       </Link>
     </div>
-
+    {reviewed && <RecommendedStatus />}
     {reviewed ? <MDEditor.Markdown 
       source={review}
       style={{ 
