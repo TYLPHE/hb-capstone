@@ -25,7 +25,7 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  width: 940px;
+  width: 1080px;
   flex: 1;
 }
 

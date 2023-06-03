@@ -440,3 +440,7 @@ useEffect(() => {
 
 - Final section I need to expand on is the Game Details page.
   - I would like to first add a review section to show a list of users who reviewed the game.
+
+
+### 6/2
+- Adding video to game details. Found `ract-player`

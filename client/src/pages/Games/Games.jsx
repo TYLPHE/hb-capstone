@@ -123,11 +123,11 @@ export default function Games() {
                       to={`/games/${game.id}/${game.name}`} 
                       className='games-link'
                     >
-                      {/* <img 
+                      <img 
                         src={ game.header_image } 
                         alt='Game thumbnail' 
                         className="games-thumbnail"
-                      /> */}
+                      />
 
                       <div className="game-title">{ game.name }</div>
                     </Link>

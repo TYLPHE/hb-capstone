@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import ReactPlayer from 'react-player';
 import './GameDetails.css'
 
 export default function GameDetails() {
@@ -20,6 +21,8 @@ export default function GameDetails() {
   const navigate = useNavigate();
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to my library');
+  
+  console.log(movies)
   
   useEffect(() => {
     setInLibrary(in_library)
@@ -159,7 +162,7 @@ export default function GameDetails() {
       </div>
     </div>
     <GameDetailsReviews reviews={reviews}/>
-
+    <ReactPlayer url={movies[0]} controls={true}/>
     <div>
     </div>
   </>
