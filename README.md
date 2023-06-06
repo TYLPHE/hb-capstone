@@ -443,4 +443,11 @@ useEffect(() => {
 
 
 ### 6/2
-- Adding video to game details. Found `ract-player`
+- Adding video to game details. Found `react-player`
+- Tried a couple of players. `react-player` was the best
+
+### 6/3 & 6/4
+Did not work on project. The assigned weekend homework was a lot.
+
+### 6/5
+- Simplifying approach to game-details for now until I feel more comfortable with data structures for interviews.
