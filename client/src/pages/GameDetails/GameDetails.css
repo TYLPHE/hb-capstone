@@ -1,4 +1,4 @@
-* { border: 1px solid greenyellow }
+/* * { border: 1px solid greenyellow } */
 button:disabled {
   background-color: gray;
   cursor: default;
@@ -27,9 +27,32 @@ button:disabled:hover {
 .details-right-container {
   display: flex;
   flex-direction: column;
+  width: 375px;
 }
 .description {
   flex: 1;
   display: flex;
   align-items: center;
+}
+
+.downvoted {
+  background-color: #4c232c;
+}
+.upvoted {
+  background-color: #0c3550;
+}
+
+.summary-reviews-title {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 5px;
+  color: #c5c3c0;
+  user-select: none;
+  background-color: #3b659196;
+}
+.reviews-details {
+  color: #c5c3c0;
+  width: 100%;
+  background-color: #00000099;
+  padding: 1rem;
 }

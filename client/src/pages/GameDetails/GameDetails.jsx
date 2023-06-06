@@ -102,21 +102,21 @@ export default function GameDetails() {
       const { reviews } = params;
       return reviews.map((r) => {
         if (r.votes_up) {
-          return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
+          return <Link key={r.review_id} className="user-link upvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
-              {r.user_name} 🡅
+              {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡅
             </div>
           </Link> 
         } else if (r.votes_up === false) {
-          return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
+          return <Link key={r.review_id} className="user-link downvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
-              {r.user_name} 🡇
+              {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡇
             </div>
           </Link> 
         } else {
           return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
-              {r.user_name}
+              {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)}
             </div>
           </Link> 
         }
@@ -127,8 +127,8 @@ export default function GameDetails() {
       return <div>No reviews for this game</div>
     }
     return <div className="GTR-container">
-      <details open>
-        <summary>User Reviews</summary>
+      <details className="reviews-details" open>
+        <summary className="summary-reviews-title">User Reviews</summary>
         <UserLink reviews={reviews} />
       </details>
 
@@ -150,9 +150,9 @@ export default function GameDetails() {
       {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
     <div className="details-header-container">
-      <img src={ header_image } alt="Game header"/>
-
+      <ReactPlayer url={movies[0]} controls={true} muted={true} playing={true}/>
       <div className="details-right-container">
+        <img src={ header_image } alt="Game header"/>
         <div className="description">
           <p className="desc-paragraph" dangerouslySetInnerHTML={{__html: short_description}} />
         </div>
@@ -162,7 +162,6 @@ export default function GameDetails() {
       </div>
     </div>
     <GameDetailsReviews reviews={reviews}/>
-    <ReactPlayer url={movies[0]} controls={true}/>
     <div>
     </div>
   </>
