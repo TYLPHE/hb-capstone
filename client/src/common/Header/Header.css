@@ -4,6 +4,7 @@
   height: 104px;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid #856325;
 }
 
 .main-header {
@@ -49,6 +50,7 @@
   text-decoration: none;
   color: white;
   transform: rotate(45deg);
+
 }
 
 .profile {
