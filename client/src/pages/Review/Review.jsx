@@ -69,7 +69,7 @@ export default function Review() {
       </>
     }
   }
-
+  
   function RecommendedStatus() {
     if (votes_up) {
       return <div className="recommendation-container positive-rec">

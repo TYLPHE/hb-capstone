@@ -17,13 +17,12 @@ export default function GameDetails() {
     developers,
     genres,
     reviews,
+    followings,
   } = useLoaderData();
   const navigate = useNavigate();
   const [inLibrary, setInLibrary] = useState(in_library);
   const [AddBtnTxt, setAddBtnTxt] = useState('Add to my library');
-  
-  console.log(movies)
-  
+  console.table(useLoaderData())
   useEffect(() => {
     setInLibrary(in_library)
   }, [in_library])
@@ -101,10 +100,22 @@ export default function GameDetails() {
     function UserLink(params) {
       const { reviews } = params;
       return reviews.map((r) => {
-        if (r.votes_up) {
+        if (r.votes_up && followings.some(e => e === r.user_name)) {
+          return <Link key={r.review_id} className="user-link upvoted" to={`/review/${r.review_id}`}>
+            <div className={`user-title`}>
+              {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡅 - Following
+            </div>
+          </Link> 
+        } else if (r.votes_up) {
           return <Link key={r.review_id} className="user-link upvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡅
+            </div>
+          </Link> 
+        } else if (r.votes_up === false && followings.some(e => e === r.user_name)) {
+          return <Link key={r.review_id} className="user-link downvoted" to={`/review/${r.review_id}`}>
+            <div className={`user-title`}>
+              {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡇 - Following
             </div>
           </Link> 
         } else if (r.votes_up === false) {
@@ -150,15 +161,24 @@ export default function GameDetails() {
       {inLibrary ? <AddBtnDisabled /> : <AddBtn />}
     </div>
     <div className="details-header-container">
-      <ReactPlayer url={movies[0]} controls={true} muted={true} playing={true}/>
+      <ReactPlayer 
+        url={movies[0]} 
+        controls={true} 
+        muted={true} 
+        playing={true}
+        height={'383px'}
+        width={'680px'}
+      />
       <div className="details-right-container">
         <img src={ header_image } alt="Game header"/>
-        <div className="description">
-          <p className="desc-paragraph" dangerouslySetInnerHTML={{__html: short_description}} />
+        <div className="desc-container">
+          <div className="description">
+            <p className="desc-paragraph" dangerouslySetInnerHTML={{__html: short_description}} />
+          </div>
+          <div>Genre: {genres[0]}</div>
+          <div>Release Date: { release_date }</div>
+          <div>Developer: {developers[0]}</div>
         </div>
-        <div>Genre: {genres[0]}</div>
-        <div>Release Date: { release_date }</div>
-        <div>Developer: {developers[0]}</div>
       </div>
     </div>
     <GameDetailsReviews reviews={reviews}/>

@@ -24,10 +24,11 @@ button:disabled:hover {
   background-color: #00000099;
   padding: 1rem;
 }
+
 .details-right-container {
   display: flex;
   flex-direction: column;
-  width: 375px;
+  width: 350px;
 }
 .description {
   flex: 1;

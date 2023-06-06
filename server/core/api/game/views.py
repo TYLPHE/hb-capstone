@@ -1,6 +1,7 @@
 from flask import Blueprint, session, request
 from . import Game
 from .. import library_game as lg
+from .. import follower as f
 
 game_blueprint = Blueprint('game_blueprint', __name__, url_prefix='/games')
 
@@ -14,14 +15,20 @@ def game_details(id):
 
     else:
         # Check if game already exists. If so, disable add to library button
+        user_id = session.get('user_id')
         library_id = session.get('library_id')
         library_game = lg.Library_game.search_by_game_id(library_id, id)
         all_lg = lg.Library_game.search_all_by_game_id(id)
+        following = f.Follow.following(user_id, library_id)
+
+        print('FOLLOWING', following)
+        
         screenshots = []
         movies = []
         developers = []
         genres = []
         reviews = []
+        followings = []
 
         for screenshot in game.screenshots:
             screenshots.append(screenshot.path)
@@ -47,7 +54,9 @@ def game_details(id):
             }
             reviews.append(data)
         
-
+        for follow in following['following']:
+            followings.append(follow.library.user.username)
+        
         return {
             'name': game.name,
             'short_description': game.short_description,
@@ -60,6 +69,7 @@ def game_details(id):
             'developers': developers,
             'genres': genres,
             'reviews': reviews,
+            'followings': followings,
         }, 200
 
 

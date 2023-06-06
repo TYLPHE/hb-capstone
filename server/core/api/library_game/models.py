@@ -1,6 +1,8 @@
 from core import db
 from datetime import datetime
 from .. import game as g
+from .. import review as r
+from .. import user as u
 
 
 class Library_game(db.Model):
@@ -60,4 +62,5 @@ class Library_game(db.Model):
     def search_all_by_game_id(cls, game_id):
         """ returns all reviews for game. To be posted in game details pg """
 
-        return db.session.query(cls).filter(cls.game_id==game_id).all()
+        return db.session.query(cls).join(r.Review).filter(cls.game_id==game_id)\
+            .order_by(r.Review.votes_up.desc()).all()
