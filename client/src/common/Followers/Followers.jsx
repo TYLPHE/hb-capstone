@@ -6,7 +6,7 @@ export default function Followers(params) {
   const { fing, fers } = params;
   return <div className='followers-container'>
     <details className='followers-details'>
-      <summary className='summary-followers-title'>{fing.count} following</summary>
+      <summary className='summary-following-title'>{fing.count} following</summary>
       <table className="follow-table">
         <tbody>
           {fing.users.map((user) => {

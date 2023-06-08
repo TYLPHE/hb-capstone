@@ -18,7 +18,9 @@
 }
 
 .followers-container {
-  display: flex;;
+  display: flex;
+  position: relative;
+  width: 100%;
 }
 
 .summary-followers-title {
@@ -29,7 +31,14 @@
   user-select: none;
   background-color: #3b659196;
 }
-
+.summary-following-title {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 5px;
+  color: #c5c3c0;
+  user-select: none;
+  background-color: #3b659196;
+}
 .summary-followers-title:hover {
   cursor: pointer;
   color: white
@@ -46,6 +55,6 @@ details {
 
 .followers-details {
   color: #c5c3c0;
-  width: 100%;
+  width: 50%;
   background-color: #00000099;
 }
