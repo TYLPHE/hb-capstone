@@ -50,6 +50,7 @@ def game_details(id):
             data = {
                 'review_id': lib_game.review.id,
                 'votes_up': lib_game.review.votes_up,
+                'reviewed': lib_game.review.reviewed,
                 'user_name': lib_game.library.user.username
             }
             reviews.append(data)

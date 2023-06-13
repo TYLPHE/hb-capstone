@@ -100,36 +100,38 @@ export default function GameDetails() {
     function UserLink(params) {
       const { reviews } = params;
       return reviews.map((r) => {
-        if (r.votes_up && followings.some(e => e === r.user_name)) {
+        if (r.reviewed && r.votes_up && followings.some(e => e === r.user_name)) {
           return <Link key={r.review_id} className="user-link upvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡅 - Following
             </div>
           </Link> 
-        } else if (r.votes_up) {
+        } else if (r.reviewed && r.votes_up) {
           return <Link key={r.review_id} className="user-link upvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡅
             </div>
           </Link> 
-        } else if (r.votes_up === false && followings.some(e => e === r.user_name)) {
+        } else if (r.reviewed && r.votes_up === false && followings.some(e => e === r.user_name)) {
           return <Link key={r.review_id} className="user-link downvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡇 - Following
             </div>
           </Link> 
-        } else if (r.votes_up === false) {
+        } else if (r.reviewed && r.votes_up === false) {
           return <Link key={r.review_id} className="user-link downvoted" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)} 🡇
             </div>
           </Link> 
-        } else {
+        } else if (r.reviewed ){
           return <Link key={r.review_id} className="user-link" to={`/review/${r.review_id}`}>
             <div className={`user-title`}>
               {r.user_name.charAt(0).toUpperCase() + r.user_name.slice(1)}
             </div>
           </Link> 
+        } else {
+          return null
         }
       });
     }

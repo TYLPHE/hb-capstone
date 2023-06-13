@@ -16,10 +16,6 @@ A game review blog app
 ## About
 hb-capstone is a web application where users can create a review blog about the games that they have played.
 
-## Ideas for later
-- Maybe add a sidebar in User Home to display a list of reviews of followed reviewers
-- Search in nav to find game 
-
 ## Challenges
 ### Database Seeds
 Steam API cannot provide a list of games in JSON. I had to learn how to write a web scraper to manually pull individual games from the API. I found a list that ranked all the games by popularity.
@@ -451,3 +447,13 @@ Did not work on project. The assigned weekend homework was a lot.
 
 ### 6/5
 - Simplifying approach to game-details for now until I feel more comfortable with data structures for interviews.
+
+### 6/6
+- Added a Following tag to reviews that users are following
+
+### 6/7
+- Working on whiteboarding for interviews
+
+### 6/8
+- Worked on scripts for capstone project
+- Fixed bug for game details page when game is in library but not yet published.
