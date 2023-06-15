@@ -13,6 +13,21 @@ A game review blog app
 - Users can search and filter a game library
 - Users can log in
 
+## Additional features
+- Users can add games to library
+  - Games added to library do not need to be reviewed
+  - Added a publish button. User can work on a review but no other users will be able to see the review until marked published
+  - Users can upvote (recommend) downvote (not recommend) the game
+- Users can set multiple filters for users
+  - front-end filtering
+- Users can set multiple filters for games
+  - filtered from server
+- Users can see all reviews for a game in game details page
+  - Reviews will be marked as 'Followed' if user is following the reviewer.
+- Added multiple calls to action on pages to generate a logical flow.
+- Users can update reviews and delete reviews.
+- Users can remove games from their library.
+
 ## About
 hb-capstone is a web application where users can create a review blog about the games that they have played.
 
