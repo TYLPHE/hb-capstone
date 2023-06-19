@@ -27,6 +27,9 @@ A game review blog app
 - Added multiple calls to action on pages to generate a logical flow.
 - Users can update reviews and delete reviews.
 - Users can remove games from their library.
+- Users can follow other users
+  - Users can review other users' library of games
+  - Users can read other users' reviews of games
 
 ## About
 hb-capstone is a web application where users can create a review blog about the games that they have played.
