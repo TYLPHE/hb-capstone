@@ -14,6 +14,7 @@ A game review blog app
 - Users can log in
 
 ## Additional features
+- Built a web-scraper to curate a database of 5,400 games from Steam API
 - Users can add games to library
   - Games added to library do not need to be reviewed
   - Added a publish button. User can work on a review but no other users will be able to see the review until marked published
